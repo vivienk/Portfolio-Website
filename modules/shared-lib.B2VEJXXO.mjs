@@ -1,0 +1,3 @@
+import{t as e}from"./rolldown-runtime.fXUlgfaW.mjs";function t(e,t){return{description:`Design Strategy | Creative Technology |  Story Telling |  Branding Consultant | Product Strategy
+with systems thinking to craft meaningful products and experiences that solve problems at scale.`,favicon:`https://framerusercontent.com/assets/yBMYvYlLS1ClzayWfNuqyWegmZA.png`,robots:`max-image-preview:large`,socialImage:`https://framerusercontent.com/assets/shXvAZsp667fiF8R4tHxDg8RtI.png`,title:`Portfolio  - Vivien Kong `}}var n=e((()=>{}));export{t as n,n as t};
+//# sourceMappingURL=shared-lib.B2VEJXXO.mjs.map
