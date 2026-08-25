@@ -1,13 +1,12 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
-    { "source": "/journify", "destination": "https://vivienkong.com/journify" },
-    { "source": "/tomo_onboarding", "destination": "https://vivienkong.com/tomo_onboarding" },
-    { "source": "/preci", "destination": "https://vivienkong.com/preci" },
-    { "source": "/tomoiq", "destination": "https://vivienkong.com/tomoiq" },
-    { "source": "/immersive_ink", "destination": "https://vivienkong.com/immersive_ink" },
-    { "source": "/footprints", "destination": "https://vivienkong.com/footprints" },
-    { "source": "/wokwalk", "destination": "https://vivienkong.com/wokwalk" }
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    }
   ]
 }
