@@ -1,0 +1,26 @@
+/* EB Garamond is the bundled fallback when system Garamond is unavailable.
+   Source and license: https://github.com/google/fonts/tree/main/ofl/ebgaramond */
+@font-face {
+  font-family: "EB Garamond";
+  src: url("./eb-garamond/regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "EB Garamond";
+  src: url("./eb-garamond/italic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+/* Requested Sigurd Light styling; the linked Sigurd Light stylesheet supplies the font. */
+[style*="--framer-font-family:"][style*="Sigurd"],
+[style*="--framer-font-family:"][style*="sigurd"] {
+  --framer-font-weight: 300 !important;
+  --framer-font-style: normal !important;
+  font-weight: 300 !important;
+  font-style: normal !important;
+}
