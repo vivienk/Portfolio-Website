@@ -107,13 +107,14 @@ class HeroP5Sketch extends HTMLElement {
         t.translate(0, 0, -.35 * r * u);
         t.background(0);
 
-        // The spinning torus/cylinder.
+        // The spinning torus/cylinder, enlarged 25% over the original size.
         if (SHOW_PRIMITIVES) {
+          const primitiveScale = 1.25;
           t.push();
           t.translate(0, -r * .32 * u, 0);
           t.rotateY(t.millis() / 1e3);
-          t.cylinder(r * .12 * u, r * .04 * u, Math.max(3, MESH_DETAIL), .3);
-          t.torus(r * .04 * u, r * .06 * u, Math.max(3, MESH_DETAIL), 13);
+          t.cylinder(r * .12 * u * primitiveScale, r * .04 * u * primitiveScale, Math.max(3, MESH_DETAIL), .3);
+          t.torus(r * .04 * u * primitiveScale, r * .06 * u * primitiveScale, Math.max(3, MESH_DETAIL), 13);
           t.rotateX(t.millis() / -9e3);
           t.pop();
         }
@@ -161,8 +162,8 @@ class HeroP5Sketch extends HTMLElement {
 
         t.translate(0, 0, -.12 * r * u);
         t.camera(
-          t.map(t.mouseX, 0, t.width, -(t.width > 809 ? t.width * 1.8 : r * 3.25), t.width > 809 ? t.width * 1.8 : r * 3.25),
-          t.map(t.mouseY, 0, t.height, -(t.width > 809 ? t.height * 1.8 : r * 1.625), t.width > 809 ? t.height * 1.8 : r * 1.625),
+          t.map(t.mouseX, 0, t.width, -(t.width > 809 ? t.width * 2.75 : r * 3.25), t.width > 809 ? t.width * 2.75 : r * 3.25),
+          t.map(t.mouseY, 0, t.height, -(t.width > 809 ? t.height * 1 : r * 1.625), t.width > 809 ? t.height * 1 : r * 1.625),
           t.height / 2 / t.tan(t.PI * 30 / 180), 0, 0, 0, 0, 1, 0
         );
         t.scale(d);
