@@ -2,7 +2,7 @@
 const projects = [
   { title: 'TomoIQ', href: '/tomoiq/', image: '/assets/fc5bc1691677744c-oBY2uvMTdiAh1mLCHD4AmM3v3qg.gif', poster: '/assets/project-posters/tomoai-frame-7.png' },
   { title: 'Tomo Onboarding Redesign', href: '/tomo_onboarding/', image: '/assets/beaee59ef2d978e4-IWeSp5oQI1hRwy2aYFWtN1CgY78.gif', poster: '/assets/project-posters/tomo-onboarding-frame-7.png' },
-  { title: 'Footprints', href: '/footprints/', image: '/assets/0cc23a86a5f271b5-HNh67cA53PnIqydrjfXtdh60w.gif', poster: '/assets/project-posters/footprints-frame-7.png' },
+  { title: 'Footprints', href: '/footprints/', image: '/assets/project-posters/footprints-frame-1.png' },
   { title: 'Immersive Ink', href: '/immersive_ink/', image: '/assets/0a7891debdf32fca-HYq47f0BPDBkD9oFL7GGGrdhlGo.png' },
   { title: 'Journify', href: '/journify/', image: '/assets/56b714b7e821ad2f-2r8jCFonaEltbsX6zt5dFPMAg.png' },
   { title: 'Wokwalk', href: '/wokwalk/', image: '/assets/8c8fc1d9263905d6-bI8zzhgzSIYL2KqpDtwS3G5f7Zk.gif', poster: '/assets/project-posters/wokwalk-frame-7.png' },
