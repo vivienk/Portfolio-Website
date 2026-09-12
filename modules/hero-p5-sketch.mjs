@@ -129,19 +129,23 @@ class HeroP5Sketch extends HTMLElement {
         const u = SCALE_BOOST;
         const d = r * .007 * u;
 
-        t.translate(0, 0, -.35 * r * u);
+        t.translate(0, 0, -.175 * r * u);
         t.background(0);
 
-        // The spinning torus/cylinder, enlarged 25% over the original size.
+        // The spinning torus/cylinder, enlarged 25% over the original size,
+        // pulled to half its old depth (-.175 instead of -.35) so it reads
+        // as nearer/bigger, and offset left so it sits up near "VIVIEN's"
+        // in the hero heading instead of dead center.
         // Own dedicated camera, X-only: eyeY stays 0 so mouseY never moves
         // it vertically, and it eases faster than the trail's camera below
         // so its left/right swing reads as directly cursor-driven.
-        // The +30 on top of topExtra/2 is a measured safety margin: with
-        // just topExtra/2, the cursor centered (eyeX 0 — no orbit, so the
-        // torus is at its largest/closest) put its top edge only ~1px below
-        // the canvas's own top; swinging left or right actually moves it
-        // further from that edge (distance-to-camera grows off-axis), so
-        // dead center is the one position that needed the extra margin.
+        // The +80 on top of topExtra/2 is a measured safety margin: with
+        // the cursor centered (eyeX 0 — no orbit, so the torus is at its
+        // largest/closest, and now closer still with the halved depth) it's
+        // the one position that pushes closest to the canvas's own top
+        // edge; swinging left or right moves it further away from that edge
+        // (distance-to-camera grows off-axis), so dead center sets the
+        // margin everything else stays clear of.
         if (SHOW_PRIMITIVES) {
           const primitiveScale = 1.25;
           const torusEyeXRange = t.width > 809 ? t.width * 3.75 : r * 4.25;
@@ -150,8 +154,8 @@ class HeroP5Sketch extends HTMLElement {
           t.push();
           t.resetMatrix();
           t.camera(camTorusX, 0, effectiveHeight / 2 / t.tan(t.PI * 30 / 180), 0, 0, 0, 0, 1, 0);
-          t.translate(0, 0, -.35 * r * u);
-          t.translate(0, -r * .32 * u + topExtra / 2 + 30, 0);
+          t.translate(0, 0, -.175 * r * u);
+          t.translate(-t.width * .13, -r * .32 * u + topExtra / 2 + 80, 0);
           t.rotateY(t.millis() / 1e3);
           t.cylinder(r * .12 * u * primitiveScale, r * .04 * u * primitiveScale, Math.max(3, MESH_DETAIL), .3);
           t.torus(r * .04 * u * primitiveScale, r * .06 * u * primitiveScale, Math.max(3, MESH_DETAIL), 13);
@@ -200,7 +204,7 @@ class HeroP5Sketch extends HTMLElement {
         points.push(t.createVector(n, i, a));
         if (points.length > MAX_POINTS) points.shift();
 
-        t.translate(0, 0, -.12 * r * u);
+        t.translate(0, 0, -.06 * r * u);
         const targetEyeX = t.map(t.mouseX, 0, t.width, -(t.width > 809 ? t.width * 2.75 : r * 3.25), t.width > 809 ? t.width * 2.75 : r * 3.25);
         const targetEyeY = t.map(t.mouseY, 0, t.height, -(t.width > 809 ? effectiveHeight * 1 : r * 1.625), t.width > 809 ? effectiveHeight * 1 : r * 1.625);
         camEyeX = camEyeX === null ? targetEyeX : camEyeX + (targetEyeX - camEyeX) * .15;
@@ -210,6 +214,11 @@ class HeroP5Sketch extends HTMLElement {
           camEyeY,
           effectiveHeight / 2 / t.tan(t.PI * 30 / 180), 0, 0, 0, 0, 1, 0
         );
+        // Shifts the whole curve right so it sits over near "LAB" in the
+        // hero heading rather than centered — before scale(d), so it's a
+        // real screen-ish offset rather than one shrunk by the curve's own
+        // tiny internal scale.
+        t.translate(t.width * .1, 0, 0);
         t.scale(d);
         t.noFill();
         for (let layer = 2; layer >= 0; layer--) {
