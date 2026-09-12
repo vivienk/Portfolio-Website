@@ -92,6 +92,13 @@ class HeroP5Sketch extends HTMLElement {
       let n = .01, i = 0, a = 0;
       const points = [];
       const particles = [];
+      // Eased camera position: mouseX/mouseY snapping the camera straight
+      // to their mapped value every frame is what reads as glitchy/jumpy,
+      // especially now that the eyeX swing is wider than it used to be —
+      // easing toward the target each frame smooths that out regardless of
+      // frame rate. null until the first frame, so it starts at the target
+      // instead of easing in from (0,0).
+      let camEyeX = null, camEyeY = null;
 
       t.setup = () => {
         t.createCanvas(Math.max(1.5, window.innerWidth), Math.max(1.5, host.clientHeight), t.WEBGL);
@@ -181,9 +188,13 @@ class HeroP5Sketch extends HTMLElement {
         if (points.length > MAX_POINTS) points.shift();
 
         t.translate(0, 0, -.12 * r * u);
+        const targetEyeX = t.map(t.mouseX, 0, t.width, -(t.width > 809 ? t.width * 2.75 : r * 3.25), t.width > 809 ? t.width * 2.75 : r * 3.25);
+        const targetEyeY = t.map(t.mouseY, 0, t.height, -(t.width > 809 ? effectiveHeight * 1 : r * 1.625), t.width > 809 ? effectiveHeight * 1 : r * 1.625);
+        camEyeX = camEyeX === null ? targetEyeX : camEyeX + (targetEyeX - camEyeX) * .1;
+        camEyeY = camEyeY === null ? targetEyeY : camEyeY + (targetEyeY - camEyeY) * .1;
         t.camera(
-          t.map(t.mouseX, 0, t.width, -(t.width > 809 ? t.width * 2.75 : r * 3.25), t.width > 809 ? t.width * 2.75 : r * 3.25),
-          t.map(t.mouseY, 0, t.height, -(t.width > 809 ? effectiveHeight * 1 : r * 1.625), t.width > 809 ? effectiveHeight * 1 : r * 1.625),
+          camEyeX,
+          camEyeY,
           effectiveHeight / 2 / t.tan(t.PI * 30 / 180), 0, 0, 0, 0, 1, 0
         );
         t.scale(d);
