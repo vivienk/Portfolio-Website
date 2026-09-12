@@ -100,7 +100,20 @@ class HeroP5Sketch extends HTMLElement {
       };
 
       t.draw = () => {
-        const r = Math.min(t.width, t.height);
+        // Desktop's .framer-w3gto7 CSS now extends 137px further up (80px
+        // of section padding + the 57px this canvas used to be shifted
+        // down by) to close the gap above the hero background — see
+        // index.html. That makes the canvas 137px taller, which would
+        // otherwise both enlarge (bigger r) and reposition everything below.
+        // effectiveHeight backs that growth out of the size math so r (and
+        // the particle spawn point, via the +topExtra below) stay exactly
+        // as they were pre-extension; the torus/cylinder handle it their
+        // own way (see SHOW_PRIMITIVES below). Only the mouse-driven Lorenz
+        // camera, never pinned to begin with, gets to use the extra
+        // headroom.
+        const topExtra = t.width > 809 ? 137 : 0;
+        const effectiveHeight = t.height - topExtra;
+        const r = Math.min(t.width, effectiveHeight);
         const u = SCALE_BOOST;
         const d = r * .007 * u;
 
@@ -108,10 +121,61 @@ class HeroP5Sketch extends HTMLElement {
         t.background(0);
 
         // The spinning torus/cylinder, enlarged 25% over the original size.
+        // Own fixed, straight-on camera (like the particles below) rather
+        // than the mouse-orbiting one the Lorenz trail sets up later in this
+        // same draw() — that camera rotates around the origin as the mouse
+        // moves, so a plain translate can't reliably counteract its effect
+        // on screen position.
+        //
+        // yCompensation below corrects for the taller canvas the same way
+        // topExtra/2 alone can't: this is a perspective camera, not a flat
+        // pan, so shifting the origin by half the added height doesn't move
+        // the rendered pixel by half the added height. It's solved
+        // numerically each frame — project the origin's pre-extension pixel
+        // position (using effectiveHeight, as if topExtra didn't exist) and
+        // its position in the real, taller canvas at two trial offsets, then
+        // linearly solve for the offset that reproduces the pre-extension
+        // position exactly (this relationship is exactly linear for a fixed,
+        // non-rotating camera — verified against the raw projection math
+        // directly). Falls back to the simpler approximation if p5 ever
+        // changes the internal matrix shape this reads.
         if (SHOW_PRIMITIVES) {
           const primitiveScale = 1.25;
+          const eyeZ = effectiveHeight / 2 / t.tan(t.PI * 30 / 180);
+          const baseZ = -.35 * r * u;
+          const baseY = -r * .32 * u;
+          let yCompensation = topExtra / 2;
+          if (topExtra > 0) {
+            try {
+              const renderer = t._renderer;
+              const localY = (yOff, canvasHeightForPixels) => {
+                t.push();
+                t.resetMatrix();
+                t.camera(0, 0, eyeZ, 0, 0, 0, 0, 1, 0);
+                t.translate(0, 0, baseZ);
+                t.translate(0, yOff, 0);
+                const m = renderer.uMVMatrix.mat4, pr = renderer.uPMatrix.mat4;
+                const vx = m[12], vy = m[13], vz = m[14], vw = m[15];
+                const cy = pr[1] * vx + pr[5] * vy + pr[9] * vz + pr[13] * vw;
+                const cw = pr[3] * vx + pr[7] * vy + pr[11] * vz + pr[15] * vw;
+                t.pop();
+                return (1 - cy / cw) / 2 * canvasHeightForPixels;
+              };
+              const target = topExtra + localY(baseY, effectiveHeight);
+              const y1 = localY(baseY, t.height);
+              const y2 = localY(baseY - 100, t.height);
+              const slope = (y2 - y1) / -100;
+              yCompensation = (target - y1) / slope;
+            } catch {
+              yCompensation = topExtra / 2;
+            }
+          }
+
           t.push();
-          t.translate(0, -r * .32 * u, 0);
+          t.resetMatrix();
+          t.camera(0, 0, eyeZ, 0, 0, 0, 0, 1, 0);
+          t.translate(0, 0, baseZ);
+          t.translate(0, baseY + yCompensation, 0);
           t.rotateY(t.millis() / 1e3);
           t.cylinder(r * .12 * u * primitiveScale, r * .04 * u * primitiveScale, Math.max(3, MESH_DETAIL), .3);
           t.torus(r * .04 * u * primitiveScale, r * .06 * u * primitiveScale, Math.max(3, MESH_DETAIL), 13);
@@ -127,7 +191,7 @@ class HeroP5Sketch extends HTMLElement {
           // bug in that code meant the lookup always threw and silently
           // fell back to center — center was the actual behavior the whole
           // time, so that's what this keeps.)
-          const sp = { x: t.width / 2, y: t.height / 2 };
+          const sp = { x: t.width / 2, y: effectiveHeight / 2 + topExtra };
           const p1 = new Particle(t, t.random(20, 47), t.random(32, 24));
           p1.loc.set(sp.x, sp.y);
           const p2 = new Particle(t, t.random(-700, 700), t.random(700, -700));
@@ -163,8 +227,8 @@ class HeroP5Sketch extends HTMLElement {
         t.translate(0, 0, -.12 * r * u);
         t.camera(
           t.map(t.mouseX, 0, t.width, -(t.width > 809 ? t.width * 2.75 : r * 3.25), t.width > 809 ? t.width * 2.75 : r * 3.25),
-          t.map(t.mouseY, 0, t.height, -(t.width > 809 ? t.height * 1 : r * 1.625), t.width > 809 ? t.height * 1 : r * 1.625),
-          t.height / 2 / t.tan(t.PI * 30 / 180), 0, 0, 0, 0, 1, 0
+          t.map(t.mouseY, 0, t.height, -(t.width > 809 ? effectiveHeight * 1 : r * 1.625), t.width > 809 ? effectiveHeight * 1 : r * 1.625),
+          effectiveHeight / 2 / t.tan(t.PI * 30 / 180), 0, 0, 0, 0, 1, 0
         );
         t.scale(d);
         t.noFill();

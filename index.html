@@ -452,8 +452,19 @@ Finding meaningful signals in complexity, turn them into better metrics.">
        child container was rendering at a hardcoded ~2387px width regardless
        of the actual (much narrower) window, bleeding far off both edges.
        Forcing it to fill its parent instead makes it match the real window
-       width. Also shifted down 57px. */
-    .framer-w3gto7 { transform: translateY(57px) !important; }
+       width.
+       Extended all the way to the section's own top instead of sitting
+       80px below it (the section's built-in padding-top, reserved for the
+       floating nav) plus the 57px this block used to add on top via
+       transform — that gap read as a hard cutoff between the nav and the
+       animated background. Anchoring top:-80px/bottom:-28px keeps the
+       BOTTOM edge exactly where the old transform left it (so nothing
+       below moves) while growing the box upward by that same 80+57=137px
+       to close the gap. The canvas resizes to fill this taller box, which
+       would otherwise shift/rescale the sketch's objects — hero-p5-sketch.mjs
+       compensates for exactly this 137px so their on-screen position and
+       size stay pinned to how they rendered before this change. */
+    .framer-w3gto7 { top: -80px !important; bottom: -28px !important; transform: none !important; }
     .framer-w3gto7 .framer-1toqndt-container {
       position: absolute !important;
       inset: 0 !important;
