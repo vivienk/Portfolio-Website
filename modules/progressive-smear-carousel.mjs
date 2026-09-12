@@ -182,6 +182,22 @@ class ProgressiveSmearCarousel extends HTMLElement {
       }
     });
 
+    // Same overlay problem as hover: real clicks land on .catcher, not on
+    // the individual .card elements underneath it, so their own 'click'
+    // listeners (below, in the cards.forEach loop) never fire for a real
+    // mouse/touch click — only for a keyboard Enter/Space on a focused
+    // card, which targets the element directly and bypasses the overlay.
+    // Hit-test the same way hover does, then replay the click on the
+    // actual card so its existing navigate-or-center logic runs unchanged.
+    on(this.catcher, 'click', event => {
+      if (this.dragMoved) return;
+      this.catcher.style.pointerEvents = 'none';
+      const el = this.shadowRoot.elementFromPoint(event.clientX, event.clientY);
+      this.catcher.style.pointerEvents = '';
+      const card = el ? el.closest('.card') : null;
+      if (card) card.click();
+    });
+
     on(this.catcher, 'wheel', event => {
       event.preventDefault();
       const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY * 0.8;
