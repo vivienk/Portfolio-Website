@@ -150,7 +150,7 @@ class HeroP5Sketch extends HTMLElement {
           const primitiveScale = 1.25;
           const torusEyeXRange = t.width > 809 ? t.width * 3.75 : r * 4.25;
           const torusTargetEyeX = t.map(t.mouseX, 0, t.width, -torusEyeXRange, torusEyeXRange);
-          camTorusX = camTorusX === null ? torusTargetEyeX : camTorusX + (torusTargetEyeX - camTorusX) * .18;
+          camTorusX = camTorusX === null ? torusTargetEyeX : camTorusX + (torusTargetEyeX - camTorusX) * .135;
           t.push();
           t.resetMatrix();
           t.camera(camTorusX, 0, effectiveHeight / 2 / t.tan(t.PI * 30 / 180), 0, 0, 0, 0, 1, 0);
@@ -207,8 +207,8 @@ class HeroP5Sketch extends HTMLElement {
         t.translate(0, 0, -.06 * r * u);
         const targetEyeX = t.map(t.mouseX, 0, t.width, -(t.width > 809 ? t.width * 2.75 : r * 3.25), t.width > 809 ? t.width * 2.75 : r * 3.25);
         const targetEyeY = t.map(t.mouseY, 0, t.height, -(t.width > 809 ? effectiveHeight * 1 : r * 1.625), t.width > 809 ? effectiveHeight * 1 : r * 1.625);
-        camEyeX = camEyeX === null ? targetEyeX : camEyeX + (targetEyeX - camEyeX) * .15;
-        camEyeY = camEyeY === null ? targetEyeY : camEyeY + (targetEyeY - camEyeY) * .15;
+        camEyeX = camEyeX === null ? targetEyeX : camEyeX + (targetEyeX - camEyeX) * .1125;
+        camEyeY = camEyeY === null ? targetEyeY : camEyeY + (targetEyeY - camEyeY) * .1125;
         t.camera(
           camEyeX,
           camEyeY,
