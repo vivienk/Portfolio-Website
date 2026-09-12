@@ -340,8 +340,9 @@ class ProjectCarousel extends HTMLElement {
       const project = projects[i];
       if (!project.poster) return;
       // Most frames need no layout reads: only a playing candidate needs bounds.
+      const active = i === this.index && Math.abs(distance(i, this.position)) < .06;
       const candidate = !document.hidden && !this.motion.matches &&
-        (this.mobilePreview.matches ? i === this.index && Math.abs(distance(i, this.position)) < .06 : this.hoveredPreviews.has(i) && card.matches(':hover'));
+        (active || (this.hoveredPreviews.has(i) && card.matches(':hover')));
       if (!candidate) {
         if (image.getAttribute('src') !== project.poster) image.setAttribute('src', project.poster);
         return;
@@ -349,9 +350,9 @@ class ProjectCarousel extends HTMLElement {
       const rect = card.getBoundingClientRect();
       const onArc = Math.abs(distance(i, this.position)) * 36 < 88;
       const visible = onArc && rect.bottom > top && rect.top < top + height && rect.right > left && rect.left < left + width;
-      const centered = i === this.index && Math.abs(distance(i, this.position)) < .06 && Math.abs(rect.left + rect.width / 2 - centerX) <= 24 && rect.top <= centerY && rect.bottom >= centerY;
+      const centered = active && Math.abs(rect.left + rect.width / 2 - centerX) <= 24 && rect.top <= centerY && rect.bottom >= centerY;
       const play = !document.hidden && !this.motion.matches && visible &&
-        (this.mobilePreview.matches ? centered : this.hoveredPreviews.has(i) && card.matches(':hover'));
+        (this.mobilePreview.matches ? centered : active || (this.hoveredPreviews.has(i) && card.matches(':hover')));
       const source = play ? project.image : project.poster;
       if (image.getAttribute('src') !== source) image.setAttribute('src', source);
     });

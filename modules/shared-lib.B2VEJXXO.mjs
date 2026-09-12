@@ -1,3 +1,3 @@
 import{t as e}from"./rolldown-runtime.fXUlgfaW.mjs";function t(e,t){return{description:`Design Strategy | Creative Technology |  Story Telling |  Branding Consultant | Product Strategy
-with systems thinking to craft meaningful products and experiences that solve problems at scale.`,favicon:`/assets/89c45a79dab48def-yBMYvYlLS1ClzayWfNuqyWegmZA.png`,robots:`max-image-preview:large`,socialImage:`/assets/a79e8473cacca26d-shXvAZsp667fiF8R4tHxDg8RtI.png`,title:`Portfolio  - Vivien Kong `}}var n=e((()=>{}));export{t as n,n as t};
+Finding meaningful signals in complexity, turn them into better metrics.`,favicon:`/assets/89c45a79dab48def-yBMYvYlLS1ClzayWfNuqyWegmZA.png`,robots:`max-image-preview:large`,socialImage:`/assets/a79e8473cacca26d-shXvAZsp667fiF8R4tHxDg8RtI.png`,title:`Portfolio  - Vivien Kong `}}var n=e((()=>{}));export{t as n,n as t};
 //# sourceMappingURL=shared-lib.B2VEJXXO.mjs.map
