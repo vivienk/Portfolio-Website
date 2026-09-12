@@ -93,12 +93,17 @@ class HeroP5Sketch extends HTMLElement {
       const points = [];
       const particles = [];
       // Eased camera position: mouseX/mouseY snapping the camera straight
-      // to their mapped value every frame is what reads as glitchy/jumpy,
-      // especially now that the eyeX swing is wider than it used to be —
+      // to their mapped value every frame is what reads as glitchy/jumpy —
       // easing toward the target each frame smooths that out regardless of
       // frame rate. null until the first frame, so it starts at the target
       // instead of easing in from (0,0).
       let camEyeX = null, camEyeY = null;
+      // The torus/cylinder get their own, faster-easing, X-only camera
+      // (see SHOW_PRIMITIVES) so their side-to-side motion reads clearly as
+      // cursor-driven — a bigger, near-object swing against the trail's
+      // wider/slower one is what makes the parallax legible as "this
+      // tracks my mouse" instead of ambient drift.
+      let camTorusX = null;
 
       t.setup = () => {
         t.createCanvas(Math.max(1.5, window.innerWidth), Math.max(1.5, host.clientHeight), t.WEBGL);
@@ -128,17 +133,25 @@ class HeroP5Sketch extends HTMLElement {
         t.background(0);
 
         // The spinning torus/cylinder, enlarged 25% over the original size.
-        // Stays on the shared, mouse-driven camera the Lorenz trail sets up
-        // later in this same draw() (one frame behind) — that's what makes
-        // it track the cursor. topExtra/2 nudges it back down by roughly
-        // half the canvas's added height so it still lands close to its
-        // pre-extension position; not pixel-exact against a moving camera,
-        // but the object already isn't static, so an approximation here is
-        // the right trade for staying cheap and simple.
+        // Own dedicated camera, X-only: eyeY stays 0 so mouseY never moves
+        // it vertically, and it eases faster than the trail's camera below
+        // so its left/right swing reads as directly cursor-driven.
+        // The +30 on top of topExtra/2 is a measured safety margin: with
+        // just topExtra/2, the cursor centered (eyeX 0 — no orbit, so the
+        // torus is at its largest/closest) put its top edge only ~1px below
+        // the canvas's own top; swinging left or right actually moves it
+        // further from that edge (distance-to-camera grows off-axis), so
+        // dead center is the one position that needed the extra margin.
         if (SHOW_PRIMITIVES) {
           const primitiveScale = 1.25;
+          const torusEyeXRange = t.width > 809 ? t.width * 3.75 : r * 4.25;
+          const torusTargetEyeX = t.map(t.mouseX, 0, t.width, -torusEyeXRange, torusEyeXRange);
+          camTorusX = camTorusX === null ? torusTargetEyeX : camTorusX + (torusTargetEyeX - camTorusX) * .18;
           t.push();
-          t.translate(0, -r * .32 * u + topExtra / 2, 0);
+          t.resetMatrix();
+          t.camera(camTorusX, 0, effectiveHeight / 2 / t.tan(t.PI * 30 / 180), 0, 0, 0, 0, 1, 0);
+          t.translate(0, 0, -.35 * r * u);
+          t.translate(0, -r * .32 * u + topExtra / 2 + 30, 0);
           t.rotateY(t.millis() / 1e3);
           t.cylinder(r * .12 * u * primitiveScale, r * .04 * u * primitiveScale, Math.max(3, MESH_DETAIL), .3);
           t.torus(r * .04 * u * primitiveScale, r * .06 * u * primitiveScale, Math.max(3, MESH_DETAIL), 13);
@@ -190,8 +203,8 @@ class HeroP5Sketch extends HTMLElement {
         t.translate(0, 0, -.12 * r * u);
         const targetEyeX = t.map(t.mouseX, 0, t.width, -(t.width > 809 ? t.width * 2.75 : r * 3.25), t.width > 809 ? t.width * 2.75 : r * 3.25);
         const targetEyeY = t.map(t.mouseY, 0, t.height, -(t.width > 809 ? effectiveHeight * 1 : r * 1.625), t.width > 809 ? effectiveHeight * 1 : r * 1.625);
-        camEyeX = camEyeX === null ? targetEyeX : camEyeX + (targetEyeX - camEyeX) * .1;
-        camEyeY = camEyeY === null ? targetEyeY : camEyeY + (targetEyeY - camEyeY) * .1;
+        camEyeX = camEyeX === null ? targetEyeX : camEyeX + (targetEyeX - camEyeX) * .15;
+        camEyeY = camEyeY === null ? targetEyeY : camEyeY + (targetEyeY - camEyeY) * .15;
         t.camera(
           camEyeX,
           camEyeY,
