@@ -62,11 +62,11 @@ const styles = `
   .dots { display:none; }
   .controls { display:none; }
   @media (min-width:810px) {
-    .details { margin-top:20px; }
+    .details { margin-top:20px; transform:translateY(-24px); }
     .count { font-size:12px; }
     .title { font-size:clamp(20px,2.2vw,30px); }
     .case-link { gap:16px; font-size:13px; padding:12px 0; }
-    .controls { width:min(100% - 64px,1080px); margin:22px auto 0; padding-top:14px; border-top:1px solid #ffffff26; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .controls { width:min(100% - 64px,1080px); margin:22px auto 0; padding-top:14px; border-top:1px solid #ffffff26; display:flex; align-items:center; justify-content:space-between; gap:20px; transform:translateY(-24px); }
     .hint { margin:0; color:#707070; font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
     .desktop-dots,.actions { display:flex; align-items:center; }
     .desktop-dots { justify-content:center; }
