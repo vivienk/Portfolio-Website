@@ -20,9 +20,9 @@ const projects = [
 // 810px up to a 1600px-wide "standard desktop" reference, then scaling up
 // further for larger displays, capped so ultra-wide monitors don't blow up.
 // Then the whole desktop carousel was enlarged another 25% on top of all of
-// that.
+// that, then another 25% again, then shrunk back down 15% (desktop only).
 const BIG_SCREEN_EXTRA = Math.min(0.35, Math.max(0, (window.innerWidth - 1600) / 1600) * 0.5);
-const DESKTOP_BOOST = window.innerWidth > 809 ? (1.25 + BIG_SCREEN_EXTRA) * 1.25 : 1;
+const DESKTOP_BOOST = window.innerWidth > 809 ? (1.25 + BIG_SCREEN_EXTRA) * 1.25 * 1.25 * 0.85 : 1;
 const SCALE = 1.1 * 0.75 * DESKTOP_BOOST;
 const ITEM_W = 305 * SCALE, ITEM_H = 212 * SCALE, SIDE_W = 208 * SCALE, SIDE_H = 281 * SCALE, GAP = 58 * SCALE;
 const CENTER_W = ITEM_W * 1.2, CENTER_H = ITEM_H * 1.2;
@@ -76,10 +76,11 @@ const styles = `
        them) — sits right under the carousel with a small gap, no pull-up
        needed now that it isn't competing with .details for the same
        visual space. Dots and title (.details is positioned relative to
-       dots via its own margin-top, so it rides along automatically) both
-       shifted up 36px — real margin, not transform, so the section's flow
-       height keeps shrinking to match rather than leaving dead space. */
-    .dots { display:flex; justify-content:center; align-items:center; gap:7.2px; margin:-20px auto 0; padding:0; list-style:none; }
+       dots via its own margin-top, so it rides along automatically)
+       shifted up 36px, then another 32px (real margin, not transform, so
+       the section's flow height keeps shrinking to match rather than
+       leaving dead space) — 68px up from the original position total. */
+    .dots { display:flex; justify-content:center; align-items:center; gap:7.2px; margin:-52px auto 0; padding:0; list-style:none; }
     .dots button { appearance:none; border:0; background:#4d4d4d; width:5.6px; height:5.6px; border-radius:50%; padding:0; cursor:pointer; transition:background-color .25s ease,transform .25s ease; }
     .dots button[aria-current="true"] { background:#fff; transform:scale(1.25); }
   }
