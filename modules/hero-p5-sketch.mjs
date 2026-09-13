@@ -187,12 +187,14 @@ class HeroP5Sketch extends HTMLElement {
         t.translate(0, 0, -.0875 * r * u);
         t.background(0);
 
-        // The desktop primitive starts above-left of "VIVIEN's" at a
-        // restrained scale. Its shallow X-only desktop camera restores the
-        // 3D cursor response while keeping the apparent size within a safe
-        // range. Mobile retains its wider original orbit.
+        // The desktop primitive starts above-left of "VIVIEN's". Its
+        // shallow X-only desktop camera restores the 3D cursor response
+        // while keeping the apparent size within a safe range. Mobile
+        // retains its wider original orbit. primitiveScale was .5 on
+        // desktop (read as too small) — 1 was verified via the rendered
+        // pixels' bounding box to still clear the top-edge safety margin.
         if (SHOW_PRIMITIVES) {
-          const primitiveScale = isDesktop ? .5 : 1.25;
+          const primitiveScale = isDesktop ? 1 : 1.25;
           // Same orbit formula as mobile, uniformly depth-capped on desktop.
           const torusEyeXRange = r * 4.25 * (isDesktop ? DESKTOP_ORBIT_DEPTH : 1);
           const torusTargetEyeX = reduceMotion
@@ -280,13 +282,16 @@ class HeroP5Sketch extends HTMLElement {
           effectiveHeight / 2 / t.tan(t.PI * 30 / 180), 0, 0, 0, 0, 1, 0
         );
         // On desktop the curve starts to the right, below "LAB"; the
-        // translation happens before its local geometry scale.
+        // translation happens before its local geometry scale. Desktop's
+        // scale multiplier was .35 (read as too small) — .7 was verified
+        // via the rendered pixels' bounding box to stay well clear of the
+        // torus (no collision) and the top-edge safety margin.
         t.translate(
           t.width * (isDesktop ? .18 : .1),
           isDesktop ? effectiveHeight * .1 : 0,
           0
         );
-        t.scale(d * (isDesktop ? .35 : 1));
+        t.scale(d * (isDesktop ? .7 : 1));
         t.noFill();
         for (let layer = 2; layer >= 0; layer--) {
           const strokeAlpha = t.map(layer, .5, 0, 40, GLOW);
