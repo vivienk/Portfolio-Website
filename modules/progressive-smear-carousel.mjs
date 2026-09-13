@@ -20,9 +20,10 @@ const projects = [
 // 810px up to a 1600px-wide "standard desktop" reference, then scaling up
 // further for larger displays, capped so ultra-wide monitors don't blow up.
 // Then the whole desktop carousel was enlarged another 25% on top of all of
-// that, then another 25% again, then shrunk back down 15% (desktop only).
+// that, then another 25% again, then shrunk back down 15%, then another
+// 15% (desktop only).
 const BIG_SCREEN_EXTRA = Math.min(0.35, Math.max(0, (window.innerWidth - 1600) / 1600) * 0.5);
-const DESKTOP_BOOST = window.innerWidth > 809 ? (1.25 + BIG_SCREEN_EXTRA) * 1.25 * 1.25 * 0.85 : 1;
+const DESKTOP_BOOST = window.innerWidth > 809 ? (1.25 + BIG_SCREEN_EXTRA) * 1.25 * 1.25 * 0.85 * 0.85 : 1;
 const SCALE = 1.1 * 0.75 * DESKTOP_BOOST;
 const ITEM_W = 305 * SCALE, ITEM_H = 212 * SCALE, SIDE_W = 208 * SCALE, SIDE_H = 281 * SCALE, GAP = 58 * SCALE;
 const CENTER_W = ITEM_W * 1.2, CENTER_H = ITEM_H * 1.2;
