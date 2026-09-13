@@ -4,8 +4,9 @@
 <html lang="en" data-redirect-timezone="1">
 <head>
 	<meta charset="utf-8">
-	
-	
+	<script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")==="light"?"light":"dark";}catch(e){document.documentElement.dataset.theme="dark";}</script>
+
+
 	<script>try{if(localStorage.get("__framer_force_showing_editorbar_since")){const n=document.createElement("link");n.rel = "modulepreload";n.href="https://framer.com/edit/init.mjs";document.head.appendChild(n)}}catch(e){}</script>
 	<!-- Start of headStart -->
     
@@ -338,11 +339,19 @@ Finding meaningful signals in complexity, turn them into better metrics.">
 <script type="module" src="/modules/progressive-smear-carousel.mjs?v=1"></script>
 <script type="module" src="/modules/progressive-smear-carousel-init.mjs?v=1"></script>
 <script type="module" src="/modules/hero-description-fix.mjs?v=1"></script>
-<script type="module" src="/modules/nav-projects-scroll-fix.mjs?v=1"></script>
+<script type="module" src="/modules/glass-navbar.mjs?v=1"></script>
+<script type="module" src="/modules/glass-navbar-init.mjs?v=1"></script>
 <script type="module" src="/modules/hero-p5-sketch.mjs?v=1"></script>
 <script type="module" src="/modules/hero-p5-sketch-init.mjs?v=1"></script>
 <style>
   progressive-smear-carousel{display:block;width:100%;min-width:0}
+  /* Original Framer nav (logo/name + Projects/Contact, both breakpoint
+     copies share this one fixed wrapper) replaced by <glass-navbar>
+     (modules/glass-navbar.mjs) — a floating glass-pill nav with the same
+     links plus a light/dark theme toggle. Hidden rather than removed from
+     the DOM, matching the pattern used for the original p5 hero and
+     carousel components elsewhere in this file. */
+  .framer-11n6lfm-container { display: none !important; }
   /* Hero background: the Framer p5.js component's own usage site in the
      bundle was swapped for a plain .hero-p5-mount placeholder div, so it
      never mounts/runs its own copy — hero-p5-sketch-init.mjs appends the
@@ -518,6 +527,48 @@ Finding meaningful signals in complexity, turn them into better metrics.">
       min-height: 0 !important;
     }
   }
+</style>
+<style>
+  /* Light theme. body's own --token-* custom properties (see the
+     Framer-generated `body{--token-...:#000}` rule earlier in this file)
+     are what most of the page's color actually resolves through — ~50
+     combined uses across text, backgrounds and card surfaces — so
+     redefining just these under html[data-theme="light"] repaints the
+     bulk of the site for free. This is a hand-edited, minified Framer
+     export with plenty of one-off hardcoded colors outside that token
+     system too (found ~32 distinct raw values sitewide); this pass covers
+     the token cascade plus the specific spots already known to need it
+     below — it is not a guaranteed pixel-perfect repaint of every single
+     Framer-generated element, and any remaining dark-on-dark corners
+     found later are a follow-up, not something silently skipped now. */
+  html[data-theme="light"] body {
+    --token-67527bae-cc15-4839-8636-c9b28351e4d7: #111 !important; /* main text: white -> near-black */
+    --token-f50a08ee-89ba-45ba-bd59-521f4e9cdc51: #fff !important; /* page background: black -> white */
+    --token-0c62d1bb-1ac3-4cd6-8f0f-8ee3950e02c0: #f0f0f0 !important; /* card/surface background */
+    --token-54e6a972-2be4-40f1-88e3-a0431ea81021: #0000001a !important; /* subtle border, white 10% -> black 10% */
+    --token-cc7c73b0-b7c0-47c8-8487-b084b19b7755: #ffffffcc !important; /* heavy overlay, black 80% -> white 80% */
+    --token-42cff841-0b54-4377-bc4a-66e7d7690432: #111111a6 !important; /* secondary text, white 65% -> near-black 65% */
+  }
+  /* Hero canvas dimming (brightness(0.75)) was tuned for the dark torus/
+     trail sketch; the light theme swaps in an entirely different p5
+     sketch (see hero-p5-sketch.mjs) that isn't meant to be dimmed. */
+  html[data-theme="light"] .framer-w3gto7 canvas { filter: none !important; }
+  /* Framer's "regular body text" style preset hardcodes its own white
+     text color as a CSS variable directly on the class (not sourced from
+     the body tokens above) — used by 11 elements sitewide (nav links,
+     hero tagline, About Me skill tags, ...). Spot-checked in the browser:
+     without this, that text stayed white-on-light and was unreadable. */
+  html[data-theme="light"] .framer-styles-preset-1af6am0 { --framer-text-color: #171717 !important; }
+  /* Radial dark vignette behind the hero heading, there to add contrast
+     for white text against the (always-black, pre-toggle) hero — reads as
+     a smudge behind now-dark text on the light background. */
+  html[data-theme="light"] .framer-1tw6hmz { background-image: none !important; }
+  /* Hero-to-next-section fade overlay (.framer-17jcdvw) fades to black —
+     tuned for the dark hero background; against the light noise-grid
+     sketch it read as a visible blue-to-dark band. Fades to white
+     instead, same shape, so it still blends the hero into the page
+     background below rather than cutting off sharply. */
+  html[data-theme="light"] .framer-17jcdvw { background: linear-gradient(rgba(255,255,255,0) 38.8091%, rgba(255,255,255,.9) 100%) !important; }
 </style>
 <link rel="stylesheet" href="/assets/fonts/garamond.css?v=7bcae5f5a16a">
 <link href="https://db.onlinewebfonts.com/c/fd0dd047f16cc5812257f5a65c4b1719?family=Sigurd+Light" rel="stylesheet">

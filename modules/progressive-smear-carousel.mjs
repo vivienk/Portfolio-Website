@@ -2,6 +2,7 @@
 // Ports the ProgressiveSmearCarousel Framer code component (inward smear, edge
 // blur, progressive size/rotate/depth falloff) to a plain custom element so it
 // can stand in for the Projects section's carousel without a React runtime.
+import { getTheme } from './theme.mjs';
 const projects = [
   { title: 'TomoIQ', href: '/tomoiq/', image: '/assets/fc5bc1691677744c-oBY2uvMTdiAh1mLCHD4AmM3v3qg.gif', poster: '/assets/project-posters/tomoai-frame-7.png' },
   { title: 'Tomo Onboarding Redesign', href: '/tomo_onboarding/', image: '/assets/beaee59ef2d978e4-IWeSp5oQI1hRwy2aYFWtN1CgY78.gif', poster: '/assets/project-posters/tomo-onboarding-frame-7.png' },
@@ -86,6 +87,22 @@ const styles = `
     .dots button[aria-current="true"] { background:#fff; transform:scale(1.25); }
   }
   @media (prefers-reduced-motion:reduce) { .card { transition:none; } .card img { transition:none; } }
+  /* Light theme (see theme.mjs) — shadow DOM can't see the page's
+     --token-* CSS variables, so this component tracks the theme itself
+     via a data-theme attribute the host toggles on connect + on
+     "themechange" (window event), rather than reaching across the shadow
+     boundary. Edge-fade masks (.edge) aren't touched: their color drives
+     mask opacity, not anything visible, so they work unchanged in both
+     themes. */
+  :host([data-theme="light"]) { color:#111; }
+  :host([data-theme="light"]) .card { background:#f0f0f0; box-shadow:0 0 0 1px #00000014, 0 0 0 0 #00000000; }
+  :host([data-theme="light"]) .card::after { box-shadow:inset 0 0 0 1px #00000014; }
+  :host([data-theme="light"]) .card[data-hovered] { box-shadow:0 0 0 1px #00000040, 0 0 28px 4px #00000029; }
+  :host([data-theme="light"]) .count { color:#888; }
+  :host([data-theme="light"]) .case-link { color:#444; }
+  :host([data-theme="light"]) .case-link:hover { color:#111; }
+  :host([data-theme="light"]) .dots button { background:#bbb; }
+  :host([data-theme="light"]) .dots button[aria-current="true"] { background:#111; }
 `;
 
 const arrowRight = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>`;
@@ -114,6 +131,12 @@ class ProgressiveSmearCarousel extends HTMLElement {
     this.abort = new AbortController();
     const { signal } = this.abort;
     this.motion = matchMedia('(prefers-reduced-motion: reduce)');
+    // Shadow DOM can't see the page's --token-* variables, so this
+    // component tracks the theme itself (see the :host([data-theme=...])
+    // rules in `styles` above) — set once here, kept in sync via the
+    // "themechange" event theme.mjs's setTheme() dispatches.
+    this.dataset.theme = getTheme();
+    window.addEventListener('themechange', event => { this.dataset.theme = event.detail.theme; }, { signal });
 
     this.shadowRoot.innerHTML = `<style>${styles}</style>
       <div class="carousel">
