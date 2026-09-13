@@ -189,7 +189,7 @@ class GlassNavbar extends HTMLElement {
         <div class="top-row">
           <a class="brand" href="/" aria-label="Vivien Kong, home">
             <img src="/brand-icon.svg" alt="">
-            <span>VIVIEN KONG</span>
+            <span>Vivien Kong</span>
           </a>
           <div class="panel desktop-panel">
             <nav class="links">

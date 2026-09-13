@@ -343,6 +343,7 @@ Finding meaningful signals in complexity, turn them into better metrics.">
 <script type="module" src="/modules/glass-navbar-init.mjs?v=1"></script>
 <script type="module" src="/modules/hero-p5-sketch.mjs?v=1"></script>
 <script type="module" src="/modules/hero-p5-sketch-init.mjs?v=1"></script>
+<script type="module" src="/modules/fluid-glass-button.mjs?v=1"></script>
 <style>
   progressive-smear-carousel{display:block;width:100%;min-width:0}
   /* Original Framer nav (logo/name + Projects/Contact, both breakpoint
@@ -633,6 +634,28 @@ Finding meaningful signals in complexity, turn them into better metrics.">
       0 69px 69px rgba(0,0,0,.09),
       0 17px 38px rgba(0,0,0,.1),
       0 0 16px rgba(255,255,255,.5) !important;
+  }
+  /* Say Hi "fluid glass" interaction (see modules/fluid-glass-button.mjs
+     for why this is CSS+JS rather than the reference component's actual
+     WebGL shader): a specular highlight that follows the cursor across
+     the glass surface, plus a click ripple. .fluid-glass-surface is
+     added by that module to the same rim (.framer-1l7inir) styled
+     above; overflow:hidden clips the ripple to the pill shape. */
+  .fluid-glass-surface { position: relative; overflow: hidden; }
+  html[data-theme="light"] .fluid-glass-surface {
+    background-image: radial-gradient(160px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.5), rgba(255,255,255,0) 70%) !important;
+  }
+  .fluid-glass-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,.85) 0%, rgba(255,255,255,0) 70%);
+    transform: scale(0);
+    opacity: .9;
+    pointer-events: none;
+    animation: fluid-glass-ripple-anim .65s ease-out forwards;
+  }
+  @keyframes fluid-glass-ripple-anim {
+    to { transform: scale(1); opacity: 0; }
   }
   /* About Me skill tags: restyled to match the frosted "About Me" badge
      that already appears when hovering the portrait photo (a Framer
