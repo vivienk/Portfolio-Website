@@ -129,13 +129,14 @@ class HeroP5Sketch extends HTMLElement {
         const u = SCALE_BOOST;
         const d = r * .007 * u;
 
-        t.translate(0, 0, -.175 * r * u);
+        t.translate(0, 0, -.0875 * r * u);
         t.background(0);
 
         // The spinning torus/cylinder, enlarged 25% over the original size,
-        // pulled to half its old depth (-.175 instead of -.35) so it reads
-        // as nearer/bigger, and offset left so it sits up near "VIVIEN's"
-        // in the hero heading instead of dead center.
+        // pulled to a quarter its original depth (-.0875, down from -.35
+        // across two halvings) so it reads as nearer/bigger, and offset
+        // left so it sits up near "VIVIEN's" in the hero heading instead of
+        // dead center.
         // Own dedicated camera, X-only: eyeY stays 0 so mouseY never moves
         // it vertically, and it eases faster than the trail's camera below
         // so its left/right swing reads as directly cursor-driven.
@@ -154,7 +155,7 @@ class HeroP5Sketch extends HTMLElement {
           t.push();
           t.resetMatrix();
           t.camera(camTorusX, 0, effectiveHeight / 2 / t.tan(t.PI * 30 / 180), 0, 0, 0, 0, 1, 0);
-          t.translate(0, 0, -.175 * r * u);
+          t.translate(0, 0, -.0875 * r * u);
           t.translate(-t.width * .13, -r * .32 * u + topExtra / 2 + 80, 0);
           t.rotateY(t.millis() / 1e3);
           t.cylinder(r * .12 * u * primitiveScale, r * .04 * u * primitiveScale, Math.max(3, MESH_DETAIL), .3);
@@ -204,7 +205,7 @@ class HeroP5Sketch extends HTMLElement {
         points.push(t.createVector(n, i, a));
         if (points.length > MAX_POINTS) points.shift();
 
-        t.translate(0, 0, -.06 * r * u);
+        t.translate(0, 0, -.03 * r * u);
         const targetEyeX = t.map(t.mouseX, 0, t.width, -(t.width > 809 ? t.width * 2.75 : r * 3.25), t.width > 809 ? t.width * 2.75 : r * 3.25);
         const targetEyeY = t.map(t.mouseY, 0, t.height, -(t.width > 809 ? effectiveHeight * 1 : r * 1.625), t.width > 809 ? effectiveHeight * 1 : r * 1.625);
         camEyeX = camEyeX === null ? targetEyeX : camEyeX + (targetEyeX - camEyeX) * .1125;
