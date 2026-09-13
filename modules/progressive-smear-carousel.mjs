@@ -62,11 +62,11 @@ const styles = `
   .dots { display:none; }
   .controls { display:none; }
   @media (min-width:810px) {
-    .details { margin-top:20px; transform:translateY(-24px); }
+    .details { margin-top:22px; padding-top:14px; border-top:1px solid #ffffff26; transform:translateY(-24px); }
     .count { font-size:12px; }
     .title { font-size:clamp(20px,2.2vw,30px); }
     .case-link { gap:16px; font-size:13px; padding:12px 0; }
-    .controls { width:min(100% - 64px,1080px); margin:22px auto 0; padding-top:14px; border-top:1px solid #ffffff26; display:flex; align-items:center; justify-content:space-between; gap:20px; transform:translateY(-24px); }
+    .controls { width:min(100% - 64px,1080px); margin:22px auto 0; display:flex; align-items:center; justify-content:space-between; gap:20px; transform:translateY(-24px); }
     .hint { margin:0; color:#707070; font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
     .desktop-dots,.actions { display:flex; align-items:center; }
     .desktop-dots { justify-content:center; }
@@ -125,7 +125,7 @@ const styles = `
   :host([data-theme="light"]) .case-link:hover { color:#111; }
   :host([data-theme="light"]) .dots button { background:#bbb; }
   :host([data-theme="light"]) .dots button[aria-current="true"] { background:#111; }
-  :host([data-theme="light"]) .controls { border-top-color:#00000026; }
+  :host([data-theme="light"]) .details { border-top-color:#00000026; }
   :host([data-theme="light"]) .hint { color:#777; }
   :host([data-theme="light"]) .control { border-color:#00000030; color:#333; }
   :host([data-theme="light"]) .desktop-dot::before { background:#999; }
