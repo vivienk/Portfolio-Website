@@ -393,9 +393,13 @@ Finding meaningful signals in complexity, turn them into better metrics.">
        desktop-only top:-349px/height:867px at this width; that's the actual
        source of the off-screen offset. */
     .framer-w3gto7 {
-      top: 0 !important;
-      height: 100% !important;
-      transform: translateY(-8px) !important;
+      /* The hero's 105px mobile top padding is the containing block for
+         this absolute layer. The previous -8px translate therefore left
+         the canvas starting at y=97px. Grow upward by that exact amount
+         while keeping the existing lower edge pinned. */
+      top: -105px !important;
+      height: calc(100% + 97px) !important;
+      transform: none !important;
     }
     .framer-w3gto7 .framer-1toqndt-container {
       position: absolute !important;
@@ -404,7 +408,7 @@ Finding meaningful signals in complexity, turn them into better metrics.">
       right: 0 !important;
       bottom: auto !important;
       width: 100% !important;
-      height: 70vh !important;
+      height: calc(70vh + 97px) !important;
       min-width: 0 !important;
       min-height: 0 !important;
       transform: none !important;

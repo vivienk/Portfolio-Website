@@ -178,7 +178,10 @@ function buildDarkSketch(host) {
       // own way (see SHOW_PRIMITIVES below). Only the mouse-driven Lorenz
       // camera, never pinned to begin with, gets to use the extra
       // headroom.
-      const topExtra = t.width > 809 ? 137 : 0;
+      // Desktop adds 137px above its old canvas; mobile adds 97px to
+      // bridge the hero's top-padding gap. Keep the original effective
+      // drawing height so extending the canvas does not rescale the art.
+      const topExtra = t.width > 809 ? 137 : 97;
       const effectiveHeight = t.height - topExtra;
       const r = Math.min(t.width, effectiveHeight);
       const u = SCALE_BOOST;
@@ -216,7 +219,9 @@ function buildDarkSketch(host) {
           : t.map(isDesktop ? boundedMouseX : cameraMouseX, 0, t.width, -torusEyeXRange, torusEyeXRange);
         camTorusX = camTorusX === null ? torusTargetEyeX : camTorusX + (torusTargetEyeX - camTorusX) * .135;
         const torusOffsetX = isDesktop ? -t.width * .22 : -t.width * 1.3;
-        const torusOffsetY = isDesktop ? (-r * .32 * u + topExtra / 2 + 80) : (-r * .7 * u);
+        const torusOffsetY = isDesktop
+          ? (-r * .32 * u + topExtra / 2 + 80)
+          : (-r * .7 * u + topExtra / 2);
         t.push();
         t.resetMatrix();
         t.camera(camTorusX, 0, effectiveHeight / 2 / t.tan(t.PI * 30 / 180), 0, 0, 0, 0, 1, 0);
@@ -302,7 +307,7 @@ function buildDarkSketch(host) {
       // torus (no collision) and the top-edge safety margin.
       t.translate(
         t.width * (isDesktop ? .18 : .1),
-        isDesktop ? effectiveHeight * .1 : 0,
+        isDesktop ? effectiveHeight * .1 : topExtra / 2,
         0
       );
       t.scale(d * (isDesktop ? .7 : 1));
