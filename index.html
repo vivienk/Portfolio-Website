@@ -581,21 +581,66 @@ Finding meaningful signals in complexity, turn them into better metrics.">
      an opacity fade here would instead cut a fake seam into an otherwise
      continuous background, so it's removed outright in light mode. */
   html[data-theme="light"] .framer-17jcdvw { background: none !important; }
-  /* Say Hi button: its "Inner Container" fill and outer 1.4px rim both
-     source their color from the page-background token above (now
-     transparent) — without an explicit override the button would
-     disappear. Rebuilt here as black fill / white rim (border) per
-     request, with the text + glow layers (which source the *main text*
-     token, #111 in light mode) pinned back to white so they don't go
-     dark-on-black. */
-  html[data-theme="light"] .framer-tque6g .framer-1l7inir { background-color: #fff !important; }
-  html[data-theme="light"] .framer-tque6g .framer-unn2aa { background-color: #000 !important; }
-  html[data-theme="light"] .framer-tque6g .framer-1a4zc3y { background-color: #fff !important; }
-  html[data-theme="light"] .framer-tque6g .framer-styles-preset-gc0h9e { --framer-text-color: #fff !important; }
-  /* About Me's content column ("more info") has no background of its
-     own — just this drop shadow, cast as if onto an opaque card. With
-     the page background now transparent/see-through, an orphaned shadow
-     with nothing under it reads as a stray smudge, so it goes too. */
+  /* Say Hi + Download Resume: every button in light mode reads as
+     frosted glass (same recipe as the navbar pill — translucent white,
+     blurred, a soft white rim) rather than a flat fill, now that the
+     page behind them is the live p5 canvas rather than a solid color.
+     Say Hi's "Inner Container"/outer 1.4px rim both otherwise source
+     their color from the page-background token above (now transparent),
+     so both need an explicit fill regardless of the glass look; Download
+     Resume is unclassed (styled entirely via inline attributes in the
+     Framer export) and is instead targeted by its unique attributes,
+     which the !important here overrides. */
+  html[data-theme="light"] .framer-tque6g .framer-1l7inir,
+  html[data-theme="light"] a[download][title="Download File"] {
+    background: rgba(255,255,255,.4) !important;
+    backdrop-filter: blur(16px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+    border: 1px solid rgba(255,255,255,.6) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,.12) !important;
+  }
+  html[data-theme="light"] .framer-tque6g .framer-unn2aa,
+  html[data-theme="light"] .framer-tque6g .framer-1a4zc3y { background-color: transparent !important; }
+  html[data-theme="light"] .framer-tque6g .framer-styles-preset-gc0h9e { --framer-text-color: #171717 !important; }
+  html[data-theme="light"] a[download][title="Download File"] { color: #171717 !important; }
+  /* Say Hi: on hover, the rim itself becomes an animated white gradient
+     rather than a flat translucent line, echoing the glow the carousel
+     cards get on hover — an interactive accent instead of a static
+     border. border-image needs its own border-style/width (inherited
+     from the base rule above) to render against. */
+  html[data-theme="light"] .framer-tque6g a:hover .framer-1l7inir {
+    border: 1px solid transparent !important;
+    border-image: linear-gradient(135deg, #fff, rgba(255,255,255,.25), #fff) 1 !important;
+    box-shadow: 0 8px 28px rgba(0,0,0,.16), 0 0 16px rgba(255,255,255,.5) !important;
+  }
+  /* About Me skill tags: restyled to match the frosted "About Me" badge
+     that already appears when hovering the portrait photo (a Framer
+     cursor-follow component — see .framer-hyoRo — not something built
+     for this session, just referenced as the target look) rather than
+     the flat card-token fill they had — translucent dark glass, blurred,
+     with the same soft glow and white text, in both themes rather than
+     only light, since that reference badge doesn't change with theme
+     either. */
+  div[data-framer-name="primary"][data-border="true"] {
+    background: rgba(99,99,99,.3) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    box-shadow: 0 0 20px 4px rgba(92,92,92,.3) !important;
+    border-radius: 999px !important;
+  }
+  div[data-framer-name="primary"][data-border="true"] p.framer-text { color: #fff !important; }
+  /* About Me: a faint 10%-white wash over the shared p5 canvas — distinct
+     enough from the hero/Projects sections to read as its own area
+     without going back to an opaque card. Applied to the outer <section>
+     (one shared class across breakpoints) rather than the inner "more
+     info" column, which is desktop-only markup (mobile's equivalent
+     content isn't wrapped in a single element with its own class). */
+  html[data-theme="light"] .framer-1jqzdj { background-color: rgba(255,255,255,.1) !important; }
+  /* About Me's content column ("more info", desktop only — see above)
+     has no background of its own — just this drop shadow, cast as if
+     onto an opaque card. With the section background now a faint wash
+     instead of solid, an orphaned shadow reads as a stray smudge, so it
+     goes too. */
   html[data-theme="light"] .framer-yf3nwg { box-shadow: none !important; }
 </style>
 <link rel="stylesheet" href="/assets/fonts/garamond.css?v=7bcae5f5a16a">

@@ -420,6 +420,17 @@ class HeroP5Sketch extends HTMLElement {
           position: 'fixed', inset: '0', width: '100vw', height: '100vh',
           zIndex: '-1', pointerEvents: 'none',
         });
+        // 100vh on mobile Safari (and other browsers with a collapsing
+        // address bar) is sized to the *largest* possible viewport, not
+        // the one actually visible — the visible viewport shrinks as the
+        // bar appears, so a plain 100vh layer can end up shorter than the
+        // real, currently-visible page during/after a scroll, leaving a
+        // gap at the bottom. dvh tracks the real, current viewport
+        // instead; set as a second assignment (not in the object above)
+        // so it only overrides 100vh on browsers that understand the
+        // unit — unsupported values are rejected by the property setter,
+        // silently keeping 100vh as the fallback everywhere else.
+        this.style.height = '100dvh';
       } else {
         if (this._originalParent && this.parentElement !== this._originalParent) {
           this._originalParent.insertBefore(this, this._originalNextSibling);

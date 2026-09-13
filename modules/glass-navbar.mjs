@@ -119,6 +119,10 @@ const styles = `
     .pill { width: 100%; border-radius: 999px; transition: border-radius .3s ease; }
     :host([data-open]) .pill { border-radius: 26px; }
     .top-row { flex-wrap: wrap; }
+    /* Theme toggle sits in the always-visible row itself, left of the
+       hamburger, rather than inside the panel it collapses — switching
+       theme shouldn't require opening the menu first. */
+    .theme-toggle { order: 1; }
     /* Same filled-circle look at rest as the other icon buttons get only
        on hover/press — a plain line-icon with no chip read as unfinished
        next to the pill's other rounded surfaces. */
@@ -143,7 +147,6 @@ const styles = `
     }
     .links { flex-direction: column; align-items: stretch; gap: 2px; width: 100%; }
     .link { padding: 12px 14px; border-radius: 14px; text-align: center; }
-    .theme-row { display: flex; justify-content: center; padding-top: 4px; }
   }
 `;
 
@@ -170,8 +173,8 @@ class GlassNavbar extends HTMLElement {
               <a class="link" data-nav="projects" href="./#projects">Projects</a>
               <a class="link" href="${CONTACT_HREF}" target="_blank" rel="noopener">Contact</a>
             </nav>
-            <button type="button" class="icon-btn theme-toggle" aria-label="Toggle light/dark theme"></button>
           </div>
+          <button type="button" class="icon-btn theme-toggle" aria-label="Toggle light/dark theme"></button>
           <button type="button" class="icon-btn hamburger" aria-label="Open menu" aria-expanded="false"></button>
         </div>
       </div>`;
