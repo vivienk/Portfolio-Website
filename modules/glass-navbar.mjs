@@ -54,7 +54,7 @@ const styles = `
   }
   :host([data-theme="light"]) .pill {
     --glass-bg: rgba(255,255,255,.55);
-    --glass-border: rgba(0,0,0,.08);
+    --glass-border: rgba(255,255,255,.5);
     --glass-shadow: rgba(0,0,0,.12);
     --glass-shine: rgba(255,255,255,.7);
     --ink: rgba(20,20,20,.92);
@@ -112,7 +112,12 @@ const styles = `
      forced onto its own line. */
   @media (max-width: 809px) {
     :host { top: 12px; width: min(92vw, 420px); left: 50%; }
-    .pill { width: 100%; border-radius: 26px; }
+    /* Collapsed: a full stadium/pill (radius = half the ~66px bar height,
+       so corners are true semicircles, not just "rounded"). Open: a
+       smaller fixed radius reads better on the taller expanded panel than
+       a stadium shape would. */
+    .pill { width: 100%; border-radius: 999px; transition: border-radius .3s ease; }
+    :host([data-open]) .pill { border-radius: 26px; }
     .top-row { flex-wrap: wrap; }
     button.hamburger { display: grid; order: 2; }
     .panel {

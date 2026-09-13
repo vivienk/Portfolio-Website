@@ -95,9 +95,14 @@ const styles = `
      mask opacity, not anything visible, so they work unchanged in both
      themes. */
   :host([data-theme="light"]) { color:#111; }
-  :host([data-theme="light"]) .card { background:#f0f0f0; box-shadow:0 0 0 1px #00000014, 0 0 0 0 #00000000; }
-  :host([data-theme="light"]) .card::after { box-shadow:inset 0 0 0 1px #00000014; }
-  :host([data-theme="light"]) .card[data-hovered] { box-shadow:0 0 0 1px #00000040, 0 0 28px 4px #00000029; }
+  /* Card goes fully transparent — no fill, no idle ring — so the poster
+     image sits directly on the page's shared p5 canvas background rather
+     than looking boxed into its own card. Hover trades that for an
+     explicit white border (plus a soft matching glow) as the interaction
+     cue, instead of the dark ring used previously. */
+  :host([data-theme="light"]) .card { background:transparent; box-shadow:none; }
+  :host([data-theme="light"]) .card::after { box-shadow:none; }
+  :host([data-theme="light"]) .card[data-hovered] { box-shadow:0 0 0 1.5px #fff, 0 0 24px 4px rgba(255,255,255,.4); }
   :host([data-theme="light"]) .count { color:#888; }
   :host([data-theme="light"]) .case-link { color:#444; }
   :host([data-theme="light"]) .case-link:hover { color:#111; }

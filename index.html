@@ -372,6 +372,9 @@ Finding meaningful signals in complexity, turn them into better metrics.">
   .framer-1mm21uq project-carousel { display:none !important; }
   /* Say Hi CTA text: italic on both desktop and mobile. */
   .framer-tque6g p.framer-text { font-style: italic !important; }
+  /* About Me bullet list: an extra line of breathing room between each
+     point, on every breakpoint (both `<ul>` copies share this markup). */
+  .framer-yf3nwg ul.framer-text li.framer-text + li.framer-text { margin-top: 1.6em; }
   /* Mobile only: the hero's p5 background container keeps rendering at
      desktop-breakpoint size/position at narrow widths (a pre-existing
      breakpoint-detection issue, not something introduced here) — its canvas
@@ -543,9 +546,17 @@ Finding meaningful signals in complexity, turn them into better metrics.">
      found later are a follow-up, not something silently skipped now. */
   html[data-theme="light"] body {
     --token-67527bae-cc15-4839-8636-c9b28351e4d7: #111 !important; /* main text: white -> near-black */
-    --token-f50a08ee-89ba-45ba-bd59-521f4e9cdc51: #fff !important; /* page background: black -> white */
-    --token-0c62d1bb-1ac3-4cd6-8f0f-8ee3950e02c0: #f0f0f0 !important; /* card/surface background */
-    --token-54e6a972-2be4-40f1-88e3-a0431ea81021: #0000001a !important; /* subtle border, white 10% -> black 10% */
+    /* Page background: transparent, not white. hero-p5-sketch.mjs mounts
+       its light-theme canvas as a fixed, full-viewport layer (not just
+       inside the hero) precisely so this and every section below can go
+       see-through and share that one canvas as a continuous background,
+       rather than each section boxing in its own flat color. This same
+       token is what the "1200px content wrapper" and the per-breakpoint
+       root wrappers use for their background too, so one change here
+       clears all of them. */
+    --token-f50a08ee-89ba-45ba-bd59-521f4e9cdc51: transparent !important;
+    --token-0c62d1bb-1ac3-4cd6-8f0f-8ee3950e02c0: #f0f0f0 !important; /* card/surface background (skill tag pills) */
+    --token-54e6a972-2be4-40f1-88e3-a0431ea81021: #ffffff66 !important; /* subtle border: stays white (40%) rather than flipping to black, so it still reads against the blue canvas */
     --token-cc7c73b0-b7c0-47c8-8487-b084b19b7755: #ffffffcc !important; /* heavy overlay, black 80% -> white 80% */
     --token-42cff841-0b54-4377-bc4a-66e7d7690432: #111111a6 !important; /* secondary text, white 65% -> near-black 65% */
   }
@@ -563,12 +574,29 @@ Finding meaningful signals in complexity, turn them into better metrics.">
      for white text against the (always-black, pre-toggle) hero — reads as
      a smudge behind now-dark text on the light background. */
   html[data-theme="light"] .framer-1tw6hmz { background-image: none !important; }
-  /* Hero-to-next-section fade overlay (.framer-17jcdvw) fades to black —
-     tuned for the dark hero background; against the light noise-grid
-     sketch it read as a visible blue-to-dark band. Fades to white
-     instead, same shape, so it still blends the hero into the page
-     background below rather than cutting off sharply. */
-  html[data-theme="light"] .framer-17jcdvw { background: linear-gradient(rgba(255,255,255,0) 38.8091%, rgba(255,255,255,.9) 100%) !important; }
+  /* Hero-to-next-section fade overlay (.framer-17jcdvw): was faded to
+     white here to blend the hero into a white section below it. Now that
+     the page background token above is transparent and the same fixed p5
+     canvas shows through every section, there's no seam left to blend —
+     an opacity fade here would instead cut a fake seam into an otherwise
+     continuous background, so it's removed outright in light mode. */
+  html[data-theme="light"] .framer-17jcdvw { background: none !important; }
+  /* Say Hi button: its "Inner Container" fill and outer 1.4px rim both
+     source their color from the page-background token above (now
+     transparent) — without an explicit override the button would
+     disappear. Rebuilt here as black fill / white rim (border) per
+     request, with the text + glow layers (which source the *main text*
+     token, #111 in light mode) pinned back to white so they don't go
+     dark-on-black. */
+  html[data-theme="light"] .framer-tque6g .framer-1l7inir { background-color: #fff !important; }
+  html[data-theme="light"] .framer-tque6g .framer-unn2aa { background-color: #000 !important; }
+  html[data-theme="light"] .framer-tque6g .framer-1a4zc3y { background-color: #fff !important; }
+  html[data-theme="light"] .framer-tque6g .framer-styles-preset-gc0h9e { --framer-text-color: #fff !important; }
+  /* About Me's content column ("more info") has no background of its
+     own — just this drop shadow, cast as if onto an opaque card. With
+     the page background now transparent/see-through, an orphaned shadow
+     with nothing under it reads as a stray smudge, so it goes too. */
+  html[data-theme="light"] .framer-yf3nwg { box-shadow: none !important; }
 </style>
 <link rel="stylesheet" href="/assets/fonts/garamond.css?v=7bcae5f5a16a">
 <link href="https://db.onlinewebfonts.com/c/fd0dd047f16cc5812257f5a65c4b1719?family=Sigurd+Light" rel="stylesheet">

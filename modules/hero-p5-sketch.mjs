@@ -360,10 +360,23 @@ function buildLightSketch(host) {
 
 class HeroP5Sketch extends HTMLElement {
   connectedCallback() {
+    // Moving an already-connected custom element (appendChild/insertBefore
+    // to a new parent) fires disconnectedCallback then connectedCallback
+    // again, as a side effect of the move itself — not a real
+    // remove-from-page. applyLayout() sets this._reparenting around its
+    // own moves so those synthetic lifecycle calls no-op here instead of
+    // tearing down the p5 instance or clobbering _originalParent below
+    // with the element's new (temporary) parent.
+    if (this._reparenting) return;
     if (this.p5Instance) return;
     this.style.display = 'block';
-    this.style.width = '100%';
-    this.style.height = '100%';
+    // Remembered once, on the first real connect, so the light-theme
+    // layout (below) can put this element back where it started when the
+    // theme flips back to dark.
+    if (!this._originalParent) {
+      this._originalParent = this.parentElement;
+      this._originalNextSibling = this.nextSibling;
+    }
     this._unsubscribeTheme = onThemeChange(() => this.handleThemeChange());
     loadP5().then(() => this.mount()).catch(() => {});
   }
@@ -376,10 +389,43 @@ class HeroP5Sketch extends HTMLElement {
     this.mount();
   }
 
+  // Dark mode stays exactly where Framer put it: a normal-flow child of
+  // the hero's mount point, sized to that section (host.clientHeight),
+  // masked/clipped by the hero's own container CSS. Light mode instead
+  // renders as a fixed, full-viewport layer living directly on <body> —
+  // behind every section, not just the hero — so Projects/About Me can
+  // go transparent and read as one continuous page background rather
+  // than separate boxed sections. (host.clientHeight below then just
+  // naturally resolves to 100vh, so buildLightSketch/resizeToWindow need
+  // no changes of their own for this.)
+  applyLayout(theme) {
+    this._reparenting = true;
+    try {
+      if (theme === 'light') {
+        if (this.parentElement !== document.body) document.body.appendChild(this);
+        Object.assign(this.style, {
+          position: 'fixed', inset: '0', width: '100vw', height: '100vh',
+          zIndex: '-1', pointerEvents: 'none',
+        });
+      } else {
+        if (this._originalParent && this.parentElement !== this._originalParent) {
+          this._originalParent.insertBefore(this, this._originalNextSibling);
+        }
+        Object.assign(this.style, {
+          position: '', inset: '', width: '100%', height: '100%',
+          zIndex: '', pointerEvents: '',
+        });
+      }
+    } finally {
+      this._reparenting = false;
+    }
+  }
+
   mount() {
     if (!this.isConnected || this.p5Instance || !window.p5) return;
     const theme = getTheme();
     this._mountedTheme = theme;
+    this.applyLayout(theme);
     // Matches each sketch's own background() color, so there's no flash
     // of the wrong color behind the canvas while it loads/remounts.
     this.style.background = theme === 'light' ? 'rgb(150,180,255)' : '#000';
@@ -414,6 +460,7 @@ class HeroP5Sketch extends HTMLElement {
   }
 
   disconnectedCallback() {
+    if (this._reparenting) return;
     this._unsubscribeTheme?.();
     this._unsubscribeTheme = null;
     this.teardown();

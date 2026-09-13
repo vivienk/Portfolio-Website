@@ -9,13 +9,17 @@ let pending = false;
 function ensureMounted() {
   pending = false;
   const host = document.querySelector(HOST_SELECTOR);
-  if (!host || host.querySelector('hero-p5-sketch')) return;
+  // Checked document-wide, not just inside the mount point: in light
+  // theme, hero-p5-sketch.mjs reparents the element out to <body> as a
+  // fixed full-page background (see its applyLayout()), which would
+  // otherwise look like a missing mount to this observer and cause it to
+  // create a second, duplicate instance inside the now-empty host.
+  if (!host || document.querySelector('hero-p5-sketch')) return;
   host.appendChild(document.createElement('hero-p5-sketch'));
 }
 
 function isMounted() {
-  const host = document.querySelector(HOST_SELECTOR);
-  return !!(host && host.querySelector('hero-p5-sketch'));
+  return !!document.querySelector('hero-p5-sketch');
 }
 
 function schedule() {
