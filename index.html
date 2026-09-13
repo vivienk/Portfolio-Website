@@ -682,6 +682,12 @@ Finding meaningful signals in complexity, turn them into better metrics.">
   html[data-theme="light"] div[data-framer-name="primary"][data-border="true"] {
     --border-color: #fff !important;
   }
+  /* Light mode only: the glow that came with matching the hover-badge
+     look (above) is dropped — dark mode keeps it, since only light mode
+     was asked for here. */
+  html[data-theme="light"] div[data-framer-name="primary"][data-border="true"] {
+    box-shadow: none !important;
+  }
   /* About Me: a faint 10%-white wash over the shared p5 canvas — distinct
      enough from the hero/Projects sections to read as its own area
      without going back to an opaque card. Applied to the outer <section>
