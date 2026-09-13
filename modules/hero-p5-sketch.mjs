@@ -9,15 +9,32 @@
 // element with no React/Framer involvement. hero-p5-sketch-init.mjs mounts
 // it into that placeholder.
 //
-// Tuning values below are the exact props the Framer instance was using
-// (found in the bundle's JSX call site), not the component's own defaults —
-// keeps this a faithful port, not a redesign.
+// The core tuning values below come from the Framer instance's JSX call
+// site; the named entrance constants tune the first-load composition.
 const MAX_POINTS = 1000;
 const SCALE_BOOST = 1.25;
 const GLOW = 200;
 const MESH_DETAIL = 3;
 const SHOW_PRIMITIVES = true;
 const SHOW_PARTICLES = true;
+const LORENZ_SETTLE_STEPS = 100;
+const LORENZ_BUILD_STEPS_PER_FRAME = 6;
+const PARTICLE_BURST_MS = 1600;
+const PARTICLE_BURST_COUNT = 7;
+const PARTICLE_STEADY_COUNT = 3;
+const PARTICLE_BURST_SPEED = .8;
+const PARTICLE_STEADY_SPEED = .115;
+// Multiplies the desktop torus/trail camera-orbit ranges (mobile always
+// uses 1, i.e. its own un-scaled range). Was .05 — camera eyeX/eyeY only
+// swung a few dozen units across the full cursor range, ~30px of visible
+// movement on the trail, which read as "cursor tracking isn't working".
+// .3 was tuned by sweeping the cursor corner-to-corner and checking both
+// the actual camera() eye values (confirmed a real ~1100-unit swing) and
+// the rendered pixels' bounding box at each extreme (confirmed neither
+// shape swings off-canvas or past the top-edge safety margin). 1 (no
+// damping) was tried first and does swing too far off-canvas at the
+// extremes — .3 is the point that's clearly responsive without that.
+const DESKTOP_ORBIT_DEPTH = .3;
 
 const P5_SRC = '/assets/633bf41a4197efcc-p5.min.js';
 let p5LoadPromise = null;
@@ -34,13 +51,14 @@ function loadP5() {
   return p5LoadPromise;
 }
 
-// A single dust-mote particle: velocity/acceleration physics, fading alpha,
-// rendered as a soft circle.
+// A single dust-mote particle: velocity/acceleration physics with a
+// per-particle speed cap, fading alpha, rendered as a soft circle.
 class Particle {
-  constructor(t, vx, vy) {
+  constructor(t, vx, vy, speedLimit = PARTICLE_STEADY_SPEED) {
     this.t = t;
     this.vx = vx;
     this.vy = vy;
+    this.speedLimit = speedLimit;
     this.num = 255;
     this.a = 255;
     this.loc = t.createVector(t.width / 2, t.height / 2);
@@ -52,7 +70,7 @@ class Particle {
     this.vel.add(this.acc);
     this.loc.add(this.vel);
     this.acc.mult(0);
-    this.vel.limit(.115);
+    this.vel.limit(this.speedLimit);
     this.acc = t.createVector(
       t.sin(t.radians(this.vx + this.num / 2)) / 2,
       t.cos(t.radians(this.vy - this.num / 2)) / 2
@@ -92,6 +110,7 @@ class HeroP5Sketch extends HTMLElement {
       let n = .01, i = 0, a = 0;
       const points = [];
       const particles = [];
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       // One integration step, shared by the real per-frame update in
       // draw() and the warm-up loop in setup() below — kept in one place
       // so they can't drift apart.
@@ -102,31 +121,32 @@ class HeroP5Sketch extends HTMLElement {
         const da = (n * i - 3 * a) * LORENZ_G;
         n += dn; i += di; a += da;
       }
-      // Eased camera position: mouseX/mouseY snapping the camera straight
-      // to their mapped value every frame is what reads as glitchy/jumpy —
-      // easing toward the target each frame smooths that out regardless of
-      // frame rate. null until the first frame, so it starts at the target
-      // instead of easing in from (0,0).
+      // Both breakpoints use eased camera orbits. Desktop's orbit is kept
+      // deliberately shallow so the perspective reads as 3D without
+      // making either form collapse into the distance.
       let camEyeX = null, camEyeY = null;
-      // The torus/cylinder get their own, faster-easing, X-only camera
-      // (see SHOW_PRIMITIVES) so their side-to-side motion reads clearly as
-      // cursor-driven — a bigger, near-object swing against the trail's
-      // wider/slower one is what makes the parallax legible as "this
-      // tracks my mouse" instead of ambient drift.
       let camTorusX = null;
+      let hasPointerInput = false;
+      let pointerX = 0, pointerY = 0;
 
       t.setup = () => {
         t.createCanvas(Math.max(1.5, window.innerWidth), Math.max(1.5, host.clientHeight), t.WEBGL);
+        const trackPointer = event => {
+          const bounds = host.getBoundingClientRect();
+          pointerX = event.clientX - bounds.left;
+          pointerY = event.clientY - bounds.top;
+          hasPointerInput = true;
+        };
+        host._pointerMoveHandler = trackPointer;
+        window.addEventListener('pointermove', trackPointer, { passive: true });
         t.colorMode(t.HSB, 360, 100, 100, 255);
         t.frameRate(30);
-        // Starting n/i/a at (.01, 0, 0) means the Lorenz trail begins as a
-        // sub-pixel pinprick and takes several hundred real frames (~10s at
-        // 30fps) to organically grow to its full, visible scale — which
-        // reads as "the trail doesn't show up" right after load. Fast-
-        // forward the same integration MAX_POINTS times here, with no
-        // rendering, so the very first drawn frame already shows a fully-
-        // developed trail.
-        for (let step = 0; step < MAX_POINTS; step++) {
+        // Advance past the near-zero seed without drawing it, then let the
+        // visible trail build in draw(). Reduced-motion visitors get the
+        // completed curve immediately instead of the growing entrance.
+        for (let step = 0; step < LORENZ_SETTLE_STEPS; step++) stepLorenz();
+        const initialPointCount = reduceMotion ? MAX_POINTS : 1;
+        for (let step = 0; step < initialPointCount; step++) {
           stepLorenz();
           points.push(t.createVector(n, i, a));
         }
@@ -157,43 +177,30 @@ class HeroP5Sketch extends HTMLElement {
         // interaction yet" means for the torus's rest position below.
         const mouseX = Number.isFinite(t.mouseX) ? t.mouseX : 0;
         const mouseY = Number.isFinite(t.mouseY) ? t.mouseY : 0;
+        const isDesktop = t.width > 809;
+        const useDesktopRestCamera = isDesktop && !hasPointerInput;
+        const cameraMouseX = useDesktopRestCamera ? t.width / 2 : (isDesktop ? pointerX : mouseX);
+        const cameraMouseY = useDesktopRestCamera ? t.height / 2 : (isDesktop ? pointerY : mouseY);
+        const boundedMouseX = t.constrain(cameraMouseX, 0, t.width);
+        const boundedMouseY = t.constrain(cameraMouseY, 0, t.height);
 
         t.translate(0, 0, -.0875 * r * u);
         t.background(0);
 
-        // The spinning torus/cylinder, enlarged 25% over the original size,
-        // pulled to a quarter its original depth (-.0875, down from -.35
-        // across two halvings) so it reads as nearer/bigger. Desktop is
-        // offset left so it sits up near "VIVIEN's" in the hero heading;
-        // mobile is pulled much further into the top-left corner (its own
-        // offset, not shared with desktop) since with mouseX/mouseY
-        // guarded to 0 above, that's also exactly where it renders at
-        // first load, before any touch — verified via the rendered pixels'
-        // bounding box (roughly x:8-23%, y:7-18% of the canvas), well clear
-        // of the Lorenz trail's own rest position so they don't collide.
-        // Trade-off: pushing the offset out this far to hit the corner
-        // also pushes the torus far off the camera's look-at axis, which
-        // dulls how much it visibly swings with touch afterward (verified:
-        // still moves, just subtly) — acceptable since the ask was
-        // specifically about where it starts, not how it behaves touched.
-        // Own dedicated camera, X-only: eyeY stays 0 so mouseY never moves
-        // it vertically, and it eases faster than the trail's camera below
-        // so its left/right swing reads as directly cursor-driven.
-        // The +80 on top of topExtra/2 (desktop only) is a measured safety
-        // margin: with the cursor centered (eyeX 0 — no orbit, so the torus
-        // is at its largest/closest, and now closer still with the halved
-        // depth) it's the one position that pushes closest to the canvas's
-        // own top edge; swinging left or right moves it further away from
-        // that edge (distance-to-camera grows off-axis), so dead center
-        // sets the margin everything else stays clear of. Mobile's own
-        // -.7*r*u offset was verified clear of the top edge the same way.
+        // The desktop primitive starts above-left of "VIVIEN's" at a
+        // restrained scale. Its shallow X-only desktop camera restores the
+        // 3D cursor response while keeping the apparent size within a safe
+        // range. Mobile retains its wider original orbit.
         if (SHOW_PRIMITIVES) {
-          const primitiveScale = 1.25;
-          const torusEyeXRange = t.width > 809 ? t.width * 3.75 : r * 4.25;
-          const torusTargetEyeX = t.map(mouseX, 0, t.width, -torusEyeXRange, torusEyeXRange);
+          const primitiveScale = isDesktop ? .5 : 1.25;
+          // Same orbit formula as mobile, uniformly depth-capped on desktop.
+          const torusEyeXRange = r * 4.25 * (isDesktop ? DESKTOP_ORBIT_DEPTH : 1);
+          const torusTargetEyeX = reduceMotion
+            ? 0
+            : t.map(isDesktop ? boundedMouseX : cameraMouseX, 0, t.width, -torusEyeXRange, torusEyeXRange);
           camTorusX = camTorusX === null ? torusTargetEyeX : camTorusX + (torusTargetEyeX - camTorusX) * .135;
-          const torusOffsetX = t.width > 809 ? -t.width * .13 : -t.width * 1.3;
-          const torusOffsetY = t.width > 809 ? (-r * .32 * u + topExtra / 2 + 80) : (-r * .7 * u);
+          const torusOffsetX = isDesktop ? -t.width * .22 : -t.width * 1.3;
+          const torusOffsetY = isDesktop ? (-r * .32 * u + topExtra / 2 + 80) : (-r * .7 * u);
           t.push();
           t.resetMatrix();
           t.camera(camTorusX, 0, effectiveHeight / 2 / t.tan(t.PI * 30 / 180), 0, 0, 0, 0, 1, 0);
@@ -215,13 +222,20 @@ class HeroP5Sketch extends HTMLElement {
           // fell back to center — center was the actual behavior the whole
           // time, so that's what this keeps.)
           const sp = { x: t.width / 2, y: effectiveHeight / 2 + topExtra };
-          const p1 = new Particle(t, t.random(20, 47), t.random(32, 24));
-          p1.loc.set(sp.x, sp.y);
-          const p2 = new Particle(t, t.random(-700, 700), t.random(700, -700));
-          p2.loc.set(sp.x, sp.y);
-          const p3 = new Particle(t, t.random(-700, 700), t.random(700, -700));
-          p3.loc.set(sp.x, sp.y);
-          particles.push(p1, p2, p3);
+          const isOpeningBurst = !reduceMotion && t.millis() < PARTICLE_BURST_MS;
+          const particleCount = isOpeningBurst ? PARTICLE_BURST_COUNT : PARTICLE_STEADY_COUNT;
+          const speedLimit = isOpeningBurst ? PARTICLE_BURST_SPEED : PARTICLE_STEADY_SPEED;
+          for (let index = 0; index < particleCount; index++) {
+            const isGentleParticle = index === 0;
+            const particle = new Particle(
+              t,
+              isGentleParticle ? t.random(20, 47) : t.random(-700, 700),
+              isGentleParticle ? t.random(24, 32) : t.random(-700, 700),
+              speedLimit
+            );
+            particle.loc.set(sp.x, sp.y);
+            particles.push(particle);
+          }
 
           t.push();
           t.resetMatrix();
@@ -237,15 +251,27 @@ class HeroP5Sketch extends HTMLElement {
         }
 
         // Lorenz-attractor trail line: integrate the next point, trim to
-        // MAX_POINTS, set up the big mouse-driven parallax camera, draw the
-        // glowing multi-pass stroke.
-        stepLorenz();
-        points.push(t.createVector(n, i, a));
-        if (points.length > MAX_POINTS) points.shift();
+        // MAX_POINTS, apply responsive parallax, and draw the glowing
+        // multi-pass stroke.
+        const lorenzSteps = points.length < MAX_POINTS ? LORENZ_BUILD_STEPS_PER_FRAME : 1;
+        for (let step = 0; step < lorenzSteps; step++) {
+          stepLorenz();
+          points.push(t.createVector(n, i, a));
+          if (points.length > MAX_POINTS) points.shift();
+        }
 
         t.translate(0, 0, -.03 * r * u);
-        const targetEyeX = t.map(mouseX, 0, t.width, -(t.width > 809 ? t.width * 2.75 : r * 3.25), t.width > 809 ? t.width * 2.75 : r * 3.25);
-        const targetEyeY = t.map(mouseY, 0, t.height, -(t.width > 809 ? effectiveHeight * 1 : r * 1.625), t.width > 809 ? effectiveHeight * 1 : r * 1.625);
+        // Preserve mobile's 2:1 X/Y camera response. Desktop applies one
+        // uniform depth multiplier so the shape remains framed and legible.
+        const orbitDepth = isDesktop ? DESKTOP_ORBIT_DEPTH : 1;
+        const lorenzEyeXRange = r * 3.25 * orbitDepth;
+        const lorenzEyeYRange = r * 1.625 * orbitDepth;
+        const targetEyeX = reduceMotion
+          ? 0
+          : t.map(isDesktop ? boundedMouseX : cameraMouseX, 0, t.width, -lorenzEyeXRange, lorenzEyeXRange);
+        const targetEyeY = reduceMotion
+          ? 0
+          : t.map(isDesktop ? boundedMouseY : cameraMouseY, 0, t.height, -lorenzEyeYRange, lorenzEyeYRange);
         camEyeX = camEyeX === null ? targetEyeX : camEyeX + (targetEyeX - camEyeX) * .1125;
         camEyeY = camEyeY === null ? targetEyeY : camEyeY + (targetEyeY - camEyeY) * .1125;
         t.camera(
@@ -253,12 +279,14 @@ class HeroP5Sketch extends HTMLElement {
           camEyeY,
           effectiveHeight / 2 / t.tan(t.PI * 30 / 180), 0, 0, 0, 0, 1, 0
         );
-        // Shifts the whole curve right so it sits over near "LAB" in the
-        // hero heading rather than centered — before scale(d), so it's a
-        // real screen-ish offset rather than one shrunk by the curve's own
-        // tiny internal scale.
-        t.translate(t.width * .1, 0, 0);
-        t.scale(d);
+        // On desktop the curve starts to the right, below "LAB"; the
+        // translation happens before its local geometry scale.
+        t.translate(
+          t.width * (isDesktop ? .18 : .1),
+          isDesktop ? effectiveHeight * .1 : 0,
+          0
+        );
+        t.scale(d * (isDesktop ? .35 : 1));
         t.noFill();
         for (let layer = 2; layer >= 0; layer--) {
           const strokeAlpha = t.map(layer, .5, 0, 40, GLOW);
@@ -298,6 +326,8 @@ class HeroP5Sketch extends HTMLElement {
     this._resizeObserver?.disconnect();
     this._resizeObserver = null;
     if (this._resizeHandler) window.removeEventListener('resize', this._resizeHandler);
+    if (this._pointerMoveHandler) window.removeEventListener('pointermove', this._pointerMoveHandler);
+    this._pointerMoveHandler = null;
     try { this.p5Instance?.remove(); } catch {}
     this.p5Instance = null;
   }
