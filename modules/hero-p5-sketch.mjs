@@ -191,10 +191,10 @@ class HeroP5Sketch extends HTMLElement {
         // shallow X-only desktop camera restores the 3D cursor response
         // while keeping the apparent size within a safe range. Mobile
         // retains its wider original orbit. primitiveScale was .5 on
-        // desktop (read as too small) — 1 was verified via the rendered
-        // pixels' bounding box to still clear the top-edge safety margin.
+        // desktop (read as too small), then 1 (read as too big) — .85 (a
+        // 15% reduction from 1) is the current tuned value.
         if (SHOW_PRIMITIVES) {
-          const primitiveScale = isDesktop ? 1 : 1.25;
+          const primitiveScale = isDesktop ? .85 : 1.25;
           // Same orbit formula as mobile, uniformly depth-capped on desktop.
           const torusEyeXRange = r * 4.25 * (isDesktop ? DESKTOP_ORBIT_DEPTH : 1);
           const torusTargetEyeX = reduceMotion
