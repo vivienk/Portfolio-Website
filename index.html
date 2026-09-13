@@ -673,6 +673,15 @@ Finding meaningful signals in complexity, turn them into better metrics.">
     border-radius: 999px !important;
   }
   div[data-framer-name="primary"][data-border="true"] p.framer-text { color: #fff !important; }
+  /* Tag borders render via Framer's ::after-pseudo-element mechanism,
+     reading color from this custom property — set inline per tag as a
+     hardcoded gray (rgb(105,105,105)), not the shared border token, so
+     it needs its own override rather than piggybacking on the sitewide
+     border-token change. White only in light mode: gray already reads
+     fine against the dark glass fill in dark mode. */
+  html[data-theme="light"] div[data-framer-name="primary"][data-border="true"] {
+    --border-color: #fff !important;
+  }
   /* About Me: a faint 10%-white wash over the shared p5 canvas — distinct
      enough from the hero/Projects sections to read as its own area
      without going back to an opaque card. Applied to the outer <section>
