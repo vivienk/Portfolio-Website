@@ -62,7 +62,7 @@ const styles = `
     --chip-bg: #111;
     --chip-ink: #fff;
   }
-  .top-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 10px 8px 14px; }
+  .top-row { display: flex; align-items: center; align-content: center; justify-content: space-between; column-gap: 12px; row-gap: 0; padding: 8px 10px 8px 14px; }
   .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; min-width: 0; }
   .brand img { width: 26px; height: 26px; object-fit: contain; flex: none; }
   .brand span { color: var(--ink); font-weight: 600; font-size: 15px; letter-spacing: .02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -119,7 +119,10 @@ const styles = `
     .pill { width: 100%; border-radius: 999px; transition: border-radius .3s ease; }
     :host([data-open]) .pill { border-radius: 26px; }
     .top-row { flex-wrap: wrap; }
-    button.hamburger { display: grid; order: 2; }
+    /* Same filled-circle look at rest as the other icon buttons get only
+       on hover/press — a plain line-icon with no chip read as unfinished
+       next to the pill's other rounded surfaces. */
+    button.hamburger { display: grid; order: 2; background: var(--glass-shine); }
     .panel {
       order: 3;
       flex: 1 1 100%;

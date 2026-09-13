@@ -377,6 +377,19 @@ class HeroP5Sketch extends HTMLElement {
       this._originalParent = this.parentElement;
       this._originalNextSibling = this.nextSibling;
     }
+    // p5.js loads async (loadP5() below), and mount() — which applies
+    // layout/background and creates the canvas — only runs once that
+    // resolves. Without this, there's a window (first load, or a slow
+    // network) where the light-theme host isn't fixed/full-page yet and
+    // has no background of its own, so every section that was made
+    // transparent to share this canvas would show whatever's behind it
+    // (the page root's own default paint) instead of the noise-grid blue.
+    // Applying both synchronously, immediately, closes that gap; mount()
+    // still re-applies them once the real canvas exists, which is a no-op
+    // if nothing changed in the meantime.
+    const theme = getTheme();
+    this.applyLayout(theme);
+    this.style.background = theme === 'light' ? 'rgb(150,180,255)' : '#000';
     this._unsubscribeTheme = onThemeChange(() => this.handleThemeChange());
     loadP5().then(() => this.mount()).catch(() => {});
   }
