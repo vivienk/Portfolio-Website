@@ -60,10 +60,27 @@ const styles = `
   .case-link svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
   .case-link:hover { color:#fff; }
   .dots { display:none; }
+  .controls { display:none; }
   @media (min-width:810px) {
-    .title { transform:translateY(-72px); }
-    .count { display:none; }
-    .case-link { transform:translateY(-72px); }
+    .details { margin-top:20px; }
+    .count { font-size:12px; }
+    .title { font-size:clamp(20px,2.2vw,30px); }
+    .case-link { gap:16px; font-size:13px; padding:12px 0; }
+    .controls { width:min(100% - 64px,1080px); margin:22px auto 0; padding-top:14px; border-top:1px solid #ffffff26; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .hint { margin:0; color:#707070; font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
+    .desktop-dots,.actions { display:flex; align-items:center; }
+    .desktop-dots { justify-content:center; }
+    .actions { gap:8px; }
+    .control,.desktop-dot { appearance:none; cursor:pointer; display:grid; place-items:center; color:#aaa; border:1px solid transparent; border-radius:50%; background:transparent; padding:0; }
+    .control { width:44px; height:44px; border-color:#ffffff30; color:#eee; }
+    .control svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+    .desktop-dot { width:24px; height:44px; }
+    .desktop-dot::before { content:""; width:4px; height:4px; border-radius:50%; background:#666; transition:width .2s ease,height .2s ease,background-color .2s ease; }
+    .desktop-dot[aria-current="true"]::before { width:6px; height:6px; background:#fff; }
+    :is(.control,.desktop-dot,.case-link,.catcher):focus-visible { outline:2px solid currentColor; outline-offset:4px; }
+    @media (hover:hover) and (pointer:fine) {
+      .control:hover,.desktop-dot:hover { background:#ffffff14; color:#fff; }
+    }
   }
   @media (max-width:809px) {
     .stage { height:396px; }
@@ -108,8 +125,17 @@ const styles = `
   :host([data-theme="light"]) .case-link:hover { color:#111; }
   :host([data-theme="light"]) .dots button { background:#bbb; }
   :host([data-theme="light"]) .dots button[aria-current="true"] { background:#111; }
+  :host([data-theme="light"]) .controls { border-top-color:#00000026; }
+  :host([data-theme="light"]) .hint { color:#777; }
+  :host([data-theme="light"]) .control { border-color:#00000030; color:#333; }
+  :host([data-theme="light"]) .desktop-dot::before { background:#999; }
+  :host([data-theme="light"]) .desktop-dot[aria-current="true"]::before { background:#111; }
+  @media (hover:hover) and (pointer:fine) {
+    :host([data-theme="light"]) .control:hover,:host([data-theme="light"]) .desktop-dot:hover { background:#0000000d; color:#111; }
+  }
 `;
 
+const arrowLeft = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>`;
 const arrowRight = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>`;
 
 const wrap = (value, length) => ((value % length) + length) % length;
@@ -157,11 +183,21 @@ class ProgressiveSmearCarousel extends HTMLElement {
           <div class="edge right"></div>
         </div>
         <div class="dots" role="tablist" aria-label="Choose a project">
-          ${projects.map((project, i) => `<button type="button" role="tab" data-index="${i}" aria-label="Show ${project.title}" aria-current="${i === 0}"></button>`).join('')}
+          ${projects.map((project, i) => `<button type="button" role="tab" data-carousel-dot data-index="${i}" aria-label="Show ${project.title}" aria-current="${i === 0}"></button>`).join('')}
         </div>
         <div class="details">
           <div class="project"><span class="count" aria-hidden="true"></span><h2 class="title"></h2></div>
           <a class="case-link"><span>View case study</span>${arrowRight}</a>
+        </div>
+        <div class="controls" aria-label="Carousel controls">
+          <p class="hint">Drag to explore</p>
+          <div class="desktop-dots" role="group" aria-label="Choose a project">
+            ${projects.map((project, i) => `<button class="desktop-dot" type="button" data-carousel-dot data-index="${i}" aria-label="Show ${project.title}" aria-current="${i === 0}"></button>`).join('')}
+          </div>
+          <div class="actions">
+            <button class="control previous" type="button" aria-label="Previous project">${arrowLeft}</button>
+            <button class="control next" type="button" aria-label="Next project">${arrowRight}</button>
+          </div>
         </div>
       </div>`;
 
@@ -172,7 +208,7 @@ class ProgressiveSmearCarousel extends HTMLElement {
     this.stage = find('.stage');
     this.details = find('.details');
     this.cards = [...this.shadowRoot.querySelectorAll('.card')];
-    this.dots = [...this.shadowRoot.querySelectorAll('.dots button')];
+    this.dots = [...this.shadowRoot.querySelectorAll('[data-carousel-dot]')];
     this.centerIndex = 0;
 
     this.cards.forEach((card, i) => {
@@ -188,9 +224,19 @@ class ProgressiveSmearCarousel extends HTMLElement {
 
     this.dots.forEach((dot, i) => {
       on(dot, 'click', () => {
-        this.rawTarget = this.position + distance(i, this.position, this.total);
+        const projectIndex = Number(dot.dataset.index);
+        this.rawTarget = this.position + distance(projectIndex, this.position, this.total);
         this.wake();
       });
+    });
+
+    on(find('.previous'), 'click', () => {
+      this.rawTarget = Math.round(this.position) - 1;
+      this.wake();
+    });
+    on(find('.next'), 'click', () => {
+      this.rawTarget = Math.round(this.position) + 1;
+      this.wake();
     });
 
     // The drag/wheel catcher sits above the cards (it needs the whole stage
@@ -338,7 +384,7 @@ class ProgressiveSmearCarousel extends HTMLElement {
     this.centerIndex = wrap(Math.round(v), this.total);
     if (this.dotIndex !== this.centerIndex) {
       this.dotIndex = this.centerIndex;
-      this.dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === this.centerIndex)));
+      this.dots.forEach(dot => dot.setAttribute('aria-current', String(Number(dot.dataset.index) === this.centerIndex)));
     }
     this.cards.forEach((card, i) => {
       const offset = distance(i, v, this.total);
