@@ -407,6 +407,12 @@ Finding meaningful signals in complexity, turn them into better metrics.">
     }
     /* Projects section: nudged up 48px from its normal mobile position. */
     .framer-1mm21uq { margin-top: -154px !important; }
+    /* Projects section: Framer's own mobile padding-bottom (80px) left a
+       dead gap below the carousel's dots before About Me starts, since the
+       carousel's own content is visually pulled up via transform (see
+       progressive-smear-carousel.mjs) without the section's box shrinking
+       to match. Trimmed to close that gap. */
+    .framer-1mm21uq { padding-bottom: 4px !important; }
     /* Hero heading+body ("Welcome to VIVIEN's DESIGN LAB" and the tag/
        description lines): shifted up 36px total (18px, then another 18px). */
     .framer-1tw6hmz { transform: translateY(-36px) !important; }

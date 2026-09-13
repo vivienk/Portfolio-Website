@@ -71,9 +71,12 @@ const styles = `
     .details { width:100%; margin-top:14px; align-items:flex-start; gap:16px; padding-right:20px; }
     .project { display:block; }
     .count { display:none; }
-    .title { font-size:22px; transform:translateY(-48px); }
-    .case-link { transform:translateY(-48px); }
-    .dots { display:flex; justify-content:center; align-items:center; gap:7.2px; margin:14px auto 0; padding:0; list-style:none; transform:translateY(-24px); }
+    .title { font-size:22px; }
+    /* Dots moved between the stage and the title/case-link (was after
+       them) — sits right under the carousel with a small gap, no pull-up
+       needed now that it isn't competing with .details for the same
+       visual space. */
+    .dots { display:flex; justify-content:center; align-items:center; gap:7.2px; margin:16px auto 0; padding:0; list-style:none; }
     .dots button { appearance:none; border:0; background:#4d4d4d; width:5.6px; height:5.6px; border-radius:50%; padding:0; cursor:pointer; transition:background-color .25s ease,transform .25s ease; }
     .dots button[aria-current="true"] { background:#fff; transform:scale(1.25); }
   }
@@ -120,12 +123,12 @@ class ProgressiveSmearCarousel extends HTMLElement {
           <div class="edge left"></div>
           <div class="edge right"></div>
         </div>
+        <div class="dots" role="tablist" aria-label="Choose a project">
+          ${projects.map((project, i) => `<button type="button" role="tab" data-index="${i}" aria-label="Show ${project.title}" aria-current="${i === 0}"></button>`).join('')}
+        </div>
         <div class="details">
           <div class="project"><span class="count" aria-hidden="true"></span><h2 class="title"></h2></div>
           <a class="case-link"><span>View case study</span>${arrowRight}</a>
-        </div>
-        <div class="dots" role="tablist" aria-label="Choose a project">
-          ${projects.map((project, i) => `<button type="button" role="tab" data-index="${i}" aria-label="Show ${project.title}" aria-current="${i === 0}"></button>`).join('')}
         </div>
       </div>`;
 
