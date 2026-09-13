@@ -121,8 +121,15 @@ const styles = `
     .top-row { flex-wrap: wrap; }
     /* Theme toggle sits in the always-visible row itself, left of the
        hamburger, rather than inside the panel it collapses — switching
-       theme shouldn't require opening the menu first. */
-    .theme-toggle { order: 1; }
+       theme shouldn't require opening the menu first. order alone isn't
+       enough: with three separate flex children on this line (brand,
+       toggle, hamburger) top-row's justify-content:space-between spreads
+       all three evenly, leaving the toggle stranded mid-row instead of
+       snug against the hamburger. margin-left:auto eats that leftover
+       space in front of the toggle instead, so brand stays pinned left
+       and the toggle+hamburger pair sits flush together at the right,
+       12px apart via the row's own column-gap. */
+    .theme-toggle { order: 1; margin-left: auto; }
     /* Same filled-circle look at rest as the other icon buttons get only
        on hover/press — a plain line-icon with no chip read as unfinished
        next to the pill's other rounded surfaces. */
