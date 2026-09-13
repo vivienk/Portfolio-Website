@@ -576,6 +576,21 @@ Finding meaningful signals in complexity, turn them into better metrics.">
     --token-cc7c73b0-b7c0-47c8-8487-b084b19b7755: #ffffffcc !important; /* heavy overlay, black 80% -> white 80% */
     --token-42cff841-0b54-4377-bc4a-66e7d7690432: #111111a6 !important; /* secondary text, white 65% -> near-black 65% */
   }
+  /* Defensive fallback for the root/canvas paint: body's own background
+     is deliberately transparent above (see token comment) so the fixed
+     p5 canvas behind it can show through everywhere. But a transparent
+     body's used background value is still "specified" for the purposes
+     of canvas-background propagation, which normally pulls body's value
+     up to paint the actual page canvas — so any moment the fixed canvas
+     itself isn't there or isn't yet painted (first-load timing before
+     hero-p5-sketch.mjs's async p5.js load resolves, iOS Safari's
+     rubber-band overscroll past the top/bottom occasionally exposing the
+     UA's own canvas paint before a position:fixed layer catches up,
+     ...) would otherwise expose a plain white/black canvas instead of
+     this sketch's own background. Giving html an explicit fallback in
+     the sketch's own blue means any such gap reads as "the same
+     background, not yet animated" instead of a visible hole. */
+  html[data-theme="light"] { background-color: rgb(150,180,255) !important; }
   /* Hero canvas dimming (brightness(0.75)) was tuned for the dark torus/
      trail sketch; the light theme swaps in an entirely different p5
      sketch (see hero-p5-sketch.mjs) that isn't meant to be dimmed. */
@@ -734,6 +749,12 @@ Finding meaningful signals in complexity, turn them into better metrics.">
   html[data-theme="light"] a[download][title="Download File"] { padding: 10px !important; }
   html[data-theme="light"] .framer-tque6g .framer-unn2aa,
   html[data-theme="light"] .framer-tque6g .framer-1a4zc3y { background-color: transparent !important; }
+  /* Framer's own "White Glow" layers (2 per breakpoint copy — hardcoded
+     mid-gray radial gradients, blurred, meant to sit on the original
+     dark button) were never neutralized when the button was rebuilt as
+     glass — they showed through as gray smudges inside the new fill.
+     Same fix as the other decorative layers above: transparent. */
+  html[data-theme="light"] .framer-tque6g [data-framer-name="White Glow"] { background: none !important; }
   html[data-theme="light"] .framer-tque6g .framer-styles-preset-gc0h9e { --framer-text-color: #171717 !important; }
   html[data-theme="light"] a[download][title="Download File"] { color: #171717 !important; }
   /* Say Hi "fluid glass" interaction (see modules/fluid-glass-button.mjs):
