@@ -669,10 +669,17 @@ Finding meaningful signals in complexity, turn them into better metrics.">
     left: calc(0% - var(--border-width) / 2);
     padding: var(--border-width);
     box-sizing: border-box;
+    /* The recipe's own conic stops are black (rgba(0,0,0,.5)) — tuned
+       for its demo on a mid-gray page background, where that reads as a
+       soft rotating shadow. Against this site's actual light backdrop
+       it showed up as a harsh dark smudge on one side of the ring (the
+       resting -75deg angle puts it near the left corner), so those
+       stops are white here instead — keeps the same animated rotating-
+       highlight structure, loses the "shadow" half of the contrast. */
     background:
       conic-gradient(from var(--angle-1) at 50% 50%,
-        rgba(0,0,0,.5), rgba(0,0,0,0) 5% 40%, rgba(0,0,0,.5) 50%,
-        rgba(0,0,0,0) 60% 95%, rgba(0,0,0,.5)),
+        rgba(255,255,255,.5), rgba(255,255,255,0) 5% 40%, rgba(255,255,255,.5) 50%,
+        rgba(255,255,255,0) 60% 95%, rgba(255,255,255,.5)),
       linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,.5));
     mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     mask-composite: exclude;
