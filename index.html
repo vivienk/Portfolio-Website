@@ -421,9 +421,13 @@ Finding meaningful signals in complexity, turn them into better metrics.">
        (only first letters capitalized) instead of the preset's all-caps. */
     .framer-tque6g { transform: translateY(6px) scale(0.75) !important; }
     #hero .framer-tque6g p.framer-text { text-transform: none !important; }
-    /* Projects/carousel and About Me sections: shifted down 18px, on top of
-       the -154px nudge above. */
-    .framer-1mm21uq, #about-me { transform: translateY(18px) !important; }
+    /* Projects/carousel section: shifted down 18px, on top of the -154px
+       nudge above. */
+    .framer-1mm21uq { transform: translateY(18px) !important; }
+    /* About Me section (including "Meet Vivien"): was shifted down 18px
+       alongside Projects above; now net shifted UP 34px (18 - 52) per a
+       later, separate 52px-up request for About Me specifically. */
+    #about-me { transform: translateY(-34px) !important; }
     /* Hero p5 background: dimmed 25%. */
     .framer-w3gto7 canvas { filter: brightness(0.75) !important; }
     /* About Me section: "Meet Vivien" moved above the portrait, tags+

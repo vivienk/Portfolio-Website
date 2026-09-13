@@ -75,8 +75,11 @@ const styles = `
     /* Dots moved between the stage and the title/case-link (was after
        them) — sits right under the carousel with a small gap, no pull-up
        needed now that it isn't competing with .details for the same
-       visual space. */
-    .dots { display:flex; justify-content:center; align-items:center; gap:7.2px; margin:16px auto 0; padding:0; list-style:none; }
+       visual space. Dots and title (.details is positioned relative to
+       dots via its own margin-top, so it rides along automatically) both
+       shifted up 36px — real margin, not transform, so the section's flow
+       height keeps shrinking to match rather than leaving dead space. */
+    .dots { display:flex; justify-content:center; align-items:center; gap:7.2px; margin:-20px auto 0; padding:0; list-style:none; }
     .dots button { appearance:none; border:0; background:#4d4d4d; width:5.6px; height:5.6px; border-radius:50%; padding:0; cursor:pointer; transition:background-color .25s ease,transform .25s ease; }
     .dots button[aria-current="true"] { background:#fff; transform:scale(1.25); }
   }

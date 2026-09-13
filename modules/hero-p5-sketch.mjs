@@ -92,6 +92,16 @@ class HeroP5Sketch extends HTMLElement {
       let n = .01, i = 0, a = 0;
       const points = [];
       const particles = [];
+      // One integration step, shared by the real per-frame update in
+      // draw() and the warm-up loop in setup() below — kept in one place
+      // so they can't drift apart.
+      const LORENZ_G = .017;
+      function stepLorenz() {
+        const dn = 9 * (i - n) * LORENZ_G;
+        const di = (n * (27 - a) - i) * LORENZ_G;
+        const da = (n * i - 3 * a) * LORENZ_G;
+        n += dn; i += di; a += da;
+      }
       // Eased camera position: mouseX/mouseY snapping the camera straight
       // to their mapped value every frame is what reads as glitchy/jumpy —
       // easing toward the target each frame smooths that out regardless of
@@ -109,6 +119,17 @@ class HeroP5Sketch extends HTMLElement {
         t.createCanvas(Math.max(1.5, window.innerWidth), Math.max(1.5, host.clientHeight), t.WEBGL);
         t.colorMode(t.HSB, 360, 100, 100, 255);
         t.frameRate(30);
+        // Starting n/i/a at (.01, 0, 0) means the Lorenz trail begins as a
+        // sub-pixel pinprick and takes several hundred real frames (~10s at
+        // 30fps) to organically grow to its full, visible scale — which
+        // reads as "the trail doesn't show up" right after load. Fast-
+        // forward the same integration MAX_POINTS times here, with no
+        // rendering, so the very first drawn frame already shows a fully-
+        // developed trail.
+        for (let step = 0; step < MAX_POINTS; step++) {
+          stepLorenz();
+          points.push(t.createVector(n, i, a));
+        }
       };
 
       t.draw = () => {
@@ -128,35 +149,56 @@ class HeroP5Sketch extends HTMLElement {
         const r = Math.min(t.width, effectiveHeight);
         const u = SCALE_BOOST;
         const d = r * .007 * u;
+        // t.mouseX/t.mouseY can be undefined (not 0) before the first real
+        // pointer event on some touch browsers — feeding that into t.map()
+        // produces NaN, which makes camera()'s position NaN, which makes
+        // nothing render at all (a blank canvas) until the first touch.
+        // Guarding here fixes that, and also pins down exactly what "no
+        // interaction yet" means for the torus's rest position below.
+        const mouseX = Number.isFinite(t.mouseX) ? t.mouseX : 0;
+        const mouseY = Number.isFinite(t.mouseY) ? t.mouseY : 0;
 
         t.translate(0, 0, -.0875 * r * u);
         t.background(0);
 
         // The spinning torus/cylinder, enlarged 25% over the original size,
         // pulled to a quarter its original depth (-.0875, down from -.35
-        // across two halvings) so it reads as nearer/bigger, and offset
-        // left so it sits up near "VIVIEN's" in the hero heading instead of
-        // dead center.
+        // across two halvings) so it reads as nearer/bigger. Desktop is
+        // offset left so it sits up near "VIVIEN's" in the hero heading;
+        // mobile is pulled much further into the top-left corner (its own
+        // offset, not shared with desktop) since with mouseX/mouseY
+        // guarded to 0 above, that's also exactly where it renders at
+        // first load, before any touch — verified via the rendered pixels'
+        // bounding box (roughly x:8-23%, y:7-18% of the canvas), well clear
+        // of the Lorenz trail's own rest position so they don't collide.
+        // Trade-off: pushing the offset out this far to hit the corner
+        // also pushes the torus far off the camera's look-at axis, which
+        // dulls how much it visibly swings with touch afterward (verified:
+        // still moves, just subtly) — acceptable since the ask was
+        // specifically about where it starts, not how it behaves touched.
         // Own dedicated camera, X-only: eyeY stays 0 so mouseY never moves
         // it vertically, and it eases faster than the trail's camera below
         // so its left/right swing reads as directly cursor-driven.
-        // The +80 on top of topExtra/2 is a measured safety margin: with
-        // the cursor centered (eyeX 0 — no orbit, so the torus is at its
-        // largest/closest, and now closer still with the halved depth) it's
-        // the one position that pushes closest to the canvas's own top
-        // edge; swinging left or right moves it further away from that edge
-        // (distance-to-camera grows off-axis), so dead center sets the
-        // margin everything else stays clear of.
+        // The +80 on top of topExtra/2 (desktop only) is a measured safety
+        // margin: with the cursor centered (eyeX 0 — no orbit, so the torus
+        // is at its largest/closest, and now closer still with the halved
+        // depth) it's the one position that pushes closest to the canvas's
+        // own top edge; swinging left or right moves it further away from
+        // that edge (distance-to-camera grows off-axis), so dead center
+        // sets the margin everything else stays clear of. Mobile's own
+        // -.7*r*u offset was verified clear of the top edge the same way.
         if (SHOW_PRIMITIVES) {
           const primitiveScale = 1.25;
           const torusEyeXRange = t.width > 809 ? t.width * 3.75 : r * 4.25;
-          const torusTargetEyeX = t.map(t.mouseX, 0, t.width, -torusEyeXRange, torusEyeXRange);
+          const torusTargetEyeX = t.map(mouseX, 0, t.width, -torusEyeXRange, torusEyeXRange);
           camTorusX = camTorusX === null ? torusTargetEyeX : camTorusX + (torusTargetEyeX - camTorusX) * .135;
+          const torusOffsetX = t.width > 809 ? -t.width * .13 : -t.width * 1.3;
+          const torusOffsetY = t.width > 809 ? (-r * .32 * u + topExtra / 2 + 80) : (-r * .7 * u);
           t.push();
           t.resetMatrix();
           t.camera(camTorusX, 0, effectiveHeight / 2 / t.tan(t.PI * 30 / 180), 0, 0, 0, 0, 1, 0);
           t.translate(0, 0, -.0875 * r * u);
-          t.translate(-t.width * .13, -r * .32 * u + topExtra / 2 + 80, 0);
+          t.translate(torusOffsetX, torusOffsetY, 0);
           t.rotateY(t.millis() / 1e3);
           t.cylinder(r * .12 * u * primitiveScale, r * .04 * u * primitiveScale, Math.max(3, MESH_DETAIL), .3);
           t.torus(r * .04 * u * primitiveScale, r * .06 * u * primitiveScale, Math.max(3, MESH_DETAIL), 13);
@@ -197,17 +239,13 @@ class HeroP5Sketch extends HTMLElement {
         // Lorenz-attractor trail line: integrate the next point, trim to
         // MAX_POINTS, set up the big mouse-driven parallax camera, draw the
         // glowing multi-pass stroke.
-        const g = .017;
-        const dn = 9 * (i - n) * g;
-        const di = (n * (27 - a) - i) * g;
-        const da = (n * i - 3 * a) * g;
-        n += dn; i += di; a += da;
+        stepLorenz();
         points.push(t.createVector(n, i, a));
         if (points.length > MAX_POINTS) points.shift();
 
         t.translate(0, 0, -.03 * r * u);
-        const targetEyeX = t.map(t.mouseX, 0, t.width, -(t.width > 809 ? t.width * 2.75 : r * 3.25), t.width > 809 ? t.width * 2.75 : r * 3.25);
-        const targetEyeY = t.map(t.mouseY, 0, t.height, -(t.width > 809 ? effectiveHeight * 1 : r * 1.625), t.width > 809 ? effectiveHeight * 1 : r * 1.625);
+        const targetEyeX = t.map(mouseX, 0, t.width, -(t.width > 809 ? t.width * 2.75 : r * 3.25), t.width > 809 ? t.width * 2.75 : r * 3.25);
+        const targetEyeY = t.map(mouseY, 0, t.height, -(t.width > 809 ? effectiveHeight * 1 : r * 1.625), t.width > 809 ? effectiveHeight * 1 : r * 1.625);
         camEyeX = camEyeX === null ? targetEyeX : camEyeX + (targetEyeX - camEyeX) * .1125;
         camEyeY = camEyeY === null ? targetEyeY : camEyeY + (targetEyeY - camEyeY) * .1125;
         t.camera(
