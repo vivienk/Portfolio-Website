@@ -467,12 +467,9 @@ Finding meaningful signals in complexity, turn them into better metrics.">
        above) — left-aligned to match the skill tags/bulletpoints section
        (.framer-or6dmp) and everything else in this column. */
     .framer-uhy0do-container { align-self: flex-start !important; }
-    /* Skill tags ("bulletpoints"): wrap onto several rows via flex-wrap,
-       sharing one 16px gap value for both axes. Added 1.5x the tag text's
-       own line-height (22.5px * 1.5 = 33.75px) as row-gap specifically, so
-       wrapped rows get real vertical breathing room while the horizontal
-       gap between tags on the same row stays the original 16px. */
-    .framer-or6dmp { row-gap: 33.75px !important; }
+    /* Skill tags: halve the previous 33.75px space between wrapped rows
+       while keeping the horizontal spacing between tags unchanged. */
+    .framer-or6dmp { row-gap: 16.875px !important; }
     /* Hero p5 background: dimmed 25%. */
     .framer-w3gto7 canvas { filter: brightness(0.75) !important; }
     /* About Me section: "Meet Vivien" moved above the portrait, tags+
