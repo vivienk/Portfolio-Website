@@ -19,7 +19,7 @@ Finding meaningful signals in complexity, turn them into better metrics.">
     <meta name="framer-search-index" content="/modules/searchIndex-5Qb3MhodQpkg.json">
     <meta name="framer-search-index-fallback" content="/modules/searchIndex-IFTD3hxqTsKX.json">
     <meta name="framer-html-plugin" content="disable">
-    <link href="/assets/4729f8d7445d2ca9-yBMYvYlLS1ClzayWfNuqyWegmZA.png" rel="icon" media="(prefers-color-scheme: light)">
+    <link href="/assets/89c45a79dab48def-yBMYvYlLS1ClzayWfNuqyWegmZA.png" rel="icon" media="(prefers-color-scheme: light)">
     <link href="/assets/f461f0417eb05da2-KedpG2CBWZkfBuV8ODHak0QSdQ.gif" rel="icon" media="(prefers-color-scheme: dark)">
     <link rel="apple-touch-icon" href="/assets/0810425c3718c421-ShjFZV9MTYw51BcxbNfErc2fkOw.png">
     <!-- Open Graph / Facebook -->
@@ -722,16 +722,16 @@ Finding meaningful signals in complexity, turn them into better metrics.">
     background-position: 50% 15%;
     --angle-2: -15deg;
   }
-  /* Say Hi's actual content box (padding/gap/centering) is the "Inner
-     Container" one level in, not the rim above — Framer already flexes
-     it, this just swaps in the given padding/gap. Download Resume has
-     no such split (single unclassed <a>), so it takes the same spacing
-     directly alongside its own rule above. */
-  html[data-theme="light"] .framer-tque6g .framer-unn2aa,
-  html[data-theme="light"] a[download][title="Download File"] {
-    padding: 32px 100px !important;
-    gap: 16px !important;
-  }
+  /* Button size matches dark mode exactly — only the surface treatment
+     (glass vs. solid) differs by theme, not the dimensions. Dark mode
+     never overrides these, so reusing its own values (read via
+     getComputedStyle rather than guessed) keeps both themes identical:
+     Say Hi's "Inner Container" is 8px/24px, Download Resume is 10px
+     all round. (The earlier 32px/100px padding — from a supplied Figma
+     spec's own frame, sized for a much larger standalone button — made
+     light mode noticeably bigger than dark; dropped in favor of parity.) */
+  html[data-theme="light"] .framer-tque6g .framer-unn2aa { padding: 8px 24px !important; }
+  html[data-theme="light"] a[download][title="Download File"] { padding: 10px !important; }
   html[data-theme="light"] .framer-tque6g .framer-unn2aa,
   html[data-theme="light"] .framer-tque6g .framer-1a4zc3y { background-color: transparent !important; }
   html[data-theme="light"] .framer-tque6g .framer-styles-preset-gc0h9e { --framer-text-color: #171717 !important; }

@@ -65,6 +65,15 @@ const styles = `
   .top-row { display: flex; align-items: center; align-content: center; justify-content: space-between; column-gap: 12px; row-gap: 0; padding: 8px 10px 8px 14px; }
   .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; min-width: 0; }
   .brand img { width: 26px; height: 26px; object-fit: contain; flex: none; }
+  /* Light mode only: the brushed-metal leaf mark replaces the dark
+     square icon, matching how the rest of this session's light-theme
+     work is scoped (dark mode keeps its original icon). Two stacked
+     <img>s toggled by data-theme rather than swapping src via JS, so
+     it's driven by the same CSS attribute selector as everything else
+     in this component. */
+  .brand-icon-light { display: none; }
+  :host([data-theme="light"]) .brand-icon-dark { display: none; }
+  :host([data-theme="light"]) .brand-icon-light { display: block; }
   /* Same serif used by the hero heading ("Welcome to VIVIEN's DESIGN
      LAB") and by the case-study pages' own nav logo — @font-face rules
      aren't shadow-scoped, so referencing the same family name here picks
@@ -188,7 +197,8 @@ class GlassNavbar extends HTMLElement {
       <div class="pill">
         <div class="top-row">
           <a class="brand" href="/" aria-label="Vivien Kong, home">
-            <img src="/brand-icon.svg" alt="">
+            <img class="brand-icon-dark" src="/brand-icon.svg" alt="">
+            <img class="brand-icon-light" src="/assets/89c45a79dab48def-yBMYvYlLS1ClzayWfNuqyWegmZA.png" alt="">
             <span>Vivien Kong</span>
           </a>
           <div class="panel desktop-panel">
