@@ -424,10 +424,31 @@ Finding meaningful signals in complexity, turn them into better metrics.">
     /* Projects/carousel section: shifted down 18px, on top of the -154px
        nudge above. */
     .framer-1mm21uq { transform: translateY(18px) !important; }
-    /* About Me section (including "Meet Vivien"): was shifted down 18px
-       alongside Projects above; now net shifted UP 34px (18 - 52) per a
-       later, separate 52px-up request for About Me specifically. */
-    #about-me { transform: translateY(-34px) !important; }
+    /* About Me section's own top edge (its border): was shifted down 18px
+       alongside Projects above, then net UP 34px (18 - 52) per a 52px-up
+       request, then back DOWN 64px, then another 48px down — net
+       translateY -34 + 64 + 48 = 78px. */
+    #about-me { transform: translateY(78px) !important; }
+    /* About Me section: padding between its top edge and "Meet Vivien"
+       (the first child in the reordered flex column below) was Framer's
+       own 80px — set to 28px specifically, leaving the 18px side padding
+       and 80px bottom padding from the base rule alone. Framer's own
+       justify-content:center on this fixed-height (1429px) column also
+       vertically centers the content block regardless of padding-top, so
+       padding-top alone wouldn't actually change the visible gap — added
+       flex-start so it does. That in turn left a large gap of empty space
+       below "Download Resume" before the fixed 1429px box ended (content
+       no longer centered to fill it) — read as "extra space between
+       Download Resume and the bottom links" (the social icons row further
+       down the page). height:auto lets the section's box shrink to fit
+       its actual content instead; .framer-1nsdtvu (the portrait
+       background, position:absolute;inset:0) sizes off this same box so
+       it adapts automatically, no separate fix needed there. */
+    .framer-1jqzdj { padding-top: 28px !important; justify-content: flex-start !important; height: auto !important; }
+    /* "Download Resume" was centered (align-items:center on the column
+       above) — left-aligned to match the skill tags/bulletpoints section
+       (.framer-or6dmp) and everything else in this column. */
+    .framer-uhy0do-container { align-self: flex-start !important; }
     /* Hero p5 background: dimmed 25%. */
     .framer-w3gto7 canvas { filter: brightness(0.75) !important; }
     /* About Me section: "Meet Vivien" moved above the portrait, tags+
