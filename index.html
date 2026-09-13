@@ -373,9 +373,10 @@ Finding meaningful signals in complexity, turn them into better metrics.">
   .framer-1mm21uq project-carousel { display:none !important; }
   /* Say Hi CTA text: italic on both desktop and mobile. */
   .framer-tque6g p.framer-text { font-style: italic !important; }
-  /* About Me bullet list: an extra line of breathing room between each
-     point, on every breakpoint (both `<ul>` copies share this markup). */
-  .framer-yf3nwg ul.framer-text li.framer-text + li.framer-text { margin-top: 1.6em; }
+  /* About Me bullet list: a full blank line between each point. Target
+     the section rather than the desktop-only content wrapper so the same
+     spacing also reaches the separate mobile list markup. */
+  #about-me ul.framer-text li.framer-text + li.framer-text { margin-top: 1.6em; }
   /* Mobile only: the hero's p5 background container keeps rendering at
      desktop-breakpoint size/position at narrow widths (a pre-existing
      breakpoint-detection issue, not something introduced here) — its canvas
@@ -756,6 +757,13 @@ Finding meaningful signals in complexity, turn them into better metrics.">
   html[data-theme="light"] a[download][title="Download File"] { padding: 10px !important; }
   html[data-theme="light"] .framer-tque6g .framer-unn2aa,
   html[data-theme="light"] .framer-tque6g .framer-1a4zc3y { background-color: transparent !important; }
+  /* Framer's legacy top-light decoration is three sibling layers. One is
+     token-colored and becomes near-black in bright mode, producing the
+     dark left-corner wedge. The custom glass sweep above replaces all three. */
+  html[data-theme="light"] .framer-tque6g [data-framer-name="White Top"],
+  html[data-theme="light"] .framer-tque6g [data-framer-name="white"] {
+    display: none !important;
+  }
   /* Framer's own "White Glow" layers (2 per breakpoint copy — hardcoded
      mid-gray radial gradients, blurred, meant to sit on the original
      dark button) were never neutralized when the button was rebuilt as
@@ -821,6 +829,11 @@ Finding meaningful signals in complexity, turn them into better metrics.">
      info" column, which is desktop-only markup (mobile's equivalent
      content isn't wrapped in a single element with its own class). */
   html[data-theme="light"] .framer-1jqzdj { background-color: rgba(255,255,255,.1) !important; }
+  /* Keep the About Me portrait in its original color in bright mode.
+     The exported Framer component applies grayscale to this outer image
+     frame, so resetting the child <img> alone would have no effect. */
+  html[data-theme="light"] #about-me .framer-vbrsas,
+  html[data-theme="light"] #about-me .framer-1dbu3qp { filter: none !important; }
   /* Mobile gets a stronger wash (25% vs desktop's 10%) — placed after
      the rule above so it wins the tie at matching widths; media queries
      don't add specificity, source order does. */

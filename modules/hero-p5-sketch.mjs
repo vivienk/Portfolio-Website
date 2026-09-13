@@ -341,9 +341,15 @@ function buildLightSketch(host) {
     t.draw = () => {
       t.background(150, 180, 255);
       const tileSize = t.width / LIGHT_TILE_COUNT;
+      // LIGHT_TILE_COUNT defines the horizontal density. Reusing it as
+      // the row count only paints a square, so portrait mobile canvases
+      // reveal the flat background below that square as a hard cutoff.
+      // Draw enough rows for the real canvas height (plus one overscan
+      // row to avoid sub-pixel gaps while the mobile viewport resizes).
+      const rowCount = Math.ceil(t.height / tileSize) + 1;
       t.noStroke();
       let yNoise = noiseTime;
-      for (let row = 0; row < LIGHT_TILE_COUNT; row++) {
+      for (let row = 0; row < rowCount; row++) {
         let xNoise = noiseTime;
         for (let col = 0; col < LIGHT_TILE_COUNT; col++) {
           const alpha = t.noise(xNoise, yNoise) * 255;
