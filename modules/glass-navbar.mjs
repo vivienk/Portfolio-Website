@@ -65,7 +65,12 @@ const styles = `
   .top-row { display: flex; align-items: center; align-content: center; justify-content: space-between; column-gap: 12px; row-gap: 0; padding: 8px 10px 8px 14px; }
   .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; min-width: 0; }
   .brand img { width: 26px; height: 26px; object-fit: contain; flex: none; }
-  .brand span { color: var(--ink); font-weight: 600; font-size: 15px; letter-spacing: .02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  /* Same serif used by the hero heading ("Welcome to VIVIEN's DESIGN
+     LAB") and by the case-study pages' own nav logo — @font-face rules
+     aren't shadow-scoped, so referencing the same family name here picks
+     up the font already loaded at the document level, no separate
+     import needed. */
+  .brand span { font-family: "Sigurd Light", Garamond, "EB Garamond", serif; color: var(--ink); font-weight: 600; font-size: 15px; letter-spacing: .02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .links { display: flex; align-items: center; gap: 4px; }
   .link {
     color: var(--ink-dim);
@@ -103,6 +108,17 @@ const styles = `
     align-items: center;
     gap: 6px;
     padding-right: 4px;
+    /* Desktop: .panel (Projects/Contact) and .theme-toggle are separate
+       top-row flex children, so top-row's justify-content:space-between
+       spreads all three (brand, panel, toggle) evenly — same issue the
+       mobile row had with the toggle stranded before the hamburger fix
+       below. margin-left:auto here eats the leftover space in front of
+       the panel instead, keeping brand pinned left and pulling
+       panel+toggle flush together at the right. Harmless on mobile: the
+       media query below gives .panel flex-basis:100% on its own wrapped
+       line, where there's no leftover inline space for auto to consume.
+    */
+    margin-left: auto;
   }
   /* Mobile: collapse links into an expandable panel under the top row.
      .panel sits between .brand and button.hamburger in the top-row flex
