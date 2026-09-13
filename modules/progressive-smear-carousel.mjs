@@ -185,10 +185,6 @@ class ProgressiveSmearCarousel extends HTMLElement {
         <div class="dots" role="tablist" aria-label="Choose a project">
           ${projects.map((project, i) => `<button type="button" role="tab" data-carousel-dot data-index="${i}" aria-label="Show ${project.title}" aria-current="${i === 0}"></button>`).join('')}
         </div>
-        <div class="details">
-          <div class="project"><span class="count" aria-hidden="true"></span><h2 class="title"></h2></div>
-          <a class="case-link"><span>View case study</span>${arrowRight}</a>
-        </div>
         <div class="controls" aria-label="Carousel controls">
           <p class="hint">Drag to explore</p>
           <div class="desktop-dots" role="group" aria-label="Choose a project">
@@ -198,6 +194,10 @@ class ProgressiveSmearCarousel extends HTMLElement {
             <button class="control previous" type="button" aria-label="Previous project">${arrowLeft}</button>
             <button class="control next" type="button" aria-label="Next project">${arrowRight}</button>
           </div>
+        </div>
+        <div class="details">
+          <div class="project"><span class="count" aria-hidden="true"></span><h2 class="title"></h2></div>
+          <a class="case-link"><span>View case study</span>${arrowRight}</a>
         </div>
       </div>`;
 
