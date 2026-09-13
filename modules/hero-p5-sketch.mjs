@@ -113,8 +113,12 @@ class HeroP5Sketch extends HTMLElement {
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       // One integration step, shared by the real per-frame update in
       // draw() and the warm-up loop in setup() below — kept in one place
-      // so they can't drift apart.
-      const LORENZ_G = .017;
+      // so they can't drift apart. .017 * .75 = .01275: the trail now
+      // advances 25% less per step, i.e. animates 25% slower, on both
+      // breakpoints (this isn't gated by isDesktop like the camera/size
+      // tuning elsewhere — it affects the shared stepLorenz() used by
+      // both the setup() warm-up and the real per-frame update).
+      const LORENZ_G = .01275;
       function stepLorenz() {
         const dn = 9 * (i - n) * LORENZ_G;
         const di = (n * (27 - a) - i) * LORENZ_G;
