@@ -79,7 +79,7 @@ const styles = `
      aren't shadow-scoped, so referencing the same family name here picks
      up the font already loaded at the document level, no separate
      import needed. */
-  .brand span { font-family: "Sigurd Light", Garamond, "EB Garamond", serif; color: var(--ink); font-weight: 600; font-size: 17px; letter-spacing: .02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .brand span { font-family: "Sigurd Light", Garamond, "EB Garamond", serif; color: var(--ink); font-weight: 600; font-size: 17px; letter-spacing: .02em; text-transform: uppercase; font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .links { display: flex; align-items: center; gap: 4px; }
   .link {
     color: var(--ink-dim);
