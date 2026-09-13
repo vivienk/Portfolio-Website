@@ -193,7 +193,7 @@ class GlassNavbar extends HTMLElement {
           </a>
           <div class="panel desktop-panel">
             <nav class="links">
-              <a class="link" data-nav="projects" href="./#projects">Projects</a>
+              <a class="link" data-nav="projects" href="/#projects">Projects</a>
               <a class="link" href="${CONTACT_HREF}" target="_blank" rel="noopener">Contact</a>
             </nav>
           </div>
