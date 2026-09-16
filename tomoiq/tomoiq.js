@@ -1,87 +1,93 @@
-(function(){
-  var root=document.documentElement;
-  var themeButton=document.querySelector(".theme-toggle");
-  function updateTheme(){
-    var light=root.dataset.theme==="light";
-    themeButton.setAttribute("aria-pressed",String(light));
-    themeButton.setAttribute("aria-label",light?"Switch to dark theme":"Switch to light theme");
-    themeButton.textContent=light?"◐":"☼";
-  }
-  if(themeButton){updateTheme();themeButton.addEventListener("click",function(){root.dataset.theme=root.dataset.theme==="light"?"dark":"light";try{localStorage.setItem("theme",root.dataset.theme)}catch(e){}updateTheme()})}
-
-  var flows=[
-    ["01","Credit change","A credit event or question starts the flow.","Score, utilization, payment, or question.","A clear question to resolve."],
-    ["02","Intent","Identify what the user needs to understand.","Intent, relevant factors, and freshness.","Only attributable context enters."],
-    ["03","Retrieve data","Retrieve only verified context needed for the question.","Sources, factors, and data freshness.","Each claim has a source."],
-    ["04","Rules","Rules calculate credit factors; AI never does.","Credit factors, eligibility, and policy.","Quantitative claims come from rules."],
-    ["05","AI explanation","AI turns the result into plain language and flags uncertainty.","Completeness, claim checks, and timing.","A clear, grounded explanation."],
-    ["06","Action","Offer the next step and record the outcome.","CTA relevance, feedback, and completed action.","One proportionate action—or no action."],
-    ["07","Feedback","Capture whether the explanation was useful.","Ratings, follow-up questions, and completion.","A learning signal for the next release."]
+(() => {
+  const flow = [
+    ["01", "User question or credit event", "A credit event or question starts the flow.", "Score, utilization, payment, or question.", "A clear question to resolve."],
+    ["02", "Identify intent and retrieve data", "Identify the question and retrieve verified context.", "Intent, relevant factors, and freshness.", "Only attributable context enters."],
+    ["03", "Apply credit rules", "Rules calculate credit factors; AI never does.", "Credit factors, eligibility, and policy.", "Quantitative claims come from rules."],
+    ["04", "Generate and check explanation", "AI turns the result into plain language and flags uncertainty.", "Completeness, claim checks, and timing.", "A clear, grounded explanation."],
+    ["05", "Show action and record outcome", "Offer the next step and record the outcome.", "CTA relevance, feedback, and completed action.", "One proportionate action—or no action."],
   ];
-  var flowButtons=[].slice.call(document.querySelectorAll("[data-flow]"));
-  flowButtons.forEach(function(button){
-    button.addEventListener("click",function(){
-      var item=flows[Number(button.dataset.flow)];
-      flowButtons.forEach(function(other){other.classList.toggle("active",other===button);other.setAttribute("aria-selected",String(other===button))});
-      document.getElementById("flow-number").textContent=item[0];
-      document.getElementById("flow-title").textContent=item[1];
-      document.getElementById("flow-description").textContent=item[2];
-      document.getElementById("flow-signal").textContent=item[3];
-      document.getElementById("flow-metric").textContent=item[4];
+
+  const agentStages = [
+    ["01 · Understand", "Identify the user’s question and credit event.", "What context is needed?", "Retrieve only approved signals needed to answer.", "Log intent, sources, and freshness.", ["Intent", "Data source", "Freshness"]],
+    ["02 · Decide", "Answer, clarify, or escalate.", "Who decides?", "Rules—not the model—control amounts, eligibility, and risk.", "Attach the rule and policy version.", ["Rule owner", "Policy boundary", "Escalation"]],
+    ["03 · Use tools", "Call the minimum approved tool.", "What can it use?", "Access only approved services tied to intent.", "Log tool, scope, and result.", ["Permission", "Minimum scope", "Tool status"]],
+    ["04 · Execute", "Explain and propose a relevant action.", "What runs automatically?", "Consequential actions need confirmation or review.", "Log explanation, action, and outcome.", ["Autonomy level", "Confirmation", "Outcome"]],
+    ["05 · Recover", "Recover clearly from incomplete or slow data.", "What happens when data fails?", "Preserve context, limit uncertainty, and prevent duplicates.", "Log failure and recovery.", ["Timeout", "Data quality", "Duplicate check"]],
+    ["06 · Verify", "Confirm resolution—or explain why not.", "What proves completion?", "Link source, rule, explanation, action, and outcome.", "Keep an auditable event record.", ["Completion rule", "Audit trail", "Human review"]],
+  ];
+
+  const journey = [
+    ["Credit change", "A number changes without meaning", true, ["A score changes without a clear cause.", "A bureau update appears as a number.", "Score movement triggered ‘why?’ questions.", "Numbers without causes create anxiety.", "Lead with cause, not delta.", "Human-readable summary"], ["Sees the change, cause, and urgency.", "The event opens a contextual explanation.", "Urgency is clear before detail.", "Meaning arrives with the number.", "Show change, cause, and urgency together.", "Faster orientation"]],
+    ["Intent", "The system guesses the question", true, ["Searches broadly or contacts support.", "Generic content loads without a clear goal.", "One score change can imply several needs.", "Answer quality depends on intent.", "Offer clear intents.", "A bounded question"], ["Chooses the question they need.", "Intent guides retrieval and response.", "The conversation starts with a boundary.", "Small choices make AI controllable.", "Use suggested prompts and free-form input.", "Purposeful conversations"]],
+    ["Retrieve data", "Context is fragmented", true, ["Repeats context or gets generic advice.", "Credit and product data are separate.", "Generic answers missed the actual change.", "Personalization needs complete retrieval.", "Retrieve only factors needed for intent.", "Scoped context"], ["Gets an account-grounded explanation.", "Verified data includes source and freshness.", "Personal claims trace to a factor.", "Trust starts with evidence.", "Keep context minimal and current.", "Traceable personalization"]],
+    ["Rules", "Guardrails are implicit", true, ["Cannot tell education from advice.", "Policy boundaries vary across content.", "High-stakes topics needed clearer limits.", "Fluency can look like certainty.", "Apply rules before generation.", "Explicit boundaries"], ["Gets a clear, bounded explanation.", "Rules check eligibility, uncertainty, and escalation.", "Risk is handled before wording.", "The model explains policy; it does not invent it.", "Separate rules from generated language.", "Safer answers"]],
+    ["AI explanation", "Dense language obscures cause", true, ["Reads dense credit language.", "The model lacks a consistent explanation pattern.", "Existing explanations were intimidating.", "Correct information can still confuse.", "Explain what changed, why, and what next.", "Repeatable pattern"], ["Gets a concise, causal explanation.", "The model uses a constrained template.", "The prototype explains before persuading.", "Consistency builds trust.", "Pair plain language with evidence.", "Explainable AI"]],
+    ["Action", "Education ends without direction", true, ["Understands more but decides alone.", "Education and actions are disconnected.", "Information rarely became a next step.", "Explanation without agency leaves anxiety.", "Offer one action—or recommend no action.", "Focused next step"], ["Chooses a small, relevant next step.", "Actions rank by intent, impact, and effort.", "Advice stays specific without overload.", "A good recommendation can be to wait.", "Use one primary action with rationale.", "Insight to action"]],
+    ["Feedback", "Answer quality is a blind spot", false, ["Leaves without correcting the answer.", "Engagement cannot show usefulness.", "Completion did not prove understanding.", "AI quality needs a learning signal.", "Capture usefulness, questions, and actions.", "Learning loop"], ["Can rate, question, or flag the answer.", "Feedback records answer context.", "Qualitative and behavioral feedback combine.", "Correction builds trust.", "Make feedback lightweight and specific.", "121% conversion increase"]],
+  ];
+
+  const text = (id, value) => { const node = document.getElementById(id); if (node) node.textContent = value; };
+  const moveWithKeys = (event, buttons, index, onMove) => {
+    const direction = ["ArrowRight", "ArrowDown"].includes(event.key) ? 1 : ["ArrowLeft", "ArrowUp"].includes(event.key) ? -1 : 0;
+    if (!direction) return;
+    event.preventDefault();
+    const next = (index + direction + buttons.length) % buttons.length;
+    onMove(next);
+    requestAnimationFrame(() => buttons[next].focus());
+  };
+
+  const flowButtons = [...document.querySelectorAll("[data-flow]")];
+  const selectFlow = (index) => {
+    const item = flow[index];
+    flowButtons.forEach((button, buttonIndex) => { const active = buttonIndex === index; button.classList.toggle("isActive", active); button.setAttribute("aria-selected", String(active)); button.tabIndex = active ? 0 : -1; });
+    text("flow-number", item[0]); text("flow-title", item[1]); text("flow-description", item[2]); text("flow-signal", item[3]); text("flow-metric", item[4]);
+  };
+  flowButtons.forEach((button, index) => { button.addEventListener("click", () => selectFlow(index)); button.addEventListener("keydown", (event) => moveWithKeys(event, flowButtons, index, selectFlow)); });
+
+  const agentButtons = [...document.querySelectorAll("[data-agent]")];
+  const selectAgent = (index) => {
+    const item = agentStages[index];
+    agentButtons.forEach((button, buttonIndex) => { const active = buttonIndex === index; button.classList.toggle("isActive", active); button.setAttribute("aria-selected", String(active)); button.tabIndex = active ? 0 : -1; });
+    text("agent-number", item[0]); text("agent-description", item[1]); text("agent-question", item[2]); text("agent-guardrail", item[3]); text("agent-proof", item[4]);
+    const checks = document.getElementById("agent-checks");
+    if (checks) { checks.replaceChildren(...item[5].map((label) => { const tag = document.createElement("em"); tag.textContent = label; return tag; })); }
+  };
+  agentButtons.forEach((button, index) => { button.addEventListener("click", () => selectAgent(index)); button.addEventListener("keydown", (event) => moveWithKeys(event, agentButtons, index, selectAgent)); });
+
+  const rail = document.querySelector(".journeyRail");
+  const journeySection = document.querySelector(".journeySection");
+  let journeyIndex = 0;
+  let journeyMode = "before";
+  let journeyView = "user";
+  const renderJourney = () => {
+    const item = journey[journeyIndex];
+    const state = item[journeyMode === "before" ? 3 : 4];
+    const perspective = journeyView === "user" ? state[0] : state[1];
+    const stageButtons = [...document.querySelectorAll("[data-stage]")];
+    stageButtons.forEach((button, index) => { const active = index === journeyIndex; button.classList.toggle("isActive", active); button.setAttribute("aria-selected", String(active)); button.tabIndex = active ? 0 : -1; });
+    text("journey-number", `${String(journeyIndex + 1).padStart(2, "0")} / ${String(journey.length).padStart(2, "0")}`);
+    text("journey-phase", journeyMode === "before" ? "Observed journey" : "Designed journey");
+    text("journey-title-detail", item[0]);
+    text("journey-perspective-label", journeyView === "user" ? "What the user experiences" : "What the system does");
+    text("journey-perspective", perspective); text("journey-signal", state[2]); text("journey-interpretation", state[3]); text("journey-decision", state[4]); text("journey-proof", state[5]);
+  };
+  if (rail) {
+    journey.forEach((item, index) => {
+      const button = document.createElement("button");
+      button.type = "button"; button.role = "tab"; button.dataset.stage = String(index); button.tabIndex = index === 0 ? 0 : -1;
+      if (index === 0) button.classList.add("isActive"); if (item[2]) button.classList.add("hasFriction");
+      const number = document.createElement("span"); number.className = "stageIndex"; number.textContent = String(index + 1).padStart(2, "0");
+      const dot = document.createElement("b"); dot.setAttribute("aria-hidden", "true");
+      const title = document.createElement("strong"); title.textContent = item[0];
+      const signal = document.createElement("small"); signal.textContent = item[1];
+      button.append(number, dot, title, signal); rail.append(button);
+      button.addEventListener("click", () => { journeyIndex = index; renderJourney(); });
+      button.addEventListener("keydown", (event) => moveWithKeys(event, [...document.querySelectorAll("[data-stage]")], index, (next) => { journeyIndex = next; renderJourney(); }));
     });
-  });
-
-  var operating=[
-    ["01 · Understand","Identify the user’s question and credit event.","Intent · Data source · Freshness","What context is needed?","Retrieve only approved signals needed to answer.","Log intent, sources, and freshness."],
-    ["02 · Decide","Answer, clarify, or escalate.","Rule owner · Policy boundary · Escalation","Who decides?","Rules—not the model—control amounts, eligibility, and risk.","Attach the rule and policy version."],
-    ["03 · Use tools","Call the minimum approved tool.","Permission · Minimum scope · Tool status","What can it use?","Access only approved services tied to intent.","Log tool, scope, and result."],
-    ["04 · Execute","Explain and propose a relevant action.","Autonomy level · Confirmation · Outcome","What runs automatically?","Consequential actions need confirmation or review.","Log explanation, action, and outcome."],
-    ["05 · Recover","Recover clearly from incomplete or slow data.","Timeout · Data quality · Duplicate check","What happens when data fails?","Preserve context, limit uncertainty, and prevent duplicates.","Log failure and recovery."],
-    ["06 · Verify","Confirm resolution—or explain why not.","Completion · User feedback · Follow-up","How do we know it helped?","Do not claim completion without observable proof.","Log completion, feedback, and unresolved needs."]
-  ];
-  var operatingButtons=[].slice.call(document.querySelectorAll("[data-operating]"));
-  operatingButtons.forEach(function(button){
-    button.addEventListener("click",function(){
-      var item=operating[Number(button.dataset.operating)];
-      operatingButtons.forEach(function(other){other.classList.toggle("active",other===button);other.setAttribute("aria-selected",String(other===button))});
-      document.getElementById("operating-number").textContent=item[0];
-      document.getElementById("operating-description").textContent=item[1];
-      document.getElementById("operating-checks").textContent=item[2];
-      document.getElementById("operating-question").textContent=item[3];
-      document.getElementById("operating-guardrail").textContent=item[4];
-      document.getElementById("operating-proof").textContent=item[5];
-    });
-  });
-
-  var journey=[
-    {stage:"Credit change",before:["A score changes without a clear cause.","A bureau update appears as a number.","Score movement triggered “why?” questions.","Numbers without causes create anxiety.","Lead with cause, not delta.","Human-readable summary."],after:["Sees the change, cause, and urgency.","The event opens a contextual explanation.","Urgency is clear before detail.","Meaning arrives with the number.","Show change, cause, and urgency together.","Faster orientation."],friction:true},
-    {stage:"Intent",before:["Searches broadly or contacts support.","Generic content loads without a clear goal.","One score change can imply several needs.","Answer quality depends on intent.","Offer clear intents.","A bounded question."],after:["Chooses the question they need.","Intent guides retrieval and response.","The conversation starts with a boundary.","Small choices make AI controllable.","Use suggested prompts and free-form input.","Purposeful conversations."],friction:true},
-    {stage:"Retrieve data",before:["Repeats context or gets generic advice.","Credit and product data are separate.","Generic answers missed the actual change.","Personalization needs complete retrieval.","Retrieve only factors needed for intent.","Scoped context."],after:["Gets an account-grounded explanation.","Verified data includes source and freshness.","Personal claims trace to a factor.","Trust starts with evidence.","Keep context minimal and current.","Traceable personalization."],friction:true},
-    {stage:"Rules",before:["Cannot tell education from advice.","Policy boundaries vary across content.","High-stakes topics needed clearer limits.","Fluency can look like certainty.","Apply rules before generation.","Explicit boundaries."],after:["Gets a clear, bounded explanation.","Rules check eligibility, uncertainty, and escalation.","Risk is handled before wording.","The model explains policy; it does not invent it.","Separate rules from generated language.","Safer answers."],friction:true},
-    {stage:"AI explanation",before:["Reads dense credit language.","The model lacks a consistent explanation pattern.","Existing explanations were intimidating.","Correct information can still confuse.","Explain what changed, why, and what next.","Repeatable pattern."],after:["Gets a concise, causal explanation.","The model uses a constrained template.","The prototype explains before persuading.","Consistency builds trust.","Pair plain language with evidence.","Explainable AI."],friction:true},
-    {stage:"Action",before:["Understands more but decides alone.","Education and actions are disconnected.","Information rarely became a next step.","Explanation without agency leaves anxiety.","Offer one action—or recommend no action.","Focused next step."],after:["Chooses a small, relevant next step.","Actions rank by intent, impact, and effort.","Advice stays specific without overload.","A good recommendation can be to wait.","Use one primary action with rationale.","Insight to action."],friction:true},
-    {stage:"Feedback",before:["Leaves without correcting the answer.","Engagement cannot show usefulness.","Completion did not prove understanding.","AI quality needs a learning signal.","Capture usefulness, questions, and actions.","Learning loop."],after:["Can rate, question, or flag the answer.","Feedback records answer context.","Qualitative and behavioral feedback combine.","Correction builds trust.","Make feedback lightweight and specific.","121% conversion increase."],friction:false}
-  ];
-  var stageButtons=[].slice.call(document.querySelectorAll("[data-stage]"));
-  var currentStage=0,currentMode="before",currentView="user";
-  var modeButtons=[].slice.call(document.querySelectorAll("[data-mode]"));
-  var viewButtons=[].slice.call(document.querySelectorAll("[data-view]"));
-  function renderJourney(){
-    var item=journey[currentStage],state=item[currentMode],isSystem=currentView==="system";
-    stageButtons.forEach(function(button,index){button.classList.toggle("active",index===currentStage);button.setAttribute("aria-selected",String(index===currentStage))});
-    document.getElementById("journey-stage-number").textContent=("0"+(currentStage+1)).slice(-2);
-    document.getElementById("journey-stage-title").textContent=item.stage;
-    document.getElementById("journey-perspective-label").textContent=isSystem?"System view":"User view";
-    document.getElementById("journey-perspective").textContent=isSystem?state[1]:state[0];
-    document.getElementById("journey-system").textContent=state[1];
-    document.getElementById("journey-signal").textContent=state[2];
-    document.getElementById("journey-interpretation").textContent=state[3];
-    document.getElementById("journey-decision").textContent=state[4];
-    document.getElementById("journey-proof").textContent=state[5];
   }
-  stageButtons.forEach(function(button){button.classList.toggle("friction-stage",journey[Number(button.dataset.stage)].friction);button.addEventListener("click",function(){currentStage=Number(button.dataset.stage);renderJourney()})});
-  modeButtons.forEach(function(button){button.addEventListener("click",function(){currentMode=button.dataset.mode;modeButtons.forEach(function(other){other.classList.toggle("active",other===button)});renderJourney()})});
-  viewButtons.forEach(function(button){button.addEventListener("click",function(){currentView=button.dataset.view;viewButtons.forEach(function(other){other.classList.toggle("active",other===button)});renderJourney()})});
-  var friction=document.querySelector(".friction"),stageRail=document.querySelector(".journey-stages");
-  if(friction){friction.addEventListener("click",function(){var on=friction.getAttribute("aria-pressed")!=="true";friction.setAttribute("aria-pressed",String(on));stageRail.classList.toggle("friction-on",on)})}
+  document.querySelectorAll("[data-mode]").forEach((button) => button.addEventListener("click", () => { journeyMode = button.dataset.mode; document.querySelectorAll("[data-mode]").forEach((node) => { const active = node === button; node.classList.toggle("isActive", active); node.setAttribute("aria-pressed", String(active)); }); renderJourney(); }));
+  document.querySelectorAll("[data-view]").forEach((button) => button.addEventListener("click", () => { journeyView = button.dataset.view; document.querySelectorAll("[data-view]").forEach((node) => { const active = node === button; node.classList.toggle("isActive", active); node.setAttribute("aria-pressed", String(active)); }); renderJourney(); }));
+  const friction = document.querySelector(".frictionToggle");
+  friction?.addEventListener("click", () => { const active = friction.getAttribute("aria-pressed") !== "true"; friction.setAttribute("aria-pressed", String(active)); journeySection?.classList.toggle("isFriction", active); });
+  renderJourney();
 })();
