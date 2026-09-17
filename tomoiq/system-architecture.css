@@ -1,0 +1,23 @@
+/* Design Lab system-architecture composition */
+.systemArchitecture{
+  display:grid;
+  grid-template-columns:.55fr 1.45fr;
+  gap:18px 55px;
+  align-items:start;
+}
+.systemArchitectureCopy>div:last-child{grid-column:2}
+.systemArchitecture img{
+  grid-column:1/-1;
+  display:block;
+  width:min(85%,920px);
+  height:auto;
+  max-height:none;
+  margin:36px auto 0;
+}
+@media(max-width:980px){
+  .systemArchitecture{grid-template-columns:1fr;gap:28px}
+  .systemArchitectureCopy>div:first-child{display:block}
+  .systemArchitectureCopy>div:last-child,.systemArchitecture img{grid-column:1}
+  .systemArchitecture img{width:85%;margin:0 auto}
+}
+@media(max-width:620px){.systemArchitecture img{width:100%}}

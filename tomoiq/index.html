@@ -4,10 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="TomoIQ: a grounded AI financial assistant that explains credit changes and recommends a next step.">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#000000">
   <link rel="canonical" href="https://vivienkong.com/tomoiq">
   <link rel="icon" href="/assets/f461f0417eb05da2-KedpG2CBWZkfBuV8ODHak0QSdQ.gif">
   <link rel="stylesheet" href="/tomoiq/tomoiq.css">
+  <link rel="stylesheet" href="/tomoiq/system-architecture.css">
   <link href="https://db.onlinewebfonts.com/c/fd0dd047f16cc5812257f5a65c4b1719?family=Sigurd+Light" rel="stylesheet">
   <title>TomoIQ — Vivien Kong</title>
   <script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")==="light"?"light":"dark"}catch(e){}</script>
@@ -15,137 +16,76 @@
   <script type="module" src="/modules/glass-navbar-init.mjs"></script>
 </head>
 <body>
-  <main>
-    <section class="hero shell">
-      <p class="eyebrow">AI financial guidance · 0 → 1 product</p>
-      <h1>TomoIQ</h1>
-      <p class="hero-summary">Explains credit changes and recommends a next step.</p>
-      <dl class="facts">
-        <div><dt>Role</dt><dd>Product lead · Product and design strategy · AI UX</dd></div>
-        <div><dt>Tools</dt><dd>Framer · Firebase · Figma · Generative AI</dd></div>
-        <div><dt>Timeline</dt><dd>Q3 2025</dd></div>
-      </dl>
-    </section>
+  <main class="tomoIqPage" style="--accent:#b1a7ff">
+    <article>
+      <header class="caseHero shell">
+        <a class="backLink" href="/#projects">← All projects</a>
+        <h1>TomoIQ</h1>
+        <p class="caseSummary">Explains credit changes and recommends a next step.</p>
+        <div class="caseFacts">
+          <div><span>Role</span><p>Product lead · Product and design strategy · AI UX · UX content</p></div>
+          <div><span>Tools</span><p>Framer · Firebase · Figma · Generative AI · Motion graphics</p></div>
+          <div><span>Timeline</span><p>Q3 2025</p></div>
+        </div>
+      </header>
 
-    <figure class="hero-video shell">
-      <video autoplay muted loop playsinline controls preload="metadata" aria-label="TomoIQ product story"><source src="/assets/811e5ddf367dd8c9-085Yw16MooTBIk5mBe4GhI35P58.mp4" type="video/mp4"></video>
-      <figcaption><span>01</span> Product story</figcaption>
-    </figure>
+      <figure class="caseVideoCanvas shell">
+        <video autoplay muted loop playsinline controls preload="metadata" aria-label="TomoIQ financial stress story"><source src="/assets/811e5ddf367dd8c9-085Yw16MooTBIk5mBe4GhI35P58.mp4" type="video/mp4"></video>
+        <figcaption>TomoIQ · Product story</figcaption>
+      </figure>
 
-    <section class="role shell" aria-labelledby="role-title">
-      <p class="eyebrow">The 0 → 1 frame</p>
-      <h2 id="role-title">Designed a grounded AI system: verified data and credit rules before generated guidance.</h2>
-      <dl class="six-questions">
-        <div><dt>What</dt><dd>AI guidance that explains credit changes and suggests a next step.</dd></div>
-        <div><dt>Why</dt><dd>Credit confusion was driving support demand.</dd></div>
-        <div><dt>Who</dt><dd>Tomo customers and AI-credit prospects.</dd></div>
-        <div><dt>Where</dt><dd>Tomo product, web, PR, social, and investor channels.</dd></div>
-        <div><dt>How</dt><dd>Verified data and rules ground each explanation.</dd></div>
-        <div><dt>So what</dt><dd>A shipped product, stronger engagement, and Series B-2 momentum.</dd></div>
-      </dl>
-      <nav class="process-nav" aria-label="Jump through the TomoIQ product process">
-        <a href="#research">Research</a><i>→</i><a href="#strategy">Strategy</a><i>→</i><a href="#decision">Decision</a><i>→</i><a href="#execution">Execution</a><i>→</i><a href="#gtm">GTM</a><i>→</i><a href="#measurement">Measurement</a>
-      </nav>
-    </section>
+      <section class="tomoRoleSummary shell" aria-labelledby="tomo-role-title">
+        <p class="eyebrow">The 0 → 1 frame</p>
+        <h2 id="tomo-role-title" class="roleStatement">Designed a grounded AI system: verified data and credit rules before generated guidance.</h2>
+        <dl class="strategyQuestions">
+          <div><dt>What</dt><dd>AI guidance that explains credit changes and suggests a next step.</dd></div>
+          <div><dt>Why</dt><dd>Credit confusion was driving support demand.</dd></div>
+          <div><dt>Who</dt><dd>Tomo customers and AI-credit prospects.</dd></div>
+          <div><dt>Where</dt><dd>Tomo product, web, PR, social, and investor channels.</dd></div>
+          <div><dt>How</dt><dd>Verified data and rules ground each explanation.</dd></div>
+          <div><dt>So what</dt><dd>A shipped product, stronger engagement, and Series B-2 momentum.</dd></div>
+        </dl>
+        <nav class="roleDisciplines" aria-label="Jump through the TomoIQ product process"><span><a href="#research">Research</a><i>→</i></span><span><a href="#strategy">Strategy</a><i>→</i></span><span><a href="#decision">Decision</a><i>→</i></span><span><a href="#execution">Execution</a><i>→</i></span><span><a href="#gtm">GTM</a><i>→</i></span><span><a href="#measurement">Measurement</a></span></nav>
+      </section>
 
-    <section class="section shell" id="research" aria-labelledby="research-title">
-      <div class="section-heading">
-        <p class="eyebrow">Research & planning · Evidence capture</p>
-        <h2 id="research-title">Four evidence sources shaped the product</h2>
-        <p>Each decision connected to an observable customer or product signal.</p>
-      </div>
-      <div class="evidence-sources">
-        <article><span>01</span><h3>Customer support</h3><dl><div><dt>Captured</dt><dd>Score-change, dispute, and derogatory-mark questions.</dd></div><div><dt>Revealed</dt><dd>Users needed meaning and a next step.</dd></div></dl></article>
-        <article><span>02</span><h3>Existing product analytics</h3><dl><div><dt>Captured</dt><dd>Credit events, feature use, repeat visits, and support paths.</dd></div><div><dt>Revealed</dt><dd>Credit changes were high-intent moments.</dd></div></dl></article>
-        <article><span>03</span><h3>Account-level signals</h3><dl><div><dt>Captured</dt><dd>Credit usage, subscriptions, cash flow, and Tomo Score.</dd></div><div><dt>Revealed</dt><dd>Tomo already had context for relevant guidance.</dd></div></dl></article>
-        <article><span>04</span><h3>Prototype event logs</h3><dl><div><dt>Captured</dt><dd>Intent, data completeness, timing, CTAs, and failures.</dd></div><div><dt>Revealed</dt><dd>The system had to stay clear when data was missing.</dd></div></dl></article>
-      </div>
-      <div class="question-band"><div><p class="eyebrow">Synthesis</p><h3>Three high-intent questions</h3></div><ol><li>Why did my credit score change?</li><li>How is my credit usage affecting me?</li><li>What should I do next?</li></ol></div>
-      <div class="three-cards">
-        <article><span>Customer pain</span><h3>Credit terms were confusing</h3><p>Users asked what disputes and derogatory marks meant.</p></article>
-        <article><span>Product opportunity</span><h3>Turn detection into guidance</h3><p>Tomo signals could support better explanations and next steps.</p></article>
-        <article><span>Competitive landscape</span><h3>Between rules and chat</h3><p>Personalized guidance could be grounded in actual data.</p></article>
-      </div>
-    </section>
+      <section class="caseSection shell split"><p class="eyebrow">The challenge</p><h2>Credit changes drove support demand, and existing explanations were too dense.</h2></section>
 
-    <section class="section shell" id="strategy" aria-labelledby="strategy-title">
-      <div class="strategy-heading"><p class="eyebrow">Product strategy</p><h2 id="strategy-title">One product, two demand paths</h2></div>
-      <div class="strategy-cards">
-        <article><span>What</span><h3>Grounded credit guidance</h3><p>Verified data, rules, and AI create useful, explainable answers.</p></article>
-        <article><span>Who</span><h3>Existing and emerging demand</h3><p>Serve Tomo customers and attract AI-credit prospects.</p></article>
-        <article><span>Where</span><h3>Product and market</h3><p>In-product guidance, expanded through web, PR, social, and investor narrative.</p></article>
-        <article><span>Positioning</span><h3>Explain before persuade</h3><p>Trust—not open-ended advice—became the differentiation.</p></article>
-      </div>
-      <figure class="wellness-banner"><p>AI Financial Wellness Platform</p><span>— Smarter, inclusive financial —</span><b>tomo.</b><figcaption>Positioning direction · Broader financial guidance, grounded in a customer’s real context.</figcaption></figure>
-    </section>
+      <section class="tomoStory shell anchorSection" id="research" aria-labelledby="research-title">
+        <div class="tomoStoryIntro"><p class="eyebrow">Research &amp; planning · Evidence capture</p><h2 id="research-title">Four evidence sources shaped the product</h2><p>Each decision connected to an observable customer or product signal.</p></div>
+        <div class="researchSourceGrid" aria-label="Sources of research evidence">
+          <article><div class="researchSourceHeading"><span>01</span><h3>Customer support</h3></div><dl><div><dt>What I captured</dt><dd>Score-change, dispute, and derogatory-mark questions.</dd></div><div><dt>What it revealed</dt><dd>Users needed meaning and a next step.</dd></div></dl></article>
+          <article><div class="researchSourceHeading"><span>02</span><h3>Existing product analytics</h3></div><dl><div><dt>What I captured</dt><dd>Credit events, feature use, repeat visits, and support paths.</dd></div><div><dt>What it revealed</dt><dd>Credit changes were high-intent moments.</dd></div></dl></article>
+          <article><div class="researchSourceHeading"><span>03</span><h3>Account-level financial signals</h3></div><dl><div><dt>What I captured</dt><dd>Credit usage, subscriptions, cash flow, and Tomo Score.</dd></div><div><dt>What it revealed</dt><dd>Tomo already had context for relevant guidance.</dd></div></dl></article>
+          <article><div class="researchSourceHeading"><span>04</span><h3>Prototype event logs</h3></div><dl><div><dt>What I captured</dt><dd>Intent, data completeness, timing, CTAs, and failures.</dd></div><div><dt>What it revealed</dt><dd>The system had to stay clear when data was missing.</dd></div></dl></article>
+        </div>
+        <div class="researchQuestionBand"><div><p class="eyebrow">Synthesis</p><h3>Three high-intent questions</h3></div><ol class="signalQuestions"><li>Why did my credit score change?</li><li>How is my credit usage affecting me?</li><li>What should I do next?</li></ol></div>
+        <div class="researchGrid researchSynthesis"><article><span>Customer pain</span><h3>Credit terms were confusing</h3><p>Users asked what disputes and derogatory marks meant.</p></article><article><span>Product opportunity</span><h3>Turn detection into guidance</h3><p>Tomo signals could support better explanations and next steps.</p></article><article><span>Competitive landscape</span><h3>Between rules and chat</h3><p>Personalized guidance could be grounded in actual data.</p></article></div>
+      </section>
 
-    <section class="decision shell" id="decision" aria-labelledby="decision-title">
-      <p class="eyebrow">The product decision</p>
-      <div><h2 id="decision-title">A focused guide, not an open-ended chatbot</h2><p>Each answer explains a change and points to one relevant action.</p></div>
-    </section>
+      <section class="tomoStrategy shell anchorSection" id="strategy" aria-labelledby="strategy-title"><div class="strategyHeading"><p class="eyebrow">Product strategy</p><h2 id="strategy-title">One product, two demand paths</h2></div><div class="strategyGrid"><article><span>What</span><h3>Grounded credit guidance</h3><p>Verified data, rules, and AI create useful, explainable answers.</p></article><article><span>Who</span><h3>Existing and emerging demand</h3><p>Serve Tomo customers and attract AI-credit prospects.</p></article><article><span>Where</span><h3>Product and market</h3><p>In-product guidance, expanded through web, PR, social, and investor narrative.</p></article><article><span>Positioning</span><h3>Explain before persuade</h3><p>Trust—not open-ended advice—became the differentiation.</p></article></div><figure class="positioningBanner"><img src="/media/tomoiq/ai-financial-wellness-platform.png" alt="AI Financial Wellness Platform — smarter, inclusive financial"><figcaption><span>Positioning direction</span><p>Broader financial guidance, grounded in a customer’s real context.</p></figcaption></figure></section>
 
-    <section class="section system shell" id="execution" aria-labelledby="how-title">
-      <div class="section-heading">
-        <p class="eyebrow">System model</p><h2 id="how-title">How TomoIQ works</h2><p>Data and rules ground the answer. AI makes it clear.</p>
-      </div>
-      <div class="tab-row" role="tablist" aria-label="How TomoIQ works steps">
-        <button type="button" role="tab" class="active" data-flow="0">01 <strong>Credit change</strong></button>
-        <button type="button" role="tab" data-flow="1">02 <strong>Intent</strong></button>
-        <button type="button" role="tab" data-flow="2">03 <strong>Retrieve data</strong></button>
-        <button type="button" role="tab" data-flow="3">04 <strong>Rules</strong></button>
-        <button type="button" role="tab" data-flow="4">05 <strong>AI explanation</strong></button>
-        <button type="button" role="tab" data-flow="5">06 <strong>Action</strong></button>
-        <button type="button" role="tab" data-flow="6">07 <strong>Feedback</strong></button>
-      </div>
-      <div class="flow-panel" role="tabpanel"><div><span id="flow-number">01</span><h3 id="flow-title">Credit change</h3><p id="flow-description">A credit event or question starts the flow.</p></div><dl><div><dt>Signals</dt><dd id="flow-signal">Score, utilization, payment, or question.</dd></div><div><dt>Success metric</dt><dd id="flow-metric">A clear question to resolve.</dd></div></dl></div>
-    </section>
+      <section class="tomoDecision shell anchorSection" id="decision" aria-labelledby="decision-title"><p class="eyebrow">The product decision</p><div class="tomoDecisionLead"><h2 id="decision-title">A focused guide, not an open-ended chatbot</h2><p class="decisionNote">Each answer explains a change and points to one relevant action.</p></div></section>
 
-    <section class="system-architecture shell" aria-labelledby="architecture-title">
-      <div class="architecture-diagram" aria-label="TomoIQ system architecture">
-        <div class="architecture-user"><img src="/assets/09d76068a747ce31-fVFxSzArMpo6pFI5YdWDLhOgE.png" alt=""><span>User / credit event</span></div>
-        <i>→</i><div class="architecture-stack"><span>Verified data</span><span>Credit rules</span><span>Private LLM</span></div><i>→</i><div class="architecture-output"><span>Clear explanation</span><span>Relevant action</span></div>
-      </div>
-      <div class="architecture-copy"><p class="eyebrow">System architecture</p><strong>Real-time analytics</strong><h2 id="architecture-title">Verified context before generated guidance</h2><p>A private LLM translates data and rules into actionable guidance. Every generated response remains attributable to a verified source or deterministic rule.</p></div>
-    </section>
+      <section class="howIqWorks shell anchorSection" id="execution" aria-labelledby="how-title"><div class="howIqHeading"><p class="eyebrow">System model</p><h2 id="how-title">How TomoIQ works</h2><p>Data and rules ground the answer. AI makes it clear.</p></div><div class="howIqFlow" role="tablist" aria-label="How TomoIQ works steps"><button class="isActive" role="tab" aria-selected="true" data-flow="0"><span>01</span><strong>User question or credit event</strong></button><button role="tab" aria-selected="false" data-flow="1"><span>02</span><strong>Identify intent and retrieve data</strong></button><button role="tab" aria-selected="false" data-flow="2"><span>03</span><strong>Apply credit rules</strong></button><button role="tab" aria-selected="false" data-flow="3"><span>04</span><strong>Generate and check explanation</strong></button><button role="tab" aria-selected="false" data-flow="4"><span>05</span><strong>Show action and record outcome</strong></button></div><div class="howIqPanel" role="tabpanel"><div class="howIqDescription"><span id="flow-number">01</span><h3 id="flow-title">User question or credit event</h3><p id="flow-description">A credit event or question starts the flow.</p></div><div class="howIqEvidence"><div><span>Signals</span><p id="flow-signal">Score, utilization, payment, or question.</p></div><div><span>Success metric</span><p id="flow-metric">A clear question to resolve.</p></div></div></div></section>
 
-    <section class="section shell operating" aria-labelledby="operating-title">
-      <div class="section-heading"><p class="eyebrow">Operating model</p><h2 id="operating-title">Designing for the questions behind the answer</h2><p>Each stage makes ownership, boundaries, and proof visible.</p></div>
-      <div class="operating-tabs" role="tablist"><button class="active" data-operating="0">01 <strong>Understand</strong></button><button data-operating="1">02 <strong>Decide</strong></button><button data-operating="2">03 <strong>Use tools</strong></button><button data-operating="3">04 <strong>Execute</strong></button><button data-operating="4">05 <strong>Recover</strong></button><button data-operating="5">06 <strong>Verify</strong></button></div>
-      <div class="operating-panel"><div><span id="operating-number">01 · Understand</span><h3 id="operating-description">Identify the user’s question and credit event.</h3><p id="operating-checks">Intent · Data source · Freshness</p></div><dl><div><dt>Operating question</dt><dd id="operating-question">What context is needed?</dd></div><div><dt>Guardrail</dt><dd id="operating-guardrail">Retrieve only approved signals needed to answer.</dd></div><div><dt>Proof of completion</dt><dd id="operating-proof">Log intent, sources, and freshness.</dd></div></dl></div>
-    </section>
+      <figure class="systemArchitecture shell"><figcaption class="systemArchitectureCopy"><div><span>System architecture</span></div><div><strong>Real-time analytics</strong><p>A private LLM translates data and rules into actionable guidance.</p><small>Data and rules ground every generated response.</small></div></figcaption><img src="/media/tomoiq/system-architecture.png" alt="TomoIQ system architecture showing the Tomo logo and user queries connected to the Scheduler, Secure DB, and NLP Model, with financial-data inputs and AI outputs"></figure>
 
-    <section class="section shell journey" aria-labelledby="journey-title">
-      <div class="journey-heading"><div><p class="eyebrow">Experience architecture</p><h2 id="journey-title">From a credit change to a trusted next step</h2><p>See how a credit change moves through context, guardrails, explanation, and action.</p></div><div class="journey-controls"><div class="toggle" aria-label="Journey state"><button type="button" class="active" data-mode="before">Before</button><button type="button" data-mode="after">After</button></div><div class="toggle" aria-label="Journey perspective"><button type="button" class="active" data-view="user">User view</button><button type="button" data-view="system">System view</button></div><button type="button" class="friction" aria-pressed="false">● Show friction</button></div></div>
-      <div class="journey-stages" role="tablist" aria-label="TomoIQ experience stages">
-        <button class="active" data-stage="0"><small>01</small><b></b><strong>Credit change</strong></button><button data-stage="1"><small>02</small><b></b><strong>Intent</strong></button><button data-stage="2"><small>03</small><b></b><strong>Retrieve data</strong></button><button data-stage="3"><small>04</small><b></b><strong>Rules</strong></button><button data-stage="4"><small>05</small><b></b><strong>AI explanation</strong></button><button data-stage="5"><small>06</small><b></b><strong>Action</strong></button><button data-stage="6"><small>07</small><b></b><strong>Feedback</strong></button>
-      </div>
-      <div class="journey-detail"><div><span id="journey-stage-number">01</span><h3 id="journey-stage-title">Credit change</h3><p id="journey-perspective-label">User view</p><strong id="journey-perspective">A score changes without a clear cause.</strong></div><dl><div><dt>System</dt><dd id="journey-system">A bureau update appears as a number.</dd></div><div><dt>Signal</dt><dd id="journey-signal">Score movement triggered “why?” questions.</dd></div><div><dt>Interpretation</dt><dd id="journey-interpretation">Numbers without causes create anxiety.</dd></div><div><dt>Decision</dt><dd id="journey-decision">Lead with cause, not delta.</dd></div><div><dt>Result / proof</dt><dd id="journey-proof">Human-readable summary.</dd></div></dl></div>
-    </section>
+      <section class="agentModel shell" aria-labelledby="operating-title"><div class="agentModelHeading"><p class="eyebrow">Agent orchestration &amp; guardrails</p><h2 id="operating-title">Designing agent behavior—not just answers</h2><p>Defined how TomoIQ retrieves context, applies rules, uses tools, recovers, and verifies outcomes.</p></div><div class="agentModelFlow" role="tablist" aria-label="Agent reasoning and execution loop"><button class="isActive" role="tab" aria-selected="true" data-agent="0"><span>01</span><strong>Understand</strong><i>→</i></button><button role="tab" aria-selected="false" data-agent="1"><span>02</span><strong>Decide</strong><i>→</i></button><button role="tab" aria-selected="false" data-agent="2"><span>03</span><strong>Use tools</strong><i>→</i></button><button role="tab" aria-selected="false" data-agent="3"><span>04</span><strong>Execute</strong><i>→</i></button><button role="tab" aria-selected="false" data-agent="4"><span>05</span><strong>Recover</strong><i>→</i></button><button role="tab" aria-selected="false" data-agent="5"><span>06</span><strong>Verify</strong></button></div><div class="agentModelPanel" role="tabpanel"><div class="agentModelLead"><span id="agent-number">01 · Understand</span><h3 id="agent-description">Identify the user’s question and credit event.</h3><div class="agentChecks" id="agent-checks"><em>Intent</em><em>Data source</em><em>Freshness</em></div></div><dl class="agentModelDetails"><div><dt>Operating question</dt><dd id="agent-question">What context is needed?</dd></div><div><dt>Guardrail</dt><dd id="agent-guardrail">Retrieve only approved signals needed to answer.</dd></div><div><dt>Proof of completion</dt><dd id="agent-proof">Log intent, sources, and freshness.</dd></div></dl></div><p class="agentModelHint">Tap a stage to inspect its operating rule. Use arrow keys when navigating by keyboard.</p></section>
 
-    <section class="prototype shell" aria-labelledby="prototype-title">
-      <div><p class="eyebrow">Prototype</p><h2 id="prototype-title">Making the trust model tangible</h2><p>Turned credit events into clear explanations and relevant next steps.</p><ul><li>Friendly explanations for score changes and utilization</li><li>Contextual actions linked to payments, reports, and dashboard features</li><li>Mock account data and user-event logging for realistic testing</li></ul></div>
-      <figure><video controls playsinline preload="metadata"><source src="/assets/c77850542ef9b7be-ZFB5AKXR9GUjwpGiYYxF9X8Kws.mp4" type="video/mp4"></video><figcaption><span>02</span> Product vision and interaction story</figcaption></figure>
-      <div class="phone-gallery"><figure><img src="/assets/34947e1a967f61bf-93ipUYRld5CHElM1jU94HFox8o.png" alt="Credit event entry point screen"><figcaption>Credit event entry point</figcaption></figure><figure><img src="/assets/f51abbe30d313fc4-Q4WOAz0zSC2JHECGM3MwgxJjUE8.png" alt="Refined TomoIQ conversation"><figcaption>Refined prompts and actions</figcaption></figure><figure><img src="/assets/06990647dde8741d-lxPS1d4qJ5Rln7fpTQ4kzN9hI4.gif" alt="Early conversational model"><figcaption>Early conversation model</figcaption></figure></div>
-    </section>
+      <section class="journeySection shell" aria-labelledby="journey-title"><div class="journeyHeader"><div><p class="eyebrow">Experience architecture</p><h2 id="journey-title">From a credit change to a trusted next step</h2><p class="journeyIntro">See how a credit change moves through context, guardrails, explanation, and action.</p></div><div class="journeyControls" aria-label="Journey map controls"><div class="segmented" aria-label="Journey state"><button class="isActive" type="button" data-mode="before" aria-pressed="true">Before</button><button type="button" data-mode="after" aria-pressed="false">After</button></div><div class="segmented" aria-label="Journey perspective"><button class="isActive" type="button" data-view="user" aria-pressed="true">User view</button><button type="button" data-view="system" aria-pressed="false">System view</button></div><button class="frictionToggle" type="button" aria-pressed="false"><span></span>Show friction</button></div></div><div class="journeyRail" role="tablist" aria-label="From a credit change to a trusted next step stages"></div><div class="journeyDetail" role="tabpanel"><div class="detailLead"><span id="journey-number">01 / 07</span><p id="journey-phase">Observed journey</p><h3 id="journey-title-detail">Credit change</h3><div class="perspectiveCallout"><span id="journey-perspective-label">What the user experiences</span><p id="journey-perspective">A score changes without a clear cause.</p></div></div><div class="detailGrid"><div class="detailItem"><span>Signal</span><p id="journey-signal">Score movement triggered ‘why?’ questions.</p></div><div class="detailItem"><span>Risk / interpretation</span><p id="journey-interpretation">Numbers without causes create anxiety.</p></div><div class="detailItem detail-decision"><span>Decision</span><p id="journey-decision">Lead with cause, not delta.</p></div><div class="detailItem detail-proof"><span>Result / proof</span><p id="journey-proof">Human-readable summary</p></div></div></div><p class="journeyHint">Tap a stage to follow the evidence from experience to decision.</p></section>
 
-    <section class="section shell build" aria-labelledby="build-title">
-      <div class="section-heading"><p class="eyebrow">Building the system</p><h2 id="build-title">Beyond the chat surface</h2></div>
-      <div class="four-cards"><article><span>01</span><h3>Conversational UX</h3><p>Plain-language flows for score changes, streaks, and utilization.</p><small>Signals · comprehension · follow-ups</small></article><article><span>02</span><h3>Prompt engineering</h3><p>Prompts turn credit events into relevant actions.</p><small>Signals · claim support · intent · CTA timing</small></article><article><span>03</span><h3>Prototype & data</h3><p>A Framer and Firebase prototype with mock data and event logs.</p><small>Signals · latency · incomplete responses · events</small></article><article><span>04</span><h3>Stress testing</h3><p>Slow, incomplete, and mistimed states tested before release.</p><small>Signals · loading · recovery · CTA sequence</small></article></div>
-      <div class="routing"><div><p class="eyebrow">Prompt engineering</p><h3>Classify before generating</h3><p>Route by intent, risk, and available context.</p></div><div class="routing-cards"><article><span>01 · High-frequency</span><h4>Common questions</h4><p>Score changes, utilization, payment history, and next steps.</p><b>Route → Grounded answer</b></article><article><span>02 · Boundary</span><h4>Ambiguous requests</h4><p>Missing or conflicting context.</p><b>Route → Clarify or limit</b></article><article><span>03 · High-risk</span><h4>Consequential moments</h4><p>Payments, disputes, privacy, or recommendations.</p><b>Route → Confirm or escalate</b></article></div><p class="formula">Entry point <i>→</i> Intent class <i>→</i> Risk level <i>→</i> Available context <i>→</i> <strong>Response mode</strong></p></div>
-    </section>
+      <section class="tomoPrototype shell" aria-labelledby="prototype-title"><div class="prototypeCopy"><p class="eyebrow">Prototype</p><h2 id="prototype-title">Making the trust model tangible</h2><p>Turned credit events into clear explanations and relevant next steps.</p><ul><li>Friendly explanations for score changes and utilization</li><li>Contextual actions linked to payments, reports, and dashboard features</li><li>Mock account data and user-event logging for realistic testing</li></ul></div><figure class="storyMedia prototypeVideo"><video controls playsinline preload="metadata"><source src="/assets/c77850542ef9b7be-ZFB5AKXR9GUjwpGiYYxF9X8Kws.mp4" type="video/mp4"></video><figcaption><span>02</span> Product vision and interaction story</figcaption></figure><div class="phoneGallery" aria-label="TomoIQ interface exploration"><figure><img src="/media/tomoiq/dashboard.png" alt="Tomo dashboard showing a credit score increase and negative credit marks"><figcaption>Credit event entry point</figcaption></figure><figure><img src="/media/tomoiq/chat-refined.png" alt="Refined TomoIQ chat concept with suggested follow-up questions"><figcaption>Refined prompts and actions</figcaption></figure><figure><img src="/media/tomoiq/chat-early.png" alt="Animated early TomoIQ conversational model explaining a recent credit score update"><figcaption>Early conversation model</figcaption></figure></div></section>
 
-    <section class="section shell evaluation" aria-labelledby="evaluation-title">
-      <div class="section-heading"><p class="eyebrow">Evaluation strategy</p><h2 id="evaluation-title">Evaluate every layer—not only the answer</h2><p>Measured each layer to locate the source of failure.</p></div>
-      <div class="evaluation-layers"><article><span>01</span><h3>Intent recognition</h3><p>Was the conversation classified correctly?</p></article><article><span>02</span><h3>Retrieval</h3><p>Were the right supporting signals recalled and prioritized?</p></article><article><span>03</span><h3>Tool calls</h3><p>Was the right tool selected with valid parameters?</p></article><article><span>04</span><h3>Agent execution</h3><p>Did the workflow complete the task end to end?</p></article><article><span>05</span><h3>Final answer</h3><p>Was it correct, evidence-consistent, and useful?</p></article></div>
-      <div class="metrics"><strong>Success metrics</strong><span>Accuracy</span><span>Task completion</span><span>Needed clarification</span><span>Correct refusal</span><span>Erroneous execution</span></div>
-      <div class="regression"><strong>Regression loop</strong><ol><li>Define standards <i>› ›</i></li><li>Build evaluation set <i>› ›</i></li><li>Run batch evaluation <i>⌄</i></li><li>Locate failure layer <i>‹ ‹</i></li><li>Optimize <i>‹ ‹</i></li><li>Regression test <i>⌃</i></li></ol></div>
-    </section>
+      <section class="tomoProcess shell" aria-labelledby="process-title"><div class="processHeading"><p class="eyebrow">Building the system</p><h2 id="process-title">Beyond the chat surface</h2></div><div class="processGrid"><article><span>01</span><h3>Conversational UX</h3><p>Designed plain-language flows for score changes, streaks, and utilization.</p><dl><div><dt>Signals</dt><dd>Support questions · Comprehension · Follow-ups</dd></div><div><dt>Success metric</dt><dd>Users understand the change without escalation</dd></div></dl></article><article><span>02</span><h3>Prompt Engineering &amp; System Logic</h3><p>Wrote prompts that turn credit events into relevant actions.</p><dl><div><dt>Signals</dt><dd>Claim support · Intent · CTA timing</dd></div><div><dt>Success metric</dt><dd>Grounded explanations lead to action</dd></div></dl></article><article><span>03</span><h3>Prototype &amp; Data Integration</h3><p>Built a Framer and Firebase prototype with mock data and event logs.</p><dl><div><dt>Signals</dt><dd>Latency · Incomplete responses · Event logs</dd></div><div><dt>Success metric</dt><dd>The prototype behaves credibly with realistic states</dd></div></dl></article><article><span>04</span><h3>Stress testing</h3><p>Tested slow, incomplete, and mistimed states before release.</p><dl><div><dt>Signals</dt><dd>Loading · Recovery · CTA sequence</dd></div><div><dt>Success metric</dt><dd>The conversation stays clear under failure</dd></div></dl></article></div><div class="promptRouting"><div class="promptRoutingHeading"><p class="eyebrow">Prompt engineering</p><h3>Classify before generating</h3><p>Route by intent, risk, and available context.</p></div><div class="promptCaseGrid"><article><span>01 · High-frequency</span><h4>Common questions</h4><p>Score changes, utilization, payment history, and next steps.</p><strong>Route → Grounded answer</strong></article><article><span>02 · Boundary</span><h4>Ambiguous requests</h4><p>Missing or conflicting context.</p><strong>Route → Clarify or limit</strong></article><article><span>03 · High-risk</span><h4>Consequential moments</h4><p>Payments, disputes, privacy, or recommendations.</p><strong>Route → Confirm or escalate</strong></article></div><div class="routingFormula"><span>Entry point</span><i>→</i><span>Intent class</span><i>→</i><span>Risk level</span><i>→</i><span>Available context</span><i>→</i><strong>Response mode</strong></div></div></section>
 
-    <section class="launch shell" id="gtm" aria-labelledby="launch-title"><figure><video controls playsinline preload="metadata"><source src="/assets/84757d8725683018-k1fVclXMySQfc2ZNO2jZfWVubPI.mp4" type="video/mp4"></video><figcaption><span>03</span> Brand and launch story</figcaption></figure><div><p class="eyebrow">Brand and launch</p><h2 id="launch-title">One voice from product to market</h2><p>Shipped a Framer microsite for PR and investor outreach, then aligned product, brand, and campaign language.</p><a class="outline-link" href="https://tomocredit.ai/" target="_blank" rel="noreferrer">Visit TomoCredit.ai ↗</a></div></section>
+      <section class="tomoEvaluation shell" aria-labelledby="evaluation-title"><div class="evaluationHeading"><p class="eyebrow">Evaluation strategy</p><h2 id="evaluation-title">Evaluate every layer—not only the answer</h2><p>Measured each layer to locate the source of failure.</p></div><div class="evaluationLayers" aria-label="TomoIQ evaluation layers"><article><span>01</span><h3>Intent recognition</h3><p>Was the conversation classified correctly?</p></article><article><span>02</span><h3>Retrieval</h3><p>Were the right supporting signals recalled and prioritized?</p></article><article><span>03</span><h3>Tool calls</h3><p>Was the correct tool selected with valid parameters and a successful result?</p></article><article><span>04</span><h3>Agent execution</h3><p>Did the workflow complete the intended task end to end?</p></article><article><span>05</span><h3>Final answer</h3><p>Was it correct, evidence-consistent, and responsive to the user’s request?</p></article></div><div class="evaluationMetrics"><strong>Success metrics</strong><span>Accuracy</span><span>Task completion</span><span>Needed-clarification rate</span><span>Correct refusal</span><span>Erroneous execution rate</span></div><div class="evaluationLoop"><strong>Regression loop</strong><ol><li>Define standards<span class="loopChevrons"><i></i><i></i><i></i></span></li><li>Build the evaluation set<span class="loopChevrons"><i></i><i></i><i></i></span></li><li>Run batch evaluation<span class="loopChevrons"><i></i><i></i><i></i></span></li><li>Locate the failure layer<span class="loopChevrons"><i></i><i></i><i></i></span></li><li>Optimize<span class="loopChevrons"><i></i><i></i><i></i></span></li><li>Regression test<span class="loopChevrons"><i></i><i></i><i></i></span></li></ol></div></section>
 
-    <section class="section shell impact" id="measurement" aria-labelledby="impact-title"><div><p class="eyebrow">Impact · So what</p><h2 id="impact-title">From 0 → 1 product to measurable business momentum</h2></div><div class="impact-grid"><article><h3>Shipped</h3><p>From strategy to customer release</p></article><article><h3>Series B-2</h3><p>Supported the CEO’s successful Q4 close</p></article><article><h3>+30%</h3><p>Post-onboarding Credit Monitoring enrollment</p></article><article><h3>+189%</h3><p>Dispute clicks after TomoIQ launched</p></article><article><h3>+53%</h3><p>Bills feature adoption</p></article><article><h3>+121%</h3><p>In-app conversion after launch</p></article></div></section>
+      <section class="tomoLaunch shell anchorSection" id="gtm" aria-labelledby="launch-title"><figure class="storyMedia launchVideo"><video controls playsinline preload="metadata"><source src="/assets/84757d8725683018-k1fVclXMySQfc2ZNO2jZfWVubPI.mp4" type="video/mp4"></video><figcaption><span>03</span> Brand and launch story</figcaption></figure><div class="launchCopy"><p class="eyebrow">Brand and launch</p><h2 id="launch-title">One voice from product to market</h2><p>Shipped a Framer microsite for PR and investor outreach, then aligned product, brand, and campaign language.</p><a href="https://tomocredit.ai/" target="_blank" rel="noopener">Visit TomoCredit.ai <span>↗</span></a></div></section>
+
+      <section class="tomoEvidence shell anchorSection" id="measurement" aria-labelledby="impact-title"><div><p class="eyebrow">Impact · So what</p><h2 id="impact-title">From 0 → 1 product to measurable business momentum</h2></div><div class="evidenceGrid"><article><h2>Shipped</h2><p>From strategy to customer release</p></article><article><h2>Series B-2</h2><p>Supported the CEO’s successful Q4 close</p></article><article><h2>+30%</h2><p>Increase in post-onboarding Credit Monitoring enrollment</p></article><article><h2>+189%</h2><p>Increase in Dispute clicks after TomoIQ launched</p></article><article><h2>+53%</h2><p>Increase in Bills feature adoption</p></article><article><h2>+121%</h2><p>Increase in in-app conversion rate after TomoIQ launched</p></article></div></section>
+      <section class="caseSection shell split outcome"><p class="eyebrow">Outcome</p><h2>Shipped TomoIQ and supported the Series B-2 story through a grounded AI product narrative.</h2></section>
+    </article>
   </main>
-
   <footer><span>© 2025 · All Rights Reserved</span><div><a href="https://www.behance.net/vxkongfc4a">Behance</a><a href="https://www.linkedin.com/in/xiaowei-vivien-kong/">LinkedIn</a><a href="mailto:vivienkong.x@gmail.com">vivienkong.x@gmail.com</a></div></footer>
   <script src="/tomoiq/tomoiq.js"></script>
 </body>
