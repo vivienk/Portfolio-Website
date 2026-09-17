@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="/tomoiq/system-architecture.css">
   <link rel="stylesheet" href="/tomoiq/system-model.css?v=system-model-20260917e">
   <link rel="stylesheet" href="/tomoiq/prototype.css?v=prototype-match-20260917">
-  <link rel="stylesheet" href="/tomoiq/research-evidence.css?v=evidence-layers-20260917a">
   <link href="https://db.onlinewebfonts.com/c/fd0dd047f16cc5812257f5a65c4b1719?family=Sigurd+Light" rel="stylesheet">
   <title>TomoIQ — Vivien Kong</title>
   <script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")==="light"?"light":"dark"}catch(e){}</script>
@@ -55,23 +54,11 @@
 
       <section class="tomoStory shell anchorSection" id="research" aria-labelledby="research-title">
         <div class="tomoStoryIntro"><p class="eyebrow">Research &amp; planning · Evidence capture</p><h2 id="research-title">Four evidence sources shaped the product</h2><p>Each decision connected to an observable customer or product signal.</p></div>
-        <div class="evidenceLayers" aria-label="Four sources of research evidence">
-          <div class="evidenceDemoCanvas">
-            <button class="evidenceExploder" type="button" aria-pressed="false" aria-label="Inspect the four evidence layers that informed TomoIQ">
-              <span class="evidenceLayer evidenceSurface"><span class="evidenceLayerLabel">01 — Support</span></span>
-              <span class="evidenceLayer evidenceImage"><img src="/media/tomoiq/dashboard.png" alt="" aria-hidden="true"><span class="evidenceLayerLabel">02 — Product data</span></span>
-              <span class="evidenceLayer evidenceContext"><span class="evidenceContextValue">Signals<br>in context</span><span class="evidenceLayerLabel">03 — Financial context</span></span>
-              <span class="evidenceLayer evidenceType"><span>Context,<br>not guesses.</span><span class="evidenceLayerLabel">04 — Prototype logs</span></span>
-              <span class="evidenceFlatLabels">01 Support · 02 Product data<br>03 Financial context · 04 Prototype logs</span>
-            </button>
-            <p class="evidenceDemoInstruction"><span class="evidenceHoverInstruction">Hover, focus, or tap to separate the layers.</span><span class="evidenceTouchInstruction">Tap to separate the layers.</span></p>
-          </div>
-          <div class="evidenceExplainer">
-            <article><span>01</span><div><h3>Customer support</h3><p>Captured score-change, dispute, and derogatory-mark questions. Revealed the need for meaning and a next step.</p></div></article>
-            <article><span>02</span><div><h3>Existing product analytics</h3><p>Captured credit events, feature use, repeat visits, and support paths. Identified credit changes as high-intent moments.</p></div></article>
-            <article><span>03</span><div><h3>Account-level signals</h3><p>Used credit usage, subscriptions, cash flow, and Tomo Score to make guidance relevant to a real customer context.</p></div></article>
-            <article><span>04</span><div><h3>Prototype event logs</h3><p>Tracked intent, data completeness, timing, CTAs, and failures so the model could recover clearly when context was missing.</p></div></article>
-          </div>
+        <div class="researchSourceGrid" aria-label="Sources of research evidence">
+          <article><div class="researchSourceHeading"><span>01</span><h3>Customer support</h3></div><dl><div><dt>What I captured</dt><dd>Score-change, dispute, and derogatory-mark questions.</dd></div><div><dt>What it revealed</dt><dd>Users needed meaning and a next step.</dd></div></dl></article>
+          <article><div class="researchSourceHeading"><span>02</span><h3>Existing product analytics</h3></div><dl><div><dt>What I captured</dt><dd>Credit events, feature use, repeat visits, and support paths.</dd></div><div><dt>What it revealed</dt><dd>Credit changes were high-intent moments.</dd></div></dl></article>
+          <article><div class="researchSourceHeading"><span>03</span><h3>Account-level financial signals</h3></div><dl><div><dt>What I captured</dt><dd>Credit usage, subscriptions, cash flow, and Tomo Score.</dd></div><div><dt>What it revealed</dt><dd>Tomo already had context for relevant guidance.</dd></div></dl></article>
+          <article><div class="researchSourceHeading"><span>04</span><h3>Prototype event logs</h3></div><dl><div><dt>What I captured</dt><dd>Intent, data completeness, timing, CTAs, and failures.</dd></div><div><dt>What it revealed</dt><dd>The system had to stay clear when data was missing.</dd></div></dl></article>
         </div>
         <div class="researchQuestionBand"><div><p class="eyebrow">Synthesis</p><h3>Three high-intent questions</h3></div><ol class="signalQuestions"><li>Why did my credit score change?</li><li>How is my credit usage affecting me?</li><li>What should I do next?</li></ol></div>
         <div class="researchGrid researchSynthesis"><article><span>Customer pain</span><h3>Credit terms were confusing</h3><p>Users asked what disputes and derogatory marks meant.</p></article><article><span>Product opportunity</span><h3>Turn detection into guidance</h3><p>Tomo signals could support better explanations and next steps.</p></article><article><span>Competitive landscape</span><h3>Between rules and chat</h3><p>Personalized guidance could be grounded in actual data.</p></article></div>
