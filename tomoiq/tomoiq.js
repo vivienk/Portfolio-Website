@@ -89,5 +89,11 @@
   document.querySelectorAll("[data-view]").forEach((button) => button.addEventListener("click", () => { journeyView = button.dataset.view; document.querySelectorAll("[data-view]").forEach((node) => { const active = node === button; node.classList.toggle("isActive", active); node.setAttribute("aria-pressed", String(active)); }); renderJourney(); }));
   const friction = document.querySelector(".frictionToggle");
   friction?.addEventListener("click", () => { const active = friction.getAttribute("aria-pressed") !== "true"; friction.setAttribute("aria-pressed", String(active)); journeySection?.classList.toggle("isFriction", active); });
+  const evidenceExploder = document.querySelector(".evidenceExploder");
+  evidenceExploder?.addEventListener("click", () => {
+    const active = evidenceExploder.getAttribute("aria-pressed") !== "true";
+    evidenceExploder.setAttribute("aria-pressed", String(active));
+    evidenceExploder.classList.toggle("isExploded", active);
+  });
   renderJourney();
 })();
