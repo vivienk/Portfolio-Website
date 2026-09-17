@@ -52,7 +52,7 @@
 .evaluationLoop li:nth-child(4){grid-column:3;grid-row:2}
 .evaluationLoop li:nth-child(5){grid-column:2;grid-row:2}
 .evaluationLoop li:nth-child(6){grid-column:1;grid-row:2}
-.evaluationLoop li:nth-child(6) .loopChevrons{right:auto;bottom:auto;left:50%;top:-54px;transform:translateX(-50%) rotate(-90deg)}
+.evaluationLoop li:nth-child(6) .loopChevrons{right:auto;bottom:auto;left:50%;top:-17px;transform:translateX(-50%) rotate(-90deg)}
 
 @media(max-width:980px){
   .positioningBanner{margin-left:0}
@@ -80,5 +80,14 @@
   .systemArchitecture figcaption{grid-template-columns:1fr;gap:18px}
   .systemArchitectureCopy>div:last-child{grid-column:1}
   .systemArchitectureCopy p{font-size:16px}
+}
+@media(max-width:620px){
+  /* Keep the full evaluation cycle legible when the desktop grid becomes a list. */
+  .evaluationLoop ol{position:relative;display:flex;flex-direction:column;gap:34px;padding:18px 0 54px 34px}
+  .evaluationLoop ol::before{content:"";position:absolute;top:54px;bottom:50px;left:13px;width:1px;background:rgba(177,167,255,.42)}
+  .evaluationLoop ol::after{content:"Return to standards";position:absolute;bottom:13px;left:34px;color:#8c8694;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+  .evaluationLoop .loopChevrons{display:flex;right:auto;left:50%;top:auto;bottom:-26px;transform:translateX(-50%) rotate(90deg)}
+  .evaluationLoop li:nth-child(3) .loopChevrons,.evaluationLoop li:nth-child(4) .loopChevrons,.evaluationLoop li:nth-child(5) .loopChevrons{right:auto;left:50%;top:auto;bottom:-26px;transform:translateX(-50%) rotate(90deg)}
+  .evaluationLoop li:nth-child(6) .loopChevrons{right:auto;bottom:auto;left:-27px;top:50%;transform:translateY(-50%) rotate(-90deg)}
 }
 @media(prefers-reduced-motion:reduce){.flowChevrons i,.flowChevrons b{animation:none;opacity:.75}}
