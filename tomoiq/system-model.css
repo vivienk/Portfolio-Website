@@ -1,0 +1,84 @@
+/* Design Lab-aligned system model, architecture, and directional chevrons. */
+.howIqWorks{padding:110px 0 64px;border-bottom:0}
+.howIqHeading{display:grid;grid-template-columns:.55fr 1.45fr;gap:18px 56px;max-width:none}
+.howIqHeading h2{margin:0;font:400 clamp(28px,2.5vw,40px)/1.04 Georgia,serif;letter-spacing:-.035em}
+.howIqHeading>p:last-child{grid-column:2;max-width:690px;margin:0;color:#aaa;font-size:17px;line-height:1.6}
+.howIqFlow{position:relative;display:grid;grid-template-columns:repeat(5,1fr);margin-top:64px;padding:0;overflow:visible}
+.howIqFlow:before{content:"";position:absolute;top:29px;left:9%;right:9%;width:auto;height:1px;background:#333}
+.howIqFlow button,.howIqFlow button:first-child,.howIqFlow button:last-child{position:relative;z-index:1;display:flex;min-height:0;padding:0 12px;border:0;border-radius:0;background:transparent;color:#888;flex-direction:column;align-items:flex-start;gap:18px;text-align:left}
+.howIqFlow button span{display:grid;width:58px;height:58px;border:1px solid #555;border-radius:50%;color:inherit;background:#000;font-size:12px;font-weight:400;letter-spacing:normal;place-items:center}
+.howIqFlow button strong{display:block;max-width:170px;margin:0;color:inherit;font:400 17px/1.25 Georgia,serif;letter-spacing:normal}
+.howIqFlow button.isActive{color:#fff;border-color:transparent;background:transparent}
+.howIqFlow button.isActive span{color:#111;border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 6px color-mix(in srgb,var(--accent),transparent 88%)}
+.howIqPanel{display:grid;grid-template-columns:.85fr 1.15fr;overflow:hidden;margin-top:48px;border:1px solid #292929;border-radius:26px;background:#0d0d0d}
+.howIqDescription{padding:32px;border-right:1px solid #292929}
+.howIqDescription>span{color:var(--accent);font-size:12px;font-weight:400;letter-spacing:normal}
+.howIqDescription h3{margin:28px 0 12px;font:400 29px/1.12 Georgia,serif;letter-spacing:normal}
+.howIqDescription p{margin:0;color:#bbb;font-size:16px;line-height:1.55}
+.howIqEvidence{display:grid;grid-template-columns:1fr 1fr;margin:0}
+.howIqEvidence>div{display:block;padding:32px;border:0}
+.howIqEvidence>div+div{border-left:1px solid #292929;background:color-mix(in srgb,var(--accent),transparent 95%)}
+.howIqEvidence span{color:#777;font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase}
+.howIqEvidence p{margin:18px 0 0;color:#d6d6d6;font-size:15px;line-height:1.55}
+
+/* The positioning label begins on the same left edge as every section eyebrow. */
+.positioningBanner{--strategy-offset:calc((min(100vw - 48px, 1180px) - 72px)/3 + 36px);display:block;min-height:0;margin:48px 0 0 var(--strategy-offset);overflow:visible;border:0;border-radius:0;background:transparent}
+.positioningBanner img{position:static;display:block;width:100%;height:auto;border:1px solid #292929;border-radius:24px;opacity:1;object-fit:contain;background:#050505}
+.positioningBanner figcaption{position:static;display:grid;width:calc(100% + var(--strategy-offset));grid-template-columns:var(--strategy-offset) 1fr;gap:18px 40px;margin:16px 0 0 calc(-1 * var(--strategy-offset));padding:0;color:#888;background:none;font-size:initial}
+.positioningBanner figcaption span{grid-column:1;color:var(--accent);font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase}
+.positioningBanner figcaption p{grid-column:2;margin:0;color:#888;font-size:14px;line-height:1.55}
+
+/* Restore the Design Lab system-architecture composition beneath the system model. */
+.systemArchitecture{display:block;margin-top:0;padding:0 0 110px;border-bottom:1px solid #222}
+.systemArchitecture figcaption{display:grid;grid-template-columns:.55fr 1.45fr;gap:18px 56px;margin-top:0;color:#888}
+.systemArchitectureCopy>div:first-child{display:block}
+.systemArchitectureCopy>div:last-child{grid-column:2}
+.systemArchitecture figcaption span{color:var(--accent);font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase}
+.systemArchitectureCopy strong{display:inline-flex;margin:0;padding:8px 12px;border:1px solid #484848;border-radius:999px;color:#d8d8d8;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.systemArchitectureCopy p{margin:22px 0 0;max-width:760px;color:#c8c8c8;font-size:17px;line-height:1.65}
+.systemArchitectureCopy small{display:block;margin-top:18px;max-width:700px;color:#777;font-size:13px;line-height:1.55}
+.systemArchitecture img{display:block;width:85%;height:auto;max-height:none;margin:48px auto 0;border:1px solid #222;border-radius:26px;background:#000}
+
+/* Same animated chevron construction used by the regression loop. */
+.flowChevrons{display:inline-flex;width:25px;height:18px;flex:none;align-items:center;gap:1px}
+.flowChevrons i,.flowChevrons b{display:block;width:7px;height:7px;border-top:1.5px solid var(--accent);border-right:1.5px solid var(--accent);opacity:.2;transform:rotate(45deg);animation:chevronFlow 1.4s linear infinite}
+.flowChevrons i:nth-child(2),.flowChevrons b:nth-child(2){animation-delay:.16s}
+.flowChevrons i:nth-child(3),.flowChevrons b:nth-child(3){animation-delay:.32s}
+.roleDisciplines .flowChevrons{margin:0;color:initial;font-size:initial;font-style:normal}
+.roleDisciplines .flowChevrons i{margin:0;color:initial;font-size:initial;font-style:normal}
+.agentModelFlow .flowChevrons{position:static;display:flex;grid-column:2;grid-row:1/3;align-self:center;width:25px;height:18px;margin:0;color:initial;font-size:initial;font-style:normal;transform:none}
+.agentModelFlow .flowChevrons b{border-color:var(--accent)}
+.agentModelFlow button.isActive .flowChevrons b{border-color:#17131e}
+.evaluationLoop li:nth-child(4){grid-column:3;grid-row:2}
+.evaluationLoop li:nth-child(5){grid-column:2;grid-row:2}
+.evaluationLoop li:nth-child(6){grid-column:1;grid-row:2}
+.evaluationLoop li:nth-child(6) .loopChevrons{right:auto;bottom:auto;left:50%;top:-54px;transform:translateX(-50%) rotate(-90deg)}
+
+@media(max-width:980px){
+  .positioningBanner{margin-left:0}
+  .positioningBanner figcaption{width:auto;margin-left:0;grid-template-columns:1fr;gap:10px}
+  .positioningBanner figcaption p{grid-column:1}
+  .systemArchitecture img{width:100%;margin-top:34px}
+}
+@media(max-width:900px){
+  .howIqHeading{grid-template-columns:1fr;gap:38px}
+  .howIqHeading>p:last-child{grid-column:1}
+  .howIqFlow{display:grid;grid-template-columns:1fr;gap:4px;padding-left:4px;overflow:visible}
+  .howIqFlow:before{top:24px;right:auto;bottom:24px;left:40px;width:1px;height:auto}
+  .howIqFlow button{display:grid;grid-template-columns:58px 1fr;align-items:center;padding:8px 0}
+  .howIqFlow button span{grid-column:1}
+  .howIqFlow button strong{grid-column:2;max-width:none}
+  .howIqPanel{grid-template-columns:1fr}
+  .howIqDescription{border-right:0;border-bottom:1px solid #292929}
+}
+@media(max-width:560px){
+  .howIqWorks{padding:78px 0 42px}
+  .howIqEvidence{grid-template-columns:1fr}
+  .howIqEvidence>div+div{border-top:1px solid #292929;border-left:0}
+  .systemArchitecture{padding-bottom:78px}
+  .systemArchitecture img{border-radius:18px}
+  .systemArchitecture figcaption{grid-template-columns:1fr;gap:18px}
+  .systemArchitectureCopy>div:last-child{grid-column:1}
+  .systemArchitectureCopy p{font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){.flowChevrons i,.flowChevrons b{animation:none;opacity:.75}}
