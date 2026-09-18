@@ -87,12 +87,12 @@
     const traceEyebrow = dialogueTrace.querySelector(".dialogueTraceHeading .eyebrow");
     if (traceEyebrow) traceEyebrow.textContent = "Prompt engineering";
     const traceIntro = dialogueTrace.querySelector(".dialogueTraceHeading > p:last-child");
-    if (traceIntro) traceIntro.remove();
+    if (traceIntro) traceIntro.textContent = "Worked with engineering to define and refine how the system interprets customer language, classifies intent, and routes each question to the right response path.";
     text("dialogue-conversation-title", "Classify the content");
     const topicRail = document.createElement("div");
     topicRail.className = "promptTopicRail";
     topicRail.setAttribute("aria-label", "Prompt topics covered");
-    topicRail.innerHTML = "<span>Credit events</span><span>Capital access</span><span>Cash flow</span><span>Support Q&amp;A</span>";
+    topicRail.innerHTML = "<span>Credit events</span><span>Capital access</span><span>Cash flow</span><span>Support Q&amp;A</span><span>Irrelevant topics</span>";
     dialogueTrace.querySelector(".dialogueTraceHeading")?.after(topicRail);
   }
 

@@ -22,11 +22,11 @@
 .howIqEvidence p{margin:18px 0 0;color:#d6d6d6;font-size:15px;line-height:1.55}
 
 /* The positioning label begins on the same left edge as every section eyebrow. */
-.positioningBanner{--strategy-offset:calc((min(100vw - 48px, 1180px) - 72px)/3 + 36px);display:block;min-height:0;margin:48px 0 0 var(--strategy-offset);overflow:visible;border:0;border-radius:0;background:transparent}
-.positioningBanner img{position:static;display:block;width:100%;height:auto;border:1px solid #292929;border-radius:24px;opacity:1;object-fit:contain;background:#050505}
-.positioningBanner figcaption{position:static;display:grid;width:calc(100% + var(--strategy-offset));grid-template-columns:var(--strategy-offset) 1fr;gap:18px 40px;margin:16px 0 0 calc(-1 * var(--strategy-offset));padding:0;color:#888;background:none;font-size:initial}
-.positioningBanner figcaption span{grid-column:1;color:var(--accent);font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase}
-.positioningBanner figcaption p{grid-column:2;margin:0;color:#888;font-size:14px;line-height:1.55}
+.positioningBanner{display:block;min-height:0;margin:48px 0 0;overflow:visible;border:0;border-radius:0;background:transparent}
+.positioningBanner img{position:static;display:block;width:100%;height:auto;margin-top:18px;border:1px solid #292929;border-radius:24px;opacity:1;object-fit:contain;background:#050505}
+.positioningBanner figcaption{position:static;display:block;width:100%;margin:0;padding:0;color:#888;background:none;font-size:initial}
+.positioningBanner figcaption span{display:block;color:var(--accent);font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase}
+.positioningBanner figcaption p{margin:9px 0 0;color:#888;font-size:14px;line-height:1.55}
 
 /* Restore the Design Lab system-architecture composition beneath the system model. */
 .systemArchitecture{display:block;margin-top:0;padding:0 0 110px;border-bottom:1px solid #222}
