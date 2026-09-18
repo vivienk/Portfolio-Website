@@ -79,10 +79,10 @@
   };
 
   const dialogueTrace = document.querySelector(".dialogueTrace");
-  const runtimeArchitecture = document.querySelector(".runtimeArchitecture");
-  if (dialogueTrace && runtimeArchitecture) {
-    dialogueTrace.classList.add("runtimeTrace");
-    runtimeArchitecture.querySelector(".runtimeArchitectureNote")?.after(dialogueTrace);
+  const promptEngineeringSection = document.querySelector(".promptEngineeringSection");
+  if (dialogueTrace && promptEngineeringSection) {
+    dialogueTrace.classList.add("promptEngineeringTrace");
+    promptEngineeringSection.append(dialogueTrace);
     text("dialogue-trace-title", "Prompt design in the prototype");
     const traceEyebrow = dialogueTrace.querySelector(".dialogueTraceHeading .eyebrow");
     if (traceEyebrow) traceEyebrow.textContent = "Prompt engineering · Prototype interaction";
