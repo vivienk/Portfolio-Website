@@ -79,10 +79,10 @@
   };
 
   const dialogueTrace = document.querySelector(".dialogueTrace");
-  const prototype = document.querySelector(".tomoPrototype");
-  if (dialogueTrace && prototype) {
-    dialogueTrace.classList.add("prototypeTrace");
-    prototype.querySelector(".phoneGallery")?.after(dialogueTrace);
+  const runtimeArchitecture = document.querySelector(".runtimeArchitecture");
+  if (dialogueTrace && runtimeArchitecture) {
+    dialogueTrace.classList.add("runtimeTrace");
+    runtimeArchitecture.querySelector(".runtimeArchitectureNote")?.after(dialogueTrace);
     text("dialogue-trace-title", "Prompt design in the prototype");
     const traceEyebrow = dialogueTrace.querySelector(".dialogueTraceHeading .eyebrow");
     if (traceEyebrow) traceEyebrow.textContent = "Prompt engineering · Prototype interaction";
