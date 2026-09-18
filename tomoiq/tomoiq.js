@@ -83,11 +83,12 @@
   if (dialogueTrace && promptEngineeringSection) {
     dialogueTrace.classList.add("promptEngineeringTrace");
     promptEngineeringSection.append(dialogueTrace);
-    text("dialogue-trace-title", "Prompt design in the prototype");
+    text("dialogue-trace-title", "Prompt Engineering & System Logic");
     const traceEyebrow = dialogueTrace.querySelector(".dialogueTraceHeading .eyebrow");
-    if (traceEyebrow) traceEyebrow.textContent = "Prompt engineering · Prototype interaction";
+    if (traceEyebrow) traceEyebrow.textContent = "Prompt engineering";
     const traceIntro = dialogueTrace.querySelector(".dialogueTraceHeading > p:last-child");
-    if (traceIntro) traceIntro.textContent = "The prototype made the decision path tangible: classify the question, retrieve only useful context, then present one focused response.";
+    if (traceIntro) traceIntro.remove();
+    text("dialogue-conversation-title", "Classify the content");
     const topicRail = document.createElement("div");
     topicRail.className = "promptTopicRail";
     topicRail.setAttribute("aria-label", "Prompt topics covered");
