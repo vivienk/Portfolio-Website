@@ -96,6 +96,72 @@
     dialogueTrace.querySelector(".dialogueTraceHeading")?.after(topicRail);
   }
 
+  const prototype = document.querySelector(".tomoPrototype");
+  if (prototype && !prototype.querySelector(".lifecyclePlacement")) {
+    const placement = document.createElement("section");
+    placement.className = "lifecyclePlacement";
+    placement.setAttribute("aria-labelledby", "lifecycle-placement-title");
+    placement.innerHTML = `
+      <div class="lifecyclePlacementHeading">
+        <p class="eyebrow">Introduction strategy</p>
+        <div><h3 id="lifecycle-placement-title">Place TomoIQ where context earns trust</h3><p>Introduced the assistant as timely guidance—not another destination or generic chatbot.</p></div>
+      </div>
+      <ol class="lifecycleFunnel" aria-label="TomoIQ activation funnel">
+        <li><button type="button" data-lifecycle="0"><span>01</span><small>Stage 0</small><strong>Complete onboarding</strong></button></li>
+        <li><button type="button" data-lifecycle="1"><span>02</span><small>Stage 1</small><strong>Credit monitoring check</strong></button></li>
+        <li><button type="button" data-lifecycle="2"><span>03</span><small>Stage 2</small><strong>Install app</strong></button></li>
+        <li><button class="isActive" type="button" data-lifecycle="3" aria-pressed="true"><span>04</span><small>Stage 3</small><strong>First meaningful action</strong><em>TomoIQ moment</em></button></li>
+        <li><button type="button" data-lifecycle="4"><span>05</span><small>Stage 4</small><strong>Paid conversion</strong></button></li>
+      </ol>
+      <div class="lifecycleJourneyCurve" aria-label="Trust and activation curve across the TomoIQ lifecycle">
+        <span class="curveLabel curveLabelTop">Trust builds when guidance is timely and personal</span>
+        <span class="curveLabel curveLabelBottom">Uncertainty and effort</span>
+        <svg viewBox="0 0 1000 210" preserveAspectRatio="none" aria-hidden="true"><path class="curveBaseline" d="M0 164H1000"/><path class="curvePath" d="M0 128 C90 108 150 170 250 172 S390 88 500 130 S650 165 750 92 S880 65 1000 116"/><circle data-curve-node="0" cx="0" cy="128" r="5"/><circle data-curve-node="1" cx="250" cy="172" r="5"/><circle data-curve-node="2" cx="500" cy="130" r="5"/><circle data-curve-node="3" class="isActive" cx="750" cy="92" r="5"/><circle data-curve-node="4" cx="1000" cy="116" r="5"/></svg>
+        <div class="curveMoments"><span>Setup friction</span><span>First verified signal</span><span>App entry</span><span class="isActive">TomoIQ aha moment</span><span>Value-led conversion</span></div>
+      </div>
+      <section class="lifecycleDetail" aria-live="polite"><div class="lifecycleDetailMeta"><span id="lifecycle-detail-stage">Stage 3</span><h4 id="lifecycle-detail-title">First meaningful action</h4><p id="lifecycle-detail-entry">TomoIQ reveals one grounded insight and a relevant next step.</p></div><dl><div><dt>User state</dt><dd id="lifecycle-detail-user">Has enough verified context to receive personal guidance.</dd></div><div><dt>Why this moment</dt><dd id="lifecycle-detail-why">Trust is earned when the assistant is useful before it asks for commitment.</dd></div><div><dt>Signal to measure</dt><dd id="lifecycle-detail-signal">Insight view → meaningful action → activation.</dd></div></dl></section>
+      <div class="lifecyclePlacementGrid">
+        <article><span>01 · Persistent entry</span><h4>Top app bar</h4><p>A quiet, persistent entry point made TomoIQ discoverable without positioning it as another bottom-nav feature. Its placement created curiosity while avoiding an “unhelpful chatbot” association.</p><small>Intent: accessible when needed, never interruptive.</small></article>
+        <article><span>02 · New cohort</span><h4>Onboarding to activation</h4><p>After KYC and the credit-monitoring check—before activation—TomoIQ surfaced a grounded insight to create an early “aha” moment as Tomo evolved toward an AI-led product.</p><ol><li>Complete onboarding</li><li>Check credit monitoring</li><li>Reveal a relevant insight</li><li>Guide a first meaningful action</li></ol></article>
+        <article><span>03 · Existing customers</span><h4>Personalized re-entry</h4><p>Negative marks, credit changes, and relevant offers triggered tailored notifications. On tap and sign-in, the customer landed directly in the matching TomoIQ conversation.</p><small>Trigger → notification → authenticated deep link → contextual chat.</small></article>
+      </div>`;
+    const prototypeVideo = prototype.querySelector(".prototypeVideo");
+    const prototypeCopy = prototype.querySelector(".prototypeCopy");
+    if (prototypeVideo && prototypeCopy) prototypeCopy.append(prototypeVideo);
+    const phoneGallery = prototype.querySelector(".phoneGallery");
+    if (phoneGallery) phoneGallery.before(placement);
+    else prototype.append(placement);
+    const lifecycleDetails = [
+      ["Stage 0", "Complete onboarding", "Keep TomoIQ present but quiet while identity and core setup are completed.", "The customer has not yet earned enough personal context for a recommendation.", "Avoid premature assistant exposure; complete onboarding."],
+      ["Stage 1", "Credit monitoring check", "Offer a clear invitation to understand the customer’s first verified credit context.", "The first available score signal makes the assistant feel informed rather than generic.", "TomoIQ open rate → first insight viewed."],
+      ["Stage 2", "Install app", "Carry the promise from onboarding into the app with a simple top-bar entry.", "The assistant is discoverable without competing with the product’s core navigation.", "Install → first TomoIQ open."],
+      ["Stage 3", "First meaningful action", "TomoIQ reveals one grounded insight and a relevant next step.", "Trust is earned when the assistant is useful before it asks for commitment.", "Insight view → meaningful action → activation."],
+      ["Stage 4", "Paid conversion", "Use the customer’s completed action and value moment to frame the right upgrade opportunity.", "A value-led conversion is more credible than a generic paywall.", "Qualified conversion after a TomoIQ interaction."],
+    ];
+    const lifecycleButtons = placement.querySelectorAll("[data-lifecycle]");
+    const updateLifecycle = (index) => {
+      const [stage, title, entry, why, signal] = lifecycleDetails[index];
+      placement.querySelector(".lifecycleFunnel").dataset.activeStage = String(index);
+      const journeyCurve = placement.querySelector(".lifecycleJourneyCurve");
+      if (journeyCurve) {
+        journeyCurve.dataset.activeStage = String(index);
+        journeyCurve.querySelectorAll("[data-curve-node]").forEach((node, nodeIndex) => node.classList.toggle("isActive", nodeIndex === index));
+        journeyCurve.querySelectorAll(".curveMoments span").forEach((moment, momentIndex) => moment.classList.toggle("isActive", momentIndex === index));
+      }
+      lifecycleButtons.forEach((button, buttonIndex) => {
+        const active = buttonIndex === index;
+        button.classList.toggle("isActive", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+      text("lifecycle-detail-stage", stage);
+      text("lifecycle-detail-title", title);
+      text("lifecycle-detail-entry", entry);
+      text("lifecycle-detail-why", why);
+      text("lifecycle-detail-signal", signal);
+    };
+    lifecycleButtons.forEach((button) => button.addEventListener("click", () => updateLifecycle(Number(button.dataset.lifecycle))));
+  }
+
   const processNavigation = document.querySelector(".roleDisciplines");
   const processChallenge = document.getElementById("challenge");
   if (processNavigation && processChallenge) {
