@@ -26,6 +26,48 @@
     ["Feedback", "Answer quality is a blind spot", false, ["Leaves without correcting the answer.", "Engagement cannot show usefulness.", "Completion did not prove understanding.", "AI quality needs a learning signal.", "Capture usefulness, questions, and actions.", "Learning loop"], ["Can rate, question, or flag the answer.", "Feedback records answer context.", "Qualitative and behavioral feedback combine.", "Correction builds trust.", "Make feedback lightweight and specific.", "121% conversion increase"]],
   ];
 
+  const dialogueTraces = [
+    {
+      question: "Why did my score change?",
+      response: "I’ll explain the confirmed factor before suggesting a next step.",
+      branch: "Credit event · known intent",
+      branchDetail: "A verified credit event gives the conversation a high-confidence starting point.",
+      inputs: ["TransUnion credit event", "Credit-report API", "Data freshness", "Factor-ranking rule"],
+      modes: ["Explain"],
+      modeDetail: "Explain cause, impact, and one relevant next step—without inventing an unverified reason.",
+      safety: "Use a focused, reassuring tone. If the event or factor cannot be verified, ask before explaining.",
+      uiTitle: "Causal explanation",
+      uiDetail: "Plain language explains the confirmed change, with a visible report source.",
+      cta: "View credit report",
+    },
+    {
+      question: "What is this derogatory mark?",
+      response: "I can explain the term once I know which report item you’re looking at.",
+      branch: "Support Q&A · missing context",
+      branchDetail: "The term alone is ambiguous; TomoIQ retrieves the exact item rather than inferring one.",
+      inputs: ["Selected report item", "Local Q&A definition", "Credit-bureau label", "Record date"],
+      modes: ["Clarify"],
+      modeDetail: "Use a maintained local answer when possible; otherwise ask for the smallest missing detail before generating.",
+      safety: "Keep the explanation short. When a dispute or identity decision is implied, show the official path rather than deciding for the user.",
+      uiTitle: "Source disclosure",
+      uiDetail: "The report item and its definition stay together, with a safe route to the next step.",
+      cta: "Review report item",
+    },
+    {
+      question: "What should I do next?",
+      response: "I can suggest a low-risk next step based on the factor that changed.",
+      branch: "Capital access or cash flow · high risk",
+      branchDetail: "A recommendation may affect money, eligibility, or a dispute decision—so the response is bounded.",
+      inputs: ["Plaid cash-flow API", "TomoScore risk model", "Policy version", "Action-risk rule"],
+      modes: ["Constrain", "Escalate"],
+      modeDetail: "Offer only a proportionate, user-controlled action. Escalate when confirmation or a regulated decision is required.",
+      safety: "Give one action at a time. No payment, dispute, or eligibility outcome is generated without policy, confirmation, or human review.",
+      uiTitle: "Safe limitation",
+      uiDetail: "A bounded recommendation explains what TomoIQ can do now and where it must hand off.",
+      cta: "Explore relevant options",
+    },
+  ];
+
   const text = (id, value) => { const node = document.getElementById(id); if (node) node.textContent = value; };
   const moveWithKeys = (event, buttons, index, onMove) => {
     const direction = ["ArrowRight", "ArrowDown"].includes(event.key) ? 1 : ["ArrowLeft", "ArrowUp"].includes(event.key) ? -1 : 0;
@@ -35,6 +77,62 @@
     onMove(next);
     requestAnimationFrame(() => buttons[next].focus());
   };
+
+  const dialogueTrace = document.querySelector(".dialogueTrace");
+  const prototype = document.querySelector(".tomoPrototype");
+  if (dialogueTrace && prototype) {
+    dialogueTrace.classList.add("prototypeTrace");
+    prototype.querySelector(".phoneGallery")?.after(dialogueTrace);
+    text("dialogue-trace-title", "Prompt design in the prototype");
+    const traceEyebrow = dialogueTrace.querySelector(".dialogueTraceHeading .eyebrow");
+    if (traceEyebrow) traceEyebrow.textContent = "Prompt engineering · Prototype interaction";
+    const traceIntro = dialogueTrace.querySelector(".dialogueTraceHeading > p:last-child");
+    if (traceIntro) traceIntro.textContent = "The prototype made the decision path tangible: classify the question, retrieve only useful context, then present one focused response.";
+    const topicRail = document.createElement("div");
+    topicRail.className = "promptTopicRail";
+    topicRail.setAttribute("aria-label", "Prompt topics covered");
+    topicRail.innerHTML = "<span>Credit events</span><span>Capital access</span><span>Cash flow</span><span>Support Q&amp;A</span>";
+    dialogueTrace.querySelector(".dialogueTraceHeading")?.after(topicRail);
+  }
+
+  const processNavigation = document.querySelector(".roleDisciplines");
+  const processChallenge = document.getElementById("challenge");
+  if (processNavigation && processChallenge) {
+    const processLinks = [...processNavigation.querySelectorAll("a[href^='#']")];
+    const processSections = processLinks.map((link) => ({
+      link,
+      section: document.querySelector(link.getAttribute("href")),
+    })).filter(({ section }) => section);
+    const setProcessSection = (id) => {
+      processSections.forEach(({ link, section }) => {
+        const active = section.id === id;
+        link.classList.toggle("isActive", active);
+        if (active) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      });
+    };
+    const updateProcessNavigation = () => {
+      const revealAt = window.scrollY + window.innerHeight * .36;
+      processNavigation.classList.toggle("isVisible", revealAt >= processChallenge.offsetTop);
+      let activeId = processSections[0]?.section.id;
+      processSections.forEach(({ section }) => {
+        if (section.getBoundingClientRect().top <= window.innerHeight * .42) activeId = section.id;
+      });
+      if (activeId) setProcessSection(activeId);
+    };
+    let processFrame;
+    const queueProcessUpdate = () => {
+      if (processFrame) return;
+      processFrame = requestAnimationFrame(() => {
+        processFrame = undefined;
+        updateProcessNavigation();
+      });
+    };
+    processLinks.forEach((link) => link.addEventListener("click", () => setProcessSection(link.hash.slice(1))));
+    window.addEventListener("scroll", queueProcessUpdate, { passive: true });
+    window.addEventListener("resize", queueProcessUpdate);
+    updateProcessNavigation();
+  }
 
   const flowButtons = [...document.querySelectorAll("[data-flow]")];
   const selectFlow = (index) => {
@@ -53,6 +151,37 @@
     if (checks) { checks.replaceChildren(...item[5].map((label) => { const tag = document.createElement("em"); tag.textContent = label; return tag; })); }
   };
   agentButtons.forEach((button, index) => { button.addEventListener("click", () => selectAgent(index)); button.addEventListener("keydown", (event) => moveWithKeys(event, agentButtons, index, selectAgent)); });
+
+  const dialogueButtons = [...document.querySelectorAll("[data-dialogue]")];
+  const renderDialogue = (index) => {
+    const trace = dialogueTraces[index];
+    if (!trace) return;
+    dialogueButtons.forEach((button, buttonIndex) => {
+      const active = buttonIndex === index;
+      button.classList.toggle("isActive", active);
+      button.setAttribute("aria-selected", String(active));
+      button.tabIndex = active ? 0 : -1;
+    });
+    const panel = document.getElementById("dialogue-panel");
+    if (panel && dialogueButtons[index]) panel.setAttribute("aria-labelledby", dialogueButtons[index].id);
+    text("dialogue-question", trace.question);
+    text("dialogue-response", trace.response);
+    text("dialogue-branch", trace.branch);
+    text("dialogue-branch-detail", trace.branchDetail);
+    text("dialogue-mode-detail", trace.modeDetail);
+    text("dialogue-safety", trace.safety);
+    text("dialogue-ui-title", trace.uiTitle);
+    text("dialogue-ui-detail", trace.uiDetail);
+    text("dialogue-ui-cta", trace.cta);
+    const inputs = document.getElementById("dialogue-inputs");
+    if (inputs) inputs.replaceChildren(...trace.inputs.map((label) => { const item = document.createElement("li"); item.textContent = label; return item; }));
+    document.querySelectorAll("[data-dialogue-mode]").forEach((mode) => mode.classList.toggle("isActive", trace.modes.includes(mode.dataset.dialogueMode)));
+  };
+  dialogueButtons.forEach((button, index) => {
+    button.addEventListener("click", () => renderDialogue(index));
+    button.addEventListener("keydown", (event) => moveWithKeys(event, dialogueButtons, index, renderDialogue));
+  });
+  renderDialogue(0);
 
   const rail = document.querySelector(".journeyRail");
   const journeySection = document.querySelector(".journeySection");
