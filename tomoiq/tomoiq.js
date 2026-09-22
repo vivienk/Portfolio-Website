@@ -129,7 +129,10 @@
     const prototypeCopy = prototype.querySelector(".prototypeCopy");
     if (prototypeVideo && prototypeCopy) prototypeCopy.append(prototypeVideo);
     const phoneGallery = prototype.querySelector(".phoneGallery");
-    if (phoneGallery) phoneGallery.before(placement);
+    if (phoneGallery) {
+      phoneGallery.after(placement);
+      placement.querySelector(".lifecyclePlacementGrid")?.before(phoneGallery);
+    }
     else prototype.append(placement);
     const lifecycleDetails = [
       ["Stage 0", "Complete onboarding", "Keep TomoIQ present but quiet while identity and core setup are completed.", "The customer has not yet earned enough personal context for a recommendation.", "Avoid premature assistant exposure; complete onboarding."],
@@ -249,6 +252,18 @@
     button.addEventListener("keydown", (event) => moveWithKeys(event, dialogueButtons, index, renderDialogue));
   });
   renderDialogue(0);
+
+  const sectionCards = [...document.querySelectorAll("[data-section-card]")];
+  sectionCards.forEach((button) => {
+    button.addEventListener("click", () => {
+      const group = button.dataset.sectionCard.split("-")[0];
+      sectionCards.filter((card) => card.dataset.sectionCard.split("-")[0] === group).forEach((card) => {
+        const active = card === button;
+        card.setAttribute("aria-pressed", String(active));
+        card.closest("article, div")?.classList.toggle("isActive", active);
+      });
+    });
+  });
 
   const rail = document.querySelector(".journeyRail");
   const journeySection = document.querySelector(".journeySection");
