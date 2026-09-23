@@ -32,7 +32,7 @@ const styles = `
   .pill {
     display: flex;
     flex-direction: column;
-    width: min(92vw, 640px);
+    width: min(92vw, 800px);
     border-radius: 28px;
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -136,7 +136,7 @@ const styles = `
      hamburger ahead of it, and give the panel a 100% flex-basis so it's
      forced onto its own line. */
   @media (max-width: 809px) {
-    :host { top: 12px; width: min(92vw, 420px); left: 50%; }
+    :host { top: 12px; width: min(92vw, 525px); left: 50%; }
     /* Collapsed: a full stadium/pill (radius = half the ~66px bar height,
        so corners are true semicircles, not just "rounded"). Open: a
        smaller fixed radius reads better on the taller expanded panel than

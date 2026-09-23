@@ -1,0 +1,16 @@
+/* The exported project pages use a shared Framer token set. Remap only
+   page colors; photographs, screenshots, and videos retain their colors. */
+html[data-theme="light"]{color-scheme:light}
+html[data-theme="light"] body{
+  --token-67527bae-cc15-4839-8636-c9b28351e4d7:#222027!important;
+  --token-f50a08ee-89ba-45ba-bd59-521f4e9cdc51:#f8f7fb!important;
+  --token-54e6a972-2be4-40f1-88e3-a0431ea81021:#241c3820!important;
+  --token-cc7c73b0-b7c0-47c8-8487-b084b19b7755:#251d35cc!important;
+  --token-42cff841-0b54-4377-bc4a-66e7d7690432:#3b3549b8!important;
+  --token-0c62d1bb-1ac3-4cd6-8f0f-8ee3950e02c0:#f0eef5!important;
+  background:#f8f7fb!important;
+  color:#222027;
+}
+html[data-theme="light"] #main{background:#f8f7fb;color:#222027}
+html[data-theme="light"] #main .framer-text{--framer-text-color:#222027!important;color:#222027!important;-webkit-text-stroke-color:currentColor}
+html[data-theme="light"] #main .framer-text :is(span,strong,em,a){color:inherit!important}

@@ -1,5 +1,5 @@
 /* Process navigation only appears once the case study begins. */
-.caseHero h1{font-size:38pt;line-height:1.02}
+.caseHero h1{font-size:42pt;line-height:1.02}
 @media(min-width:1120px){
   .tomoIqPage .shell{width:min(calc(100% - 168px),1060px)}
 }
@@ -106,6 +106,16 @@
 .collaborationGrid dd{margin:18px 0 0}
 @media(max-width:980px){.heroBrief{grid-template-columns:1fr}.tomoIqPage>article>:is(.tradeoffSection,.iterationSection,.collaborationSection){width:calc(100% - 48px);margin-right:auto;margin-left:auto}.tradeoffHeading,.iterationHeading{max-width:none}.tradeoffHeading,.iterationHeading,.collaborationSection{grid-template-columns:1fr;margin-left:0}.tradeoffHeading h2,.tradeoffHeading p:last-child,.iterationHeading h2,.iterationHeading p:last-child,.collaborationSection>div:first-child h2{grid-column:1}.collaborationSection>div:first-child{grid-template-columns:1fr}.tradeoffGrid article .sectionCardControl{min-height:0}.collaborationGrid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.tradeoffGrid article,.iterationGrid article,.collaborationGrid>div{transition:none}.tradeoffGrid article:has(.sectionCardControl[aria-pressed="true"]){transform:none}}
+
+/* Keep the four strategy decisions level with their section label. */
+.tomoStrategy{display:grid;grid-template-columns:minmax(150px,.55fr) minmax(0,1.45fr);gap:55px}
+.strategyHeading{display:block}
+.strategyHeading h2.eyebrow{display:block;max-width:none;margin:0;color:var(--accent);font:600 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.13em;text-transform:uppercase}
+.strategyGrid{margin:0}
+.takeawaysHeading{display:block}
+.takeawaysHeading h2{max-width:760px}
+.reflectionLead{max-width:760px;margin-left:0}
+@media(max-width:980px){.tomoStrategy{grid-template-columns:1fr;gap:24px}}
 
 /* Keep every top-level case-study heading on one scale. */
 .tomoDecisionLead h2,.tradeoffHeading h2,.iterationHeading h2,.collaborationSection h2,.takeawaysHeading h2{font-size:clamp(32px,3.25vw,49px)}

@@ -1,0 +1,35 @@
+/* Shared light appearance for the two hand-authored Tomo case studies. */
+html[data-theme="light"]{color-scheme:light}
+html[data-theme="light"] body{background:#f8f7fb;color:#201c2b}
+html[data-theme="light"] .tomoIqPage{--bg:#f8f7fb;--fg:#201c2b;--muted:#625c6d;--line:rgba(35,28,53,.18);--accent:#5a42b4;--panel:#fff;background:var(--bg);color:var(--fg)}
+html[data-theme="light"] .tomoIqPage :is(h1,h2,h3,h4){color:#211b2c}
+html[data-theme="light"] .tomoIqPage :is(p,dd,li,figcaption,small){color:#514a5d}
+html[data-theme="light"] .tomoIqPage :is(.eyebrow,.backLink,dt){color:#5a42b4}
+html[data-theme="light"] .tomoIqPage :is(.caseSummary,.decisionStatement,.roleStatement){color:#322b3f}
+html[data-theme="light"] .tomoIqPage :is(.heroBrief>div,.researchSegmentGrid article,.researchMetricGrid article,.learnedDecision,.learnedDecisionGrid article,.tradeoffGrid article,.iterationGrid article,.collaborationGrid>div,.takeawayGrid article,.lifecyclePlacementGrid article,.architectureMeta>div,.runtimeNode,.dialogueTrace,.lifecycleDetail,.lifecycleFunnel button){background:#fff;color:#211b2c;border-color:var(--line)}
+html[data-theme="light"] .tomoIqPage :is(.researchOpportunity,.runtimeArchitecture,.researchQuestionBand,.positioningBanner){background:#efecf9;border-color:var(--line)}
+html[data-theme="light"] .tomoIqPage :is(.researchSegmentGrid dd,.researchMetricGrid p,.lifecyclePlacementGrid p,.lifecyclePlacementGrid li,.takeawayGrid p,.learnedDecisionGrid p,.tradeoffGrid p,.iterationGrid p,.collaborationGrid dd,.heroBrief p,.caseFacts p,.reflectionLead){color:#514a5d}
+html[data-theme="light"] .tomoIqPage :is(.tradeoffGrid article.isChosen,.lifecycleFunnel button.isActive){background:#e9e3fa;border-color:#7b68ce}
+html[data-theme="light"] .tomoIqPage :is(.howIqPanel,.agentModelPanel,.journeyDetail,.dialogueTraceLayout,.dialogueEntries button,.userMessage,.systemMessage,.phoneGallery,.promptRouting,.evaluationMetrics,.evaluationLoop li){background:#fff;border-color:var(--line);color:#211b2c}
+html[data-theme="light"] .tomoIqPage :is(.howIqFlow button,.agentModelFlow button,.segmented,.frictionToggle){background:#f0eef5;border-color:var(--line);color:#514a5d}
+html[data-theme="light"] .tomoIqPage :is(.howIqFlow button.isActive,.agentModelFlow button.isActive,.segmented button.isActive){background:var(--accent);color:#fff}
+html[data-theme="light"] .tomoIqPage :is(.dialogueEntries button.isActive,.dialogueSurface){background:#e9e3fa;border-color:#7b68ce}
+html[data-theme="light"] .tomoIqPage .phoneGallery img{background:#f0eef5}
+html[data-theme="light"] .tomoIqPage :is(button,input,select,textarea){color:#211b2c}
+html[data-theme="light"] .tomoIqPage :is(.roleDisciplines,.roleDisciplines a){color:#514a5d}
+html[data-theme="light"] .tomoIqPage .roleDisciplines span::before{background:#f8f7fb}
+html[data-theme="light"] .tomoIqPage .roleDisciplines a.isActive{color:#fff}
+html[data-theme="light"] .tomoIqPage .sectionCardControl{color:inherit}
+
+html[data-theme="light"] body:has(.heroImpact){--bg:#f8f7fb;--ink:#201c2b;--muted:#625c6d;--line:rgba(35,28,53,.18);--accent:#5a42b4;--soft:rgba(90,66,180,.1);background:var(--bg);color:var(--ink)}
+html[data-theme="light"] body:has(.heroImpact) :is(h1,h2,h3){color:#211b2c}
+html[data-theme="light"] body:has(.heroImpact) :is(.lead,.large,.intro,.impactHighlights,.metrics span,.facts dd,.roleList,.problemLead){color:#514a5d}
+html[data-theme="light"] body:has(.heroImpact) :is(.eyebrow,.back,.facts dt,.metrics strong){color:#5a42b4}
+html[data-theme="light"] body:has(.heroImpact) :is(.cards article,.framingEvidence article,.decisionCards article,.shipSummary,.screenCarousel,.beforeEvidence,.flowDiagram,.panel,.journey){background:#fff;border-color:var(--line);color:#211b2c}
+html[data-theme="light"] body:has(.heroImpact) :is(.cards p,.framingEvidence p,.decisionCards p,.shipSummary li,.panel p,.panel dd,.carouselHeading p,.beforeEvidence p){color:#514a5d}
+html[data-theme="light"] body:has(.heroImpact) :is(.framingCopy,.smsNote){background:#efecf9;color:#40394f}
+html[data-theme="light"] body:has(.heroImpact) :is(.tabs button,.carouselControls button,.carouselPause){color:#4c4268}
+html[data-theme="light"] body:has(.heroImpact) .tabs button.active{background:#e9e3fa;color:#392b77}
+html[data-theme="light"] body:has(.heroImpact) .processRail span::before{background:#f8f7fb}
+html[data-theme="light"] body:has(.heroImpact) .processRail a.isActive{color:#fff}
+@media(max-width:1119px){html[data-theme="light"] body:has(.heroImpact) .processRail{background:rgba(250,249,253,.94)}}
