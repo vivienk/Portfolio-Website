@@ -18,6 +18,23 @@
 }
 
 /* Research synthesis is a sourced market-context block, not a generic pain-point recap. */
+.researchSegments{margin-top:58px;padding-top:54px;border-top:1px solid var(--line)}
+.researchSegmentsHeading{display:grid;grid-template-columns:.55fr 1.45fr;gap:14px 55px}
+.researchSegmentsHeading h3,.researchSegmentsHeading>p:last-child{grid-column:2}
+.researchSegmentsHeading h3{max-width:700px;margin:0;font-size:clamp(29px,3vw,40px);line-height:1.07}
+.researchSegmentsHeading>p:last-child{max-width:700px;margin:0;color:var(--muted);font-size:15px;line-height:1.55}
+.researchSegmentGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:38px}
+.researchSegmentGrid article{min-width:0;padding:26px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(155deg,rgba(177,167,255,.09),rgba(177,167,255,.015))}
+.researchSegmentGrid article>span{color:var(--accent);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.researchSegmentGrid h4{margin:22px 0 12px;font-size:25px;line-height:1.08}
+.researchSegmentGrid .segmentTrigger{min-height:68px;margin:0;color:#d3cdd9;font-size:14px;line-height:1.5}
+.researchSegmentGrid dl{margin:23px 0 0;border-top:1px solid var(--line)}
+.researchSegmentGrid dl>div{padding:15px 0;border-bottom:1px solid var(--line)}
+.researchSegmentGrid dl>div:last-child{padding-bottom:0;border-bottom:0}
+.researchSegmentGrid dt{margin-bottom:6px;color:var(--accent);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.researchSegmentGrid dd{margin:0;color:#c9c3d0;font-size:13px;line-height:1.5}
+@media(max-width:980px){.researchSegmentsHeading{grid-template-columns:1fr;gap:14px}.researchSegmentsHeading h3,.researchSegmentsHeading>p:last-child{grid-column:1}.researchSegmentGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.researchSegments{margin-top:42px;padding-top:42px}.researchSegmentGrid{grid-template-columns:1fr;margin-top:28px}.researchSegmentGrid article{padding:23px}.researchSegmentGrid .segmentTrigger{min-height:0}}
 .researchOpportunity{margin-top:54px;padding:34px;border:1px solid rgba(177,167,255,.34);border-radius:24px;background:linear-gradient(145deg,rgba(177,167,255,.11),rgba(177,167,255,.025))}.researchOpportunityHeading{display:grid;grid-template-columns:.55fr 1.45fr;gap:18px 55px}.researchOpportunityHeading h3,.researchOpportunityHeading>p:last-child{grid-column:2}.researchOpportunityHeading h3{max-width:680px;margin:0;font-size:34px;line-height:1.06}.researchOpportunityHeading>p:last-child{max-width:670px;margin:0;color:#d0cad9;font-size:15px;line-height:1.55}.researchMetricGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:38px}.researchMetricGrid article{min-height:165px;padding:22px;border:1px solid rgba(177,167,255,.28);border-radius:16px;background:rgba(10,9,12,.64)}.researchMetricGrid strong{display:block;color:var(--accent);font:400 clamp(28px,3vw,42px)/1 Georgia,serif;letter-spacing:-.04em}.researchMetricGrid p{margin:18px 0 0;color:#c9c4d0;font-size:13px;line-height:1.45}.researchSources{margin:17px 0 0;color:#928b99;font-size:11px;line-height:1.5}.researchSources a{border-bottom:1px solid rgba(177,167,255,.45);color:#cfc8dc}.researchSources a:hover{color:var(--accent)}
 
 /* Alignment refinements. */

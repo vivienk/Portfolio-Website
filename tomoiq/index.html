@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="/tomoiq/prototype.css?v=prototype-match-20260917">
   <link rel="stylesheet" href="/tomoiq/dialogue-trace.css?v=dialogue-trace-20260917a">
   <link rel="stylesheet" href="/tomoiq/layout-tuner.css?v=layout-tuner-20260917a">
-  <link rel="stylesheet" href="/tomoiq/tomoiq-refinements.css?v=tomoiq-refinements-20260921f">
+  <link rel="stylesheet" href="/tomoiq/tomoiq-refinements.css?v=tomoiq-refinements-20260923a">
   <link href="https://db.onlinewebfonts.com/c/fd0dd047f16cc5812257f5a65c4b1719?family=Sigurd+Light" rel="stylesheet">
   <title>TomoIQ — Vivien Kong</title>
   <script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")==="light"?"light":"dark"}catch(e){}</script>
@@ -46,7 +46,7 @@
         <dl class="strategyQuestions">
           <div><dt>What</dt><dd>A grounded AI guide for three MVP moments: explain a credit change, define a report term, and suggest one next step from Tomo signals.</dd></div>
           <div><dt>Why</dt><dd>Support could explain individual questions, but AI could translate timely, personal signals into guidance at the moment customers needed it.</dd></div>
-          <div><dt>Who</dt><dd>Tomo customers and AI-credit prospects.</dd></div>
+          <div><dt>Who</dt><dd>Primarily existing Tomo customers with a credit-change, usage, or support question; secondarily, AI-credit prospects.</dd></div>
           <div><dt>Where</dt><dd>Inside Tomo’s existing product: credit events, dashboard, bills, disputes, and support entry points.</dd></div>
           <div><dt>How</dt><dd>Credit, cash-flow, and TomoScore signals are grounded in deterministic rules before AI shapes the response.</dd></div>
           <div><dt>So what</dt><dd>A shipped product, stronger engagement, and Series B-2 momentum.</dd></div>
@@ -71,6 +71,14 @@
           <article><div class="researchSourceHeading"><span>03</span><h3>Account-level financial signals</h3></div><dl><div><dt>What I captured</dt><dd>Credit usage, subscriptions, cash flow, and Tomo Score.</dd></div><div><dt>What it revealed</dt><dd>Tomo already had context for relevant guidance.</dd></div></dl></article>
           <article><div class="researchSourceHeading"><span>04</span><h3>Prototype event logs</h3></div><dl><div><dt>What I captured</dt><dd>Intent, data completeness, timing, CTAs, and failures.</dd></div><div><dt>What it revealed</dt><dd>Trust breaks when context is incomplete, an answer arrives late, or the CTA does not match the moment.</dd></div></dl></article>
         </div>
+        <div class="researchSegments" aria-labelledby="research-segments-title">
+          <div class="researchSegmentsHeading"><p class="eyebrow">Current-user segmentation</p><h3 id="research-segments-title">Different entry moments, different guidance needs</h3><p>These are overlapping need states within Tomo’s existing customer base, synthesized from support questions, product behavior, and account signals—not quantified demographic cohorts.</p></div>
+          <div class="researchSegmentGrid">
+            <article><span>01 · Event-led</span><h4>Credit-change responders</h4><p class="segmentTrigger">A score change, derogatory mark, or dispute prompts a “why?” question.</p><dl><div><dt>Need</dt><dd>A plain-language explanation tied to the verified event.</dd></div><div><dt>Design implication</dt><dd>Start at the credit event; show the cause and report context before suggesting an action.</dd></div></dl></article>
+            <article><span>02 · Monitoring</span><h4>Credit-usage checkers</h4><p class="segmentTrigger">Credit usage, Tomo Score, and repeat product visits provide context for an ongoing check-in.</p><dl><div><dt>Need</dt><dd>Understand what utilization means for their own credit picture.</dd></div><div><dt>Design implication</dt><dd>Translate account signals into a focused explanation and a relevant dashboard or payment path.</dd></div></dl></article>
+            <article><span>03 · Help-seeking</span><h4>Report and support navigators</h4><p class="segmentTrigger">Report terms, disputes, or support paths signal a question the product has not resolved.</p><dl><div><dt>Need</dt><dd>Know what can be confirmed and where to go when it cannot.</dd></div><div><dt>Design implication</dt><dd>Define the term, expose the source, and route unresolved cases to the right support path.</dd></div></dl></article>
+          </div>
+        </div>
         <div class="researchQuestionBand"><div><p class="eyebrow">Synthesis</p><h3>Three high-intent questions</h3></div><ol class="signalQuestions"><li>Why did my credit score change?</li><li>How is my credit usage affecting me?</li><li>What should I do next?</li></ol></div>
         <section class="researchOpportunity" aria-labelledby="opportunity-title"><div class="researchOpportunityHeading"><p class="eyebrow">Product opportunity</p><h3 id="opportunity-title">Turn fragmented financial signals into one connected next step</h3><p>Market context supported a product that connected credit, budgeting, bills, and capital-access decisions instead of treating each feature as an isolated destination.</p></div><div class="researchMetricGrid"><article><strong>3–4</strong><p>Average fintech apps used by a U.S. consumer</p></article><article><strong>55%</strong><p>Rely on budgeting apps to navigate inflation</p></article><article><strong>24–28%</strong><p>Of Hispanic and Black consumers did not track credit before fintech</p></article><article><strong>17%</strong><p>Of adults did not pay all bills in full in the prior month</p></article></div><p class="researchSources">Market context: <a href="https://plaid.com/resources/fintech/fintech-ecosystem/" target="_blank" rel="noopener">Plaid, 2024</a> · <a href="https://plaid.com/resources/open-finance/what-is-open-finance/" target="_blank" rel="noopener">Plaid, 2024</a> · <a href="https://plaid.com/resources/open-finance/api-financial-health/" target="_blank" rel="noopener">Plaid, 2021</a> · <a href="https://www.federalreserve.gov/publications/2025-economic-well-being-of-us-households-in-2024-income-and-expenses.htm" target="_blank" rel="noopener">Federal Reserve, 2025</a>.</p></section>
         <section class="learnedDecision" aria-labelledby="learned-decision-title">
@@ -84,7 +92,7 @@
         </section>
       </section>
 
-      <section class="tomoStrategy shell anchorSection" id="strategy" aria-labelledby="strategy-title"><div class="strategyHeading"><p class="eyebrow">Product strategy</p><h2 id="strategy-title">One product, two demand paths</h2></div><div class="strategyGrid"><article><span>What</span><h3>Grounded credit guidance</h3><p>Verified data, rules, and AI create useful, explainable answers.</p></article><article><span>Who</span><h3>Existing and emerging demand</h3><p>Serve Tomo customers and attract AI-credit prospects.</p></article><article><span>Where</span><h3>Product and market</h3><p>In-product guidance, expanded through web, PR, social, and investor narrative.</p></article><article><span>Positioning</span><h3>Explain before persuade</h3><p>Trust—not open-ended advice—became the differentiation.</p></article></div></section>
+      <section class="tomoStrategy shell anchorSection" id="strategy" aria-labelledby="strategy-title"><div class="strategyHeading"><p class="eyebrow">Product strategy</p><h2 id="strategy-title">One product, two demand paths</h2></div><div class="strategyGrid"><article><span>What</span><h3>Grounded credit guidance</h3><p>Verified data, rules, and AI create useful, explainable answers.</p></article><article><span>Who</span><h3>Current users first</h3><p>Serve existing customers at credit-change, usage, and support moments; extend the proposition to AI-credit prospects.</p></article><article><span>Where</span><h3>Product and market</h3><p>In-product guidance, expanded through web, PR, social, and investor narrative.</p></article><article><span>Positioning</span><h3>Explain before persuade</h3><p>Trust—not open-ended advice—became the differentiation.</p></article></div></section>
 
       <section class="tomoDecision shell anchorSection" id="decision" aria-labelledby="decision-title"><p class="eyebrow">The product decision</p><div class="tomoDecisionLead"><h2 id="decision-title">Why I didn’t build an open-ended chatbot</h2><p class="decisionStatement">A focused guide, not an open-ended chatbot, grounded in a customer’s real context.</p><p class="decisionNote">The opportunity was not simply to add chat to a financial product. For V1, I narrowed the experience around verified credit events and deterministic rules, using AI to translate those results into clear language and one contextual next step.</p></div><img src="/media/tomoiq/ai-financial-wellness-platform.png" alt="AI Financial Wellness Platform — smarter, inclusive financial"></section>
 
@@ -203,7 +211,7 @@
     </article>
   </main>
   <footer><span>© 2025 · All Rights Reserved</span><div><a href="https://www.behance.net/vxkongfc4a">Behance</a><a href="https://www.linkedin.com/in/xiaowei-vivien-kong/">LinkedIn</a><a href="mailto:vivienkong.x@gmail.com">vivienkong.x@gmail.com</a></div></footer>
-<script src="/tomoiq/tomoiq.js?v=tomoiq-20260921c"></script>
+<script src="/tomoiq/tomoiq.js?v=tomoiq-20260922a"></script>
   <script src="/tomoiq/layout-tuner.js"></script>
 </body>
 </html>

@@ -21,6 +21,7 @@ if (processRail && problemSection) {
   const links = [...processRail.querySelectorAll('a[href^="#"]')];
   const sections = links.map((link) => document.querySelector(link.getAttribute('href')));
   let frame;
+  let activeHref;
   const updateRail = () => {
     frame = undefined;
     processRail.classList.toggle('isVisible', scrollY + innerHeight * .36 >= problemSection.offsetTop);
@@ -34,6 +35,11 @@ if (processRail && problemSection) {
       if (active) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     });
+    if (matchMedia('(max-width: 1119px)').matches && current && activeHref !== `#${current.id}`) {
+      const activeLink = links.find((link) => link.getAttribute('href') === `#${current.id}`);
+      if (activeLink) processRail.scrollTo({left:activeLink.parentElement.offsetLeft - (processRail.clientWidth - activeLink.parentElement.clientWidth) / 2,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+    }
+    activeHref = current ? `#${current.id}` : undefined;
   };
   const queueRailUpdate = () => { if (!frame) frame = requestAnimationFrame(updateRail); };
   addEventListener('scroll', queueRailUpdate, {passive:true});

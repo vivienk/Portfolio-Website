@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TomoCredit — Onboarding Redesign — Vivien Kong</title>
 <link rel="stylesheet" href="/tomo_onboarding/onboarding.css?v=2">
-<link rel="stylesheet" href="/tomo_onboarding/onboarding-refinements.css?v=9">
-<link rel="stylesheet" href="/tomo_onboarding/onboarding-media.css?v=6">
+<link rel="stylesheet" href="/tomo_onboarding/onboarding-refinements.css?v=11">
+<link rel="stylesheet" href="/tomo_onboarding/onboarding-media.css?v=7">
 <script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")==="light"?"light":"dark"}catch(e){}</script>
 <script type="module" src="/modules/glass-navbar.mjs"></script>
 <script type="module" src="/modules/glass-navbar-init.mjs"></script>
@@ -162,10 +162,6 @@
 <figcaption id="previousFlowTitle"><strong>Previous entry paths</strong><span>Web and app entry diverged before activation.</span><button type="button" class="flowExpand" data-flow-src="/assets/26a694f1306c1072-yMRMkR5JPGYZ80KbIPRVlBR3mo.png" data-flow-title="Previous entry paths" aria-label="Enlarge previous entry paths diagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3H3v6m12 12h6v-6M3 3l6 6m12 12-6-6"/></svg></button></figcaption>
 <button type="button" class="flowImageTrigger" data-flow-src="/assets/26a694f1306c1072-yMRMkR5JPGYZ80KbIPRVlBR3mo.png" data-flow-title="Previous entry paths" aria-label="Enlarge previous entry paths diagram"><img src="/assets/ec6d8715096aebd9-yMRMkR5JPGYZ80KbIPRVlBR3mo.png" srcset="/assets/9a6b22e9d772d55c-yMRMkR5JPGYZ80KbIPRVlBR3mo.png 512w, /assets/ec6d8715096aebd9-yMRMkR5JPGYZ80KbIPRVlBR3mo.png 1024w, /assets/ad66da65bc1a7e5f-yMRMkR5JPGYZ80KbIPRVlBR3mo.png 2048w, /assets/26a694f1306c1072-yMRMkR5JPGYZ80KbIPRVlBR3mo.png 2480w" sizes="(max-width: 1119px) calc(100vw - 48px), 1050px" width="2480" height="1128" alt="Original flow diagram showing separate paid-ad web and App Store onboarding paths, each with drop-off points" loading="lazy"></button>
 </figure>
-<figure class="flowDiagram flowDiagramAfter" aria-labelledby="afterFlowTitle">
-<figcaption id="afterFlowTitle"><strong>Redesigned path: five guided KYC steps to activation</strong><span>Clear progress and trust cues replaced an uninterrupted form.</span><button type="button" class="flowExpand" data-flow-src="/assets/f580052b8a87baf6-P8W79DqpA6XEmrP7xFgq8x5QTz0.png" data-flow-title="Redesigned path" aria-label="Enlarge redesigned activation path diagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3H3v6m12 12h6v-6M3 3l6 6m12 12-6-6"/></svg></button></figcaption>
-<button type="button" class="flowImageTrigger" data-flow-src="/assets/f580052b8a87baf6-P8W79DqpA6XEmrP7xFgq8x5QTz0.png" data-flow-title="Redesigned path" aria-label="Enlarge redesigned activation path diagram"><img src="/assets/f580052b8a87baf6-P8W79DqpA6XEmrP7xFgq8x5QTz0.png" width="1638" height="558" alt="Redesigned journey from traffic and email capture through five KYC screens, dashboard, and conversion" loading="lazy"></button>
-</figure>
 <dialog class="flowLightbox" aria-labelledby="flowLightboxTitle"><div class="flowLightboxBar"><h3 id="flowLightboxTitle"></h3><button type="button" class="flowMinimize" aria-label="Minimize diagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l6 6m0-5v5H4m17 12-6-6m0 5v-5h5"/></svg></button></div><img src="" alt=""></dialog>
 <p class="smsNote"><strong>Testing &amp; measurement</strong> Launch work included an A/B test and GA4/Firebase funnel monitoring for post-activation behavior.</p>
 </section>
@@ -203,6 +199,10 @@
 <section id="decisions">
 <p class="eyebrow">Design decision analysis</p>
 <h2>Progressive disclosure made trust tangible.</h2>
+<figure class="flowDiagram flowDiagramAfter" aria-labelledby="afterFlowTitle">
+<figcaption id="afterFlowTitle"><strong>Redesigned path: five guided KYC steps to activation</strong><span>Clear progress and trust cues replaced an uninterrupted form.</span><button type="button" class="flowExpand" data-flow-src="/assets/f580052b8a87baf6-P8W79DqpA6XEmrP7xFgq8x5QTz0.png" data-flow-title="Redesigned path" aria-label="Enlarge redesigned activation path diagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3H3v6m12 12h6v-6M3 3l6 6m12 12-6-6"/></svg></button></figcaption>
+<button type="button" class="flowImageTrigger" data-flow-src="/assets/f580052b8a87baf6-P8W79DqpA6XEmrP7xFgq8x5QTz0.png" data-flow-title="Redesigned path" aria-label="Enlarge redesigned activation path diagram"><img src="/assets/f580052b8a87baf6-P8W79DqpA6XEmrP7xFgq8x5QTz0.png" width="1638" height="558" alt="Redesigned journey from traffic and email capture through five KYC screens, dashboard, and conversion" loading="lazy"></button>
+</figure>
 <div class="cards decisionCards">
 <article>
 <b>01</b>
@@ -287,7 +287,7 @@
 <a href="https://www.behance.net/vxkongfc4a">Behance</a> · <a href="https://www.linkedin.com/in/xiaowei-vivien-kong/">LinkedIn</a>
 </span>
 </footer>
-<script src="/tomo_onboarding/onboarding.js?v=6">
+<script src="/tomo_onboarding/onboarding.js?v=7">
 </script>
 </body>
 </html>

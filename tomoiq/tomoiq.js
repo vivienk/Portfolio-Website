@@ -97,7 +97,8 @@
   }
 
   const prototype = document.querySelector(".tomoPrototype");
-  if (prototype && !prototype.querySelector(".lifecyclePlacement")) {
+  const strategy = document.querySelector(".tomoStrategy");
+  if (prototype && strategy && !document.querySelector(".lifecyclePlacement")) {
     const placement = document.createElement("section");
     placement.className = "lifecyclePlacement";
     placement.setAttribute("aria-labelledby", "lifecycle-placement-title");
@@ -130,10 +131,10 @@
     if (prototypeVideo && prototypeCopy) prototypeCopy.append(prototypeVideo);
     const phoneGallery = prototype.querySelector(".phoneGallery");
     if (phoneGallery) {
-      phoneGallery.after(placement);
+      strategy.append(placement);
       placement.querySelector(".lifecyclePlacementGrid")?.before(phoneGallery);
     }
-    else prototype.append(placement);
+    else strategy.append(placement);
     const lifecycleDetails = [
       ["Stage 0", "Complete onboarding", "Keep TomoIQ present but quiet while identity and core setup are completed.", "The customer has not yet earned enough personal context for a recommendation.", "Avoid premature assistant exposure; complete onboarding."],
       ["Stage 1", "Credit monitoring check", "Offer a clear invitation to understand the customer’s first verified credit context.", "The first available score signal makes the assistant feel informed rather than generic.", "TomoIQ open rate → first insight viewed."],

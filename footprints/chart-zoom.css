@@ -1,0 +1,90 @@
+.footprints-flow-zoom-target { cursor: zoom-in; }
+.footprints-flow-zoom-button {
+  position: absolute;
+  z-index: 5;
+  top: 14px;
+  left: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.48);
+  border-radius: 999px;
+  background: rgba(30,30,34,.88);
+  color: white;
+  font: 600 13px/1.2 system-ui, sans-serif;
+  cursor: zoom-in;
+  box-shadow: 0 4px 16px rgba(0,0,0,.25);
+}
+.footprints-flow-zoom-button:hover,
+.footprints-flow-zoom-button:focus-visible { background: #35323f; outline: 2px solid #cbbcff; outline-offset: 2px; }
+.footprints-flow-zoom-button svg { width: 17px; height: 17px; }
+.footprints-flow-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  translate: -50% -50%;
+  margin: 0;
+  box-sizing: border-box;
+  width: auto;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100vh - 24px);
+  height: auto;
+  padding: 16px;
+  border: 1px solid #49434f;
+  border-radius: 18px;
+  background: #111014;
+  color: #fff;
+  box-shadow: 0 24px 80px rgba(0,0,0,.65);
+}
+.footprints-flow-dialog::backdrop {
+  background: rgba(0,0,0,.82);
+  opacity: 1;
+  transition: opacity 250ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+@starting-style {
+  .footprints-flow-dialog[open]::backdrop { opacity: 0; }
+}
+.footprints-flow-dialog[data-closing]::backdrop { opacity: 0; }
+.footprints-flow-dialog-viewport {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  cursor: grab;
+  touch-action: pan-x;
+  scrollbar-color: #8c83a5 #292630;
+}
+.footprints-flow-dialog-viewport:active { cursor: grabbing; }
+.footprints-flow-dialog-viewport:focus-visible { outline: 2px solid #cbbcff; outline-offset: 2px; }
+.footprints-flow-dialog img { display: block; max-width: none; height: auto; user-select: none; -webkit-user-drag: none; }
+.footprints-flow-dialog-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid #777;
+  border-radius: 999px;
+  background: #2a2730;
+  color: #fff;
+  font: 600 13px/1.2 system-ui, sans-serif;
+  cursor: pointer;
+}
+.footprints-flow-dialog-close:focus-visible { outline: 2px solid #cbbcff; outline-offset: 2px; }
+.footprints-flow-dialog-close:hover { background: #35323f; }
+.footprints-flow-dialog-close svg { width: 17px; height: 17px; }
+@media (max-width: 600px) {
+  .footprints-flow-zoom-button { top: 8px; left: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .footprints-flow-dialog::backdrop { transition-duration: 160ms; }
+}
