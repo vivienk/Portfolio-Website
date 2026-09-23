@@ -28,6 +28,11 @@
 /* The section rail floats independently; it must not reserve an extra grid column. */
 .layout{display:block;width:min(1280px,calc(100% - 48px))}
 .layout>.body{width:min(1050px,calc(100% - 230px));margin-left:auto}
+@media(min-width:1120px){
+  .wrap{width:min(1080px,calc(100% - 168px))}
+  .layout{width:min(1160px,calc(100% - 168px))}
+  .layout>.body{width:min(930px,calc(100% - 230px))}
+}
 .body>section{min-width:0}
 .body>section>.eyebrow,.body>section>h2,.body>section>.intro{margin-left:0}
 .cols,.journey,.paths,.cards,.framing,.deliver,.metrics{width:100%}

@@ -1,5 +1,8 @@
 /* Process navigation only appears once the case study begins. */
 @media(min-width:1120px){
+  .tomoIqPage .shell{width:min(calc(100% - 168px),1060px)}
+}
+@media(min-width:1120px){
   .roleDisciplines{position:fixed;z-index:9;top:24vh;left:max(26px,calc((100vw - 1280px) / 2));display:flex;flex-direction:column;align-items:stretch;justify-content:space-between;width:185px;min-height:324px;margin:0;padding:0 0 0 1px;border:0;opacity:0;visibility:hidden;pointer-events:none;transform:translateX(-14px);transition:opacity .25s ease,transform .25s ease,visibility 0s linear .25s}
   .roleDisciplines.isVisible{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(0);transition-delay:0s}
   .roleDisciplines span{position:relative;z-index:1;display:grid;grid-template-columns:18px 1fr;gap:12px;align-items:center;width:100%;min-height:47px}
@@ -9,7 +12,7 @@
   .roleDisciplines a:hover,.roleDisciplines a:focus-visible{border-color:rgba(177,167,255,.48);color:#f1ecf7;outline:0}
   .roleDisciplines a.isActive{border-color:var(--accent);background:var(--accent);box-shadow:0 8px 24px rgba(177,167,255,.18);color:#18131e}
   .roleDisciplines span:has(a.isActive)::before{border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 4px rgba(177,167,255,.14)}
-  .tomoIqPage>article>:is(.caseSection,.tomoStory,.tomoStrategy,.tomoDecision,.howIqWorks,.systemArchitecture,.promptEngineeringSection,.journeySection,.tomoPrototype,.tomoProcess,.tomoEvaluation,.tomoLaunch,.tomoEvidence,.tomoTakeaways,.dialogueTrace.shell){width:min(calc(100% - 270px),1050px);margin-right:max(24px,calc((100vw - 1280px) / 2));margin-left:auto}
+  .tomoIqPage>article>:is(.caseSection,.tomoStory,.tomoStrategy,.tomoDecision,.howIqWorks,.systemArchitecture,.promptEngineeringSection,.journeySection,.tomoPrototype,.tomoProcess,.tomoEvaluation,.tomoLaunch,.tomoEvidence,.tomoTakeaways,.dialogueTrace.shell){width:min(calc(100% - 390px),930px);margin-right:max(84px,calc((100vw - 1280px) / 2 + 60px));margin-left:auto}
 }
 @media(max-width:1119px){
   .roleDisciplines{position:fixed;top:76px;right:14px;left:14px;z-index:8;display:flex;flex-wrap:nowrap;justify-content:flex-start;gap:8px;width:auto;margin:0;padding:10px;overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:rgba(0,0,0,.84);backdrop-filter:blur(14px);box-shadow:0 12px 34px rgba(0,0,0,.22);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-10px);transition:opacity .2s ease,transform .2s ease,visibility 0s linear .2s;scroll-snap-type:x proximity}
@@ -72,7 +75,7 @@
 
 /* Shared left-aligned chapter language for the decision, learning, and collaboration sections. */
 .heroBrief{grid-template-columns:repeat(3,1fr)}
-.tomoIqPage>article>:is(.tradeoffSection,.iterationSection,.collaborationSection){width:min(calc(100% - 270px),1050px);margin-right:max(24px,calc((100vw - 1280px) / 2));margin-left:auto}
+@media(min-width:1120px){.tomoIqPage>article>:is(.tradeoffSection,.iterationSection,.collaborationSection){width:min(calc(100% - 390px),930px);margin-right:max(84px,calc((100vw - 1280px) / 2 + 60px));margin-left:auto}}
 .tradeoffHeading{display:grid;grid-template-columns:.55fr 1.45fr;gap:18px 55px;max-width:none;margin:0}
 .iterationHeading{display:grid;grid-template-columns:.55fr 1.45fr;gap:18px 55px;max-width:none}
 .tradeoffHeading h2,.tradeoffHeading p:last-child{grid-column:2}
