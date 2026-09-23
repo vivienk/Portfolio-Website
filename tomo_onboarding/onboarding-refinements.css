@@ -1,0 +1,53 @@
+/* Match TomoIQ's shared site navigation and section rail. */
+.hero{padding-top:120px}
+.hero h1{font-size:clamp(44px,calc(7vw - 4.5px),99px);line-height:.92;letter-spacing:-.045em}
+.hero .facts{padding:24px 0 28px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts div:first-child{max-width:600px}
+.roleList{margin:0;padding-left:18px}
+.roleList li{margin:0 0 5px}
+.heroImpact{padding:52px 0 0}
+.heroImpact h2{max-width:none;font-size:clamp(39px,5vw,70px)}
+.impactHighlights{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 36px;margin:26px 0 0;padding:0;list-style:none;color:var(--muted)}
+.impactHighlights li{position:relative;margin:0;padding-left:18px}
+.impactHighlights li::before{position:absolute;left:0;color:var(--accent);content:"•"}
+.impactHighlights strong{color:var(--ink)}
+.heroImpact .metrics{margin-top:34px;border-top:0}
+.problemNarrative{min-width:0}
+.problemLead{width:100%;max-width:none;margin:34px 0 0}
+#problem .cols{margin-top:34px}
+.problemIconAnimation{--ease-in-out:cubic-bezier(.77,0,.175,1);display:block;width:min(100%,340px);margin:0 auto 24px}
+.problemIconAnimation svg{display:block;width:100%;height:auto}
+.iconSheet{transform-origin:180px 140px;animation:iconFloat 3.2s var(--ease-in-out) infinite}
+.iconQuestion{transform-origin:180px 124px;animation:iconQuestionPulse 3.2s var(--ease-in-out) infinite}
+.iconOrbit,.iconSpark{animation:iconOrbitFloat 3.2s var(--ease-in-out) infinite}
+.iconOrbitRight,.iconSparkTwo{animation-delay:.42s}
+.iconSparkThree{animation-delay:.7s}
+@keyframes iconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes iconQuestionPulse{0%,100%{opacity:.7;transform:scale(.96)}50%{opacity:1;transform:scale(1.04)}}
+@keyframes iconOrbitFloat{0%,100%{opacity:.45;transform:translateY(0)}50%{opacity:1;transform:translateY(-6px)}}
+/* The section rail floats independently; it must not reserve an extra grid column. */
+.layout{display:block;width:min(1280px,calc(100% - 48px))}
+.layout>.body{width:min(1050px,calc(100% - 230px));margin-left:auto}
+.body>section{min-width:0}
+.body>section>.eyebrow,.body>section>h2,.body>section>.intro{margin-left:0}
+.cols,.journey,.paths,.cards,.framing,.deliver,.metrics{width:100%}
+.processRail{position:fixed;z-index:9;top:24vh;left:max(26px,calc((100vw - 1280px)/2));display:flex;flex-direction:column;align-items:stretch;justify-content:space-between;width:185px;min-height:324px;margin:0;padding:0 0 0 1px;border:0;opacity:0;visibility:hidden;pointer-events:none;transform:translateX(-14px);transition:opacity .25s ease,transform .25s ease,visibility 0s linear .25s}
+.processRail.isVisible{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(0);transition-delay:0s}
+.processRail span{position:relative;z-index:1;display:grid;grid-template-columns:18px 1fr;gap:12px;align-items:center;width:100%;min-height:47px}
+.processRail span::before{content:"";width:10px;height:10px;border:1px solid #918aa0;border-radius:50%;background:#080809;transition:background .2s ease,border-color .2s ease}
+.processRail a{display:block;width:max-content;max-width:150px;padding:8px 12px;border:1px solid transparent;border-radius:999px;background:transparent;color:#a19aa9;font:400 14px/1.15 Georgia,serif;transition:background .2s ease,border-color .2s ease,color .2s ease,box-shadow .2s ease}
+.processRail a:hover,.processRail a:focus-visible{border-color:rgba(177,167,255,.48);color:#f1ecf7;outline:0}
+.processRail a.isActive{border-color:var(--accent);background:var(--accent);box-shadow:0 8px 24px rgba(177,167,255,.18);color:#18131e}
+.processRail span:has(a.isActive)::before{border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 4px rgba(177,167,255,.14)}
+@media(max-width:1119px){
+  .layout>.body{width:100%}
+  .processRail{position:fixed;top:76px;right:14px;left:14px;z-index:8;display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:flex-start;gap:8px;width:auto;min-height:0;margin:0;padding:10px;overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:rgba(0,0,0,.84);backdrop-filter:blur(14px);box-shadow:0 12px 34px rgba(0,0,0,.22);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-10px);transition:opacity .2s ease,transform .2s ease,visibility 0s linear .2s;scroll-snap-type:x proximity}
+  .processRail.isVisible{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0);transition-delay:0s}
+  .processRail span{flex:0 0 auto;scroll-snap-align:start;width:auto;min-height:0;display:block}
+  .processRail span::before{display:none}
+  .processRail a{padding:9px 12px;border-radius:999px;font-size:12px}
+}
+@media(max-width:520px){.hero{padding-top:102px}.processRail{top:68px}}
+@media(max-width:720px){.impactHighlights{grid-template-columns:1fr}.heroImpact{padding-top:40px}.problemIconAnimation{width:min(100%,300px)}}
+@media(prefers-reduced-motion:reduce){.iconSheet,.iconQuestion,.iconOrbit,.iconSpark{animation:none;opacity:1}}
+@media(prefers-reduced-motion:reduce){.processRail,.processRail a,.processRail span::before{transition:none}}
