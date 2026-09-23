@@ -54,6 +54,7 @@
   .processRail a{padding:9px 12px;border-radius:999px;font-size:12px}
 }
 @media(max-width:520px){.hero{padding-top:102px}.processRail{right:10px;left:10px;bottom:calc(10px + env(safe-area-inset-bottom))}}
+.hero h1{font-size:38pt;line-height:1.02}
 @media(max-width:720px){.impactHighlights{grid-template-columns:1fr}.heroImpact{padding-top:40px}.problemIconAnimation{width:min(100%,300px)}}
 @media(prefers-reduced-motion:reduce){.iconSheet,.iconQuestion,.iconOrbit,.iconSpark{animation:none;opacity:1}}
 @media(prefers-reduced-motion:reduce){.processRail,.processRail a,.processRail span::before{transition:none}}

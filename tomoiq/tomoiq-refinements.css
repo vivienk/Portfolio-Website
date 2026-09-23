@@ -1,4 +1,5 @@
 /* Process navigation only appears once the case study begins. */
+.caseHero h1{font-size:38pt;line-height:1.02}
 @media(min-width:1120px){
   .tomoIqPage .shell{width:min(calc(100% - 168px),1060px)}
 }
