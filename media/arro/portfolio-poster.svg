@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 850" role="img" aria-labelledby="title desc">
+  <title id="title">Arro Research Platform preview</title>
+  <desc id="desc">A dark portfolio cover with an admin study builder and participant consent card.</desc>
+  <rect width="1200" height="850" fill="#070707"/>
+  <circle cx="1000" cy="100" r="330" fill="#1a2b25" opacity=".72"/>
+  <text x="72" y="105" fill="#ffcf21" font-family="Arial,sans-serif" font-size="20" font-weight="700" letter-spacing="4">ARRO · INTERNAL INFRASTRUCTURE</text>
+  <text x="72" y="178" fill="#f5f5f3" font-family="Georgia,serif" font-size="62">Research platform</text>
+  <text x="72" y="222" fill="#9d9d9f" font-family="Arial,sans-serif" font-size="22">Prototype → question → behavior → evidence</text>
+  <g transform="translate(72 292)">
+    <rect width="680" height="420" rx="22" fill="#f4f4f1" stroke="#333" stroke-width="5"/>
+    <rect width="680" height="42" rx="22" fill="#1b1b1d"/>
+    <circle cx="24" cy="21" r="5" fill="#5a5a5e"/><circle cx="42" cy="21" r="5" fill="#5a5a5e"/><circle cx="60" cy="21" r="5" fill="#5a5a5e"/>
+    <rect y="42" width="210" height="378" fill="#e5e6e1"/>
+    <text x="22" y="82" fill="#737773" font-family="Arial,sans-serif" font-size="11" font-weight="700">STUDY FLOW · 14</text>
+    <g fill="#fff"><rect x="18" y="104" width="174" height="48" rx="9"/><rect x="18" y="162" width="174" height="48" rx="9" opacity=".6"/><rect x="18" y="220" width="174" height="48" rx="9" opacity=".6"/><rect x="18" y="278" width="174" height="48" rx="9" opacity=".6"/></g>
+    <g fill="#4e5753" font-family="Arial,sans-serif" font-size="12"><text x="34" y="133">01  Welcome</text><text x="34" y="191">02  Participant details</text><text x="34" y="249">03  Prototype task</text><text x="34" y="307">04  Opinion scale</text></g>
+    <text x="244" y="91" fill="#6f7572" font-family="Arial,sans-serif" font-size="11" font-weight="700">STUDY SETUP</text>
+    <text x="244" y="128" fill="#1c2824" font-family="Arial,sans-serif" font-size="24" font-weight="700">Prototype &amp; details</text>
+    <rect x="244" y="160" width="392" height="62" rx="11" fill="#fff" stroke="#d4d9d6"/>
+    <text x="260" y="184" fill="#78807c" font-family="Arial,sans-serif" font-size="10">STUDY TITLE</text><text x="260" y="207" fill="#27322e" font-family="Arial,sans-serif" font-size="13">Arro Graduation Path Study</text>
+    <rect x="244" y="238" width="392" height="62" rx="11" fill="#fff" stroke="#d4d9d6"/>
+    <text x="260" y="275" fill="#315f50" font-family="Arial,sans-serif" font-size="13" font-weight="700">◉  Clarity session recording</text>
+    <rect x="244" y="316" width="392" height="62" rx="11" fill="#fff" stroke="#d4d9d6"/>
+    <text x="260" y="353" fill="#27322e" font-family="Arial,sans-serif" font-size="13" font-weight="700">Prototype 1</text>
+  </g>
+  <g transform="translate(690 405)">
+    <rect width="430" height="356" rx="22" fill="#405c52" stroke="#333" stroke-width="5"/>
+    <rect x="54" y="45" width="322" height="267" rx="18" fill="#fff"/>
+    <text x="80" y="78" fill="#3b7562" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="2">ARRO PRODUCT STUDY</text>
+    <text x="80" y="116" fill="#1f2a26" font-family="Arial,sans-serif" font-size="24" font-weight="700">Welcome</text>
+    <rect x="80" y="140" width="270" height="54" rx="10" fill="#edf5f2"/>
+    <circle cx="96" cy="167" r="4" fill="#e56555"/><text x="108" y="164" fill="#46514d" font-family="Arial,sans-serif" font-size="9">This session is recorded.</text><text x="108" y="178" fill="#46514d" font-family="Arial,sans-serif" font-size="9">Your consent comes first.</text>
+    <rect x="80" y="209" width="270" height="40" rx="9" fill="#fff" stroke="#dce1de"/>
+    <rect x="92" y="222" width="12" height="12" fill="none" stroke="#9ca7a2"/><text x="116" y="231" fill="#52605a" font-family="Arial,sans-serif" font-size="9">I understand how my data is used.</text>
+    <rect x="80" y="263" width="270" height="30" rx="15" fill="#aac9be"/>
+    <text x="215" y="282" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="10" font-weight="700">Get started</text>
+  </g>
+</svg>

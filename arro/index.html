@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="How Vivien Kong designed and built Arro's configurable internal user-testing platform.">
+  <title>Arro Research Platform — Vivien Kong</title>
+  <link rel="icon" href="/brand-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/fonts/garamond.css">
+  <link rel="stylesheet" href="/arro/arro.css?v=1">
+</head>
+<body>
+  <header class="site-nav">
+    <a class="brand" href="/" aria-label="Vivien Kong home">
+      <img src="/brand-icon.svg" alt="">
+      <span>VIVIEN KONG</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="/#projects">Projects</a>
+      <a href="https://github.com/vivienk/arrouxr" target="_blank" rel="noopener noreferrer">Repository ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="screen hero" aria-labelledby="hero-title">
+      <div class="screen-inner hero-copy">
+        <p class="eyebrow">ARRO · INTERNAL PRODUCT INFRASTRUCTURE</p>
+        <h1 id="hero-title">Rebuilding Arro’s internal user-testing platform</h1>
+        <p class="lede">Turning a fragmented research workflow into reusable product infrastructure.</p>
+        <p class="intro">I designed and built one system for creating studies, connecting live prototypes, placing questions around product interactions, recording consented sessions, and publishing participant-ready tests.</p>
+        <dl class="project-meta">
+          <div><dt>My role</dt><dd>Product Design · UX Research · Frontend · System Architecture</dd></div>
+          <div><dt>Built with</dt><dd>Next.js · React · TypeScript · PostgreSQL · Microsoft Clarity · Vercel</dd></div>
+        </dl>
+      </div>
+
+      <div class="hero-product" aria-label="Researcher builder and participant study shown side by side">
+        <article class="browser-frame admin-preview">
+          <div class="browser-bar"><span></span><span></span><span></span><b>Researcher builder</b></div>
+          <div class="admin-ui">
+            <aside>
+              <small>STUDY FLOW · 14</small>
+              <div class="flow-row active"><i>01</i><span>Welcome</span></div>
+              <div class="flow-row"><i>02</i><span>Participant details</span></div>
+              <div class="flow-row"><i>03</i><span>Prototype instructions</span></div>
+              <div class="flow-row"><i>04</i><span>Prototype task</span></div>
+              <div class="flow-row"><i>05</i><span>Opinion scale</span></div>
+            </aside>
+            <div class="builder-panel">
+              <div class="builder-top"><span>Graduation Path Study</span><button type="button" tabindex="-1">Save &amp; publish</button></div>
+              <small>STUDY SETUP</small>
+              <h3>Prototype &amp; details</h3>
+              <p>Name the study and connect the prototypes participants will use.</p>
+              <div class="field"><label>Study title</label><span>Arro Graduation Path Study</span></div>
+              <div class="integration"><strong>◉ Clarity session recording</strong><em>Connected</em></div>
+              <div class="prototype-entry"><b>Prototype 1</b><span>graduation-path…</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="browser-frame participant-preview">
+          <div class="browser-bar"><span></span><span></span><span></span><b>Participant study</b></div>
+          <div class="participant-stage">
+            <div class="participant-card">
+              <div class="participant-meta"><small>ARRO PRODUCT STUDY</small><span>Welcome</span></div>
+              <h3>Welcome</h3>
+              <p>You’ve been invited to take part in a research activity. There are no right or wrong answers.</p>
+              <div class="recording-notice"><i></i><span>This session is recorded. Please don’t enter sensitive information.</span></div>
+              <div class="consent"><i></i><span>I understand how my interactions and data will be used.</span></div>
+              <div class="get-started">Get started</div>
+            </div>
+          </div>
+        </article>
+      </div>
+      <a class="scroll-cue" href="#idea">Scroll to the story <span>↓</span></a>
+    </section>
+
+    <section class="screen checklist-screen" id="idea" aria-labelledby="idea-title">
+      <div class="screen-inner">
+        <header class="section-heading centered">
+          <p class="eyebrow">SCREEN 02 · IDEA QUESTIONS</p>
+          <h2 id="idea-title">Before I started coding</h2>
+        </header>
+        <div class="numbered-cards three">
+          <article class="numbered-card">
+            <span>01</span>
+            <div><h3>Who is the user?</h3><p><strong>Researchers</strong> needed to change studies without rebuilding the flow. <strong>Participants</strong> needed one coherent session—not a prototype, questionnaire, and recording tool stitched together.</p></div>
+          </article>
+          <article class="numbered-card">
+            <span>02</span>
+            <div><h3>Why was it worth building?</h3><p>The sequence around an answer was part of the research data: what someone saw, what they did, and what they thought at that moment.</p></div>
+          </article>
+          <article class="numbered-card">
+            <span>03</span>
+            <div><h3>What was the MVP?</h3><p>Connect a prototype, arrange tasks and questions, publish one URL, record consented behavior, and reuse the system for the next study.</p></div>
+          </article>
+        </div>
+        <blockquote>The goal was not to rebuild Maze. It was to remove the recurring friction in <em>our</em> research loop.</blockquote>
+      </div>
+    </section>
+
+    <section class="screen plan-screen" aria-labelledby="plan-title">
+      <div class="screen-inner">
+        <header class="section-heading centered">
+          <p class="eyebrow">SCREEN 03 · PLAN CHECKLIST</p>
+          <h2 id="plan-title">Before I started building</h2>
+        </header>
+        <div class="plan-layout">
+          <div class="numbered-cards compact">
+            <article class="numbered-card"><span>01</span><div><h3>Features</h3><p>Prototype tasks, open questions, five-point scales, instruction screens, drag-reordered flows, multiple studies, preview, and publishing.</p></div></article>
+            <article class="numbered-card"><span>02</span><div><h3>Architecture</h3><p>Separate the person defining the experiment from the person completing it, with a reusable configuration layer between them.</p></div></article>
+            <article class="numbered-card"><span>03</span><div><h3>Data model</h3><p>Keep prototype code, research configuration, and participant responses independent so each can evolve safely.</p></div></article>
+          </div>
+          <div class="architecture" aria-label="Research platform architecture diagram">
+            <p>THE STUDY BECAME CONFIGURABLE DATA</p>
+            <div class="architecture-node"><small>01</small><strong>Researcher builder</strong><span>Defines the experiment</span></div>
+            <b class="architecture-arrow">↓</b>
+            <div class="architecture-node accent"><small>02</small><strong>Study configuration</strong><span>Sequence · questions · prototypes · settings</span></div>
+            <b class="architecture-arrow">↓</b>
+            <div class="architecture-node"><small>03</small><strong>Participant experience</strong><span>Dynamically renders the study</span></div>
+            <div class="config-changes"><span>Change copy</span><span>Reorder tasks</span><span>Swap prototypes</span><span>Publish again</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen build-screen" aria-labelledby="build-title">
+      <div class="screen-inner">
+        <header class="section-heading">
+          <p class="eyebrow">SCREEN 04 · TECH STACK + BUILD</p>
+          <h2 id="build-title">Choosing the smallest stack that could support the loop</h2>
+          <p>Structured configuration turned “build another testing page” into “configure another study.” The tool became a small internal CMS for user research.</p>
+        </header>
+        <div class="stack-grid">
+          <article><span>Interface</span><h3>Next.js + React + TypeScript</h3><p>Researcher and participant experiences in one application.</p></article>
+          <article><span>Configuration + responses</span><h3>PostgreSQL via Supabase</h3><p>Projects, JSON study configuration, participant context, and responses.</p></article>
+          <article><span>Behavioral evidence</span><h3>Microsoft Clarity</h3><p>Consent-first session recording and study-step instrumentation.</p></article>
+          <article><span>Iteration</span><h3>Vercel</h3><p>Production builds, publishing, and fast end-to-end checks.</p></article>
+        </div>
+        <div class="decomposition">
+          <div class="decomposition-copy">
+            <p class="eyebrow">AI-ASSISTED IMPLEMENTATION</p>
+            <h3>I decomposed the system before generating code.</h3>
+            <p>AI accelerated implementation without owning the product architecture. Every part was small enough to build and verify independently.</p>
+          </div>
+          <ol class="task-grid">
+            <li><b>01</b>Study shell</li><li><b>02</b>Prototype embedding</li><li><b>03</b>Question engine</li>
+            <li><b>04</b>Study state</li><li><b>05</b>Session recording</li><li><b>06</b>Database + APIs</li>
+            <li><b>07</b>Admin builder</li><li><b>08</b>Multi-project support</li><li><b>09</b>Publishing</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen checklist-screen verify-screen" aria-labelledby="verify-title">
+      <div class="screen-inner">
+        <header class="section-heading centered">
+          <p class="eyebrow">SCREEN 05 · AI VERIFY CHECKLIST</p>
+          <h2 id="verify-title">Before pushing to production</h2>
+          <p>Cheaper code generation made product-level verification more important.</p>
+        </header>
+        <div class="numbered-cards five">
+          <article class="numbered-card"><span>01</span><div><h3>Run tests</h3><p>Can participants complete the flow, and can every step type coexist?</p></div></article>
+          <article class="numbered-card"><span>02</span><div><h3>Run build</h3><p>Verify the production build—not just the local prototype.</p></div></article>
+          <article class="numbered-card"><span>03</span><div><h3>Check errors</h3><p>Malformed input, missing configuration, failed APIs, authentication, and payload limits.</p></div></article>
+          <article class="numbered-card"><span>04</span><div><h3>Check links</h3><p>Admin → config → prototype → participant → recording.</p></div></article>
+          <article class="numbered-card"><span>05</span><div><h3>Self-review + fix</h3><p>Test as both researcher and participant; component success does not prove workflow success.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen outcome-screen" aria-labelledby="outcome-title">
+      <div class="screen-inner outcome-inner">
+        <p class="eyebrow">SCREEN 06 · OUTCOME</p>
+        <h2 id="outcome-title">I turned a recurring workflow into infrastructure.</h2>
+        <p class="outcome-lede">The team could structure research around the product experience: connect live prototypes, ask questions closer to the interaction, observe behavior and explanation together, and reuse the same system across testing projects.</p>
+        <div class="outcome-grid">
+          <div class="outcome-points">
+            <article><span>01</span><div><h3>Research in context</h3><p>Behavior, prompts, and qualitative responses stay inside one participant flow.</p></div></article>
+            <article><span>02</span><div><h3>Reusable by design</h3><p>Study structure is data, so new tests do not require a new frontend.</p></div></article>
+            <article><span>03</span><div><h3>Owned end to end</h3><p>I moved from workflow definition through system architecture, implementation, instrumentation, and QA.</p></div></article>
+          </div>
+          <div class="loop">
+            <p>THE REAL OUTCOME WAS CLOSING THE LOOP MYSELF</p>
+            <ol>
+              <li>Research</li><li>Interaction design</li><li>System architecture</li><li>Frontend implementation</li><li>Instrumentation</li><li>QA</li><li>Product learning</li>
+            </ol>
+          </div>
+        </div>
+        <div class="learning">
+          <p class="eyebrow">WHAT I LEARNED</p>
+          <h3>AI lowers the cost of implementation. It raises the value of product judgment.</h3>
+          <p>The highest-leverage work was deciding what should exist, what should wait, how the pieces should connect, and how to know the system actually worked.</p>
+        </div>
+        <div class="case-links">
+          <a href="https://grow-prototype-site.vercel.app/?study=graduation-path-study" target="_blank" rel="noopener noreferrer">Open participant study ↗</a>
+          <a href="https://grow-prototype-site.vercel.app/admin?project=aca21e1c-a0ef-46f1-820d-6cd92b2fc8e0" target="_blank" rel="noopener noreferrer">Open admin builder ↗</a>
+          <a href="https://github.com/vivienk/arrouxr" target="_blank" rel="noopener noreferrer">View replicated repo ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="case-footer">
+    <a href="/">← All projects</a>
+    <p>Next case study</p>
+    <a class="next-project" href="/tomo_onboarding/">Tomo Onboarding Redesign →</a>
+  </footer>
+</body>
+</html>
