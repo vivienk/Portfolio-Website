@@ -7,24 +7,16 @@
   <title>Arro Research Platform — Vivien Kong</title>
   <link rel="icon" href="/brand-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/fonts/garamond.css">
-  <link rel="stylesheet" href="/arro/arro.css?v=1">
+  <link rel="stylesheet" href="/arro/arro.css?v=4">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")==="light"?"light":"dark"}catch(e){}</script>
+  <script type="module" src="/modules/glass-navbar.mjs?v=2"></script>
+  <script type="module" src="/modules/glass-navbar-init.mjs"></script>
 </head>
 <body>
-  <header class="site-nav">
-    <a class="brand" href="/" aria-label="Vivien Kong home">
-      <img src="/brand-icon.svg" alt="">
-      <span>VIVIEN KONG</span>
-    </a>
-    <nav aria-label="Primary navigation">
-      <a href="/#projects">Projects</a>
-      <a href="https://github.com/vivienk/arrouxr" target="_blank" rel="noopener noreferrer">Repository ↗</a>
-    </nav>
-  </header>
-
   <main>
     <section class="screen hero" aria-labelledby="hero-title">
       <div class="screen-inner hero-copy">
-        <p class="eyebrow">ARRO · INTERNAL PRODUCT INFRASTRUCTURE</p>
+        <p class="eyebrow hero-eyebrow">ARRO · INTERNAL PRODUCT INFRASTRUCTURE</p>
         <h1 id="hero-title">Rebuilding Arro’s internal user-testing platform</h1>
         <p class="lede">Turning a fragmented research workflow into reusable product infrastructure.</p>
         <p class="intro">I designed and built one system for creating studies, connecting live prototypes, placing questions around product interactions, recording consented sessions, and publishing participant-ready tests.</p>

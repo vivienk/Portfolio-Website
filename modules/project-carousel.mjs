@@ -1,7 +1,7 @@
 // Kept outside the generated Framer bundle so the carousel is easy to maintain.
 const projects = [
   { title: 'TomoIQ', href: '/tomoiq/', image: '/assets/fc5bc1691677744c-oBY2uvMTdiAh1mLCHD4AmM3v3qg.gif', poster: '/assets/project-posters/tomoai-frame-7.png' },
-  { title: 'Arro Research Platform', href: '/arro/', image: '/media/arro/portfolio-poster.svg' },
+  { title: 'Arro Research Platform', href: '/arro/', image: '/media/arro/portfolio-poster.svg?v=2' },
   { title: 'Tomo Onboarding Redesign', href: '/tomo_onboarding/', image: '/assets/beaee59ef2d978e4-IWeSp5oQI1hRwy2aYFWtN1CgY78.gif', poster: '/assets/project-posters/tomo-onboarding-frame-7.png' },
   { title: 'Footprints', href: '/footprints/', image: '/assets/project-posters/footprints-frame-1.png' },
   { title: 'Immersive Ink', href: '/immersive_ink/', image: '/assets/0a7891debdf32fca-HYq47f0BPDBkD9oFL7GGGrdhlGo.png' },
