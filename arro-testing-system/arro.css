@@ -53,3 +53,6 @@ html[data-theme="light"] .loop>p{color:#416b5c}
 html[data-theme="light"] :is(.loop li,.decomposition,.checklist-screen blockquote){border-color:var(--line)}
 html[data-theme="light"] .case-links a{color:#514a5d;border-color:#aaa3b4}
 html[data-theme="light"] :is(.case-links a:hover,.case-footer a:hover){color:#211b2c}
+
+/* Keep the reflection title centered and its longer body copy easy to read. */
+.learning>p:not(.eyebrow){text-align:left}
