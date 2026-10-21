@@ -1,6 +1,9 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/arro", "destination": "/arro-testing-system", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/assets/([a-f0-9]{16}-.*)",

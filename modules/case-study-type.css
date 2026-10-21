@@ -1,0 +1,3 @@
+/* Match the Sigurd face already used throughout the portfolio. */
+@font-face{font-family:"Sigurd Light";src:url("/assets/fonts/sigurd-light.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap}
+.case-serif-heading,.case-serif-heading :is(span,em,strong,a){font-family:"Sigurd Light",Garamond,serif!important;--framer-font-family:"Sigurd Light",Garamond,serif!important;font-weight:300!important;--framer-font-weight:300!important}

@@ -4,26 +4,34 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="How Vivien Kong designed and built Arro's configurable internal user-testing platform.">
+  <link rel="canonical" href="https://vivienkong.com/arro-testing-system">
   <title>Arro Research Platform — Vivien Kong</title>
   <link rel="icon" href="/brand-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/fonts/garamond.css">
-  <link rel="stylesheet" href="/arro/arro.css?v=5">
+  <link rel="stylesheet" href="/arro-testing-system/arro.css?v=6">
   <script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")==="light"?"light":"dark"}catch(e){}</script>
   <script type="module" src="/modules/glass-navbar.mjs?v=2"></script>
   <script type="module" src="/modules/glass-navbar-init.mjs"></script>
+  <link rel="stylesheet" href="/modules/case-study-type.css">
+  <script type="module" src="/modules/case-study-type.mjs"></script>
 </head>
 <body>
   <main>
     <section class="screen hero" aria-labelledby="hero-title">
-      <div class="screen-inner hero-copy">
+      <div class="screen-inner hero-layout">
+      <div class="hero-copy">
         <p class="eyebrow hero-eyebrow">ARRO · INTERNAL PRODUCT INFRASTRUCTURE</p>
         <h1 id="hero-title">Rebuilding Arro’s internal user-testing platform</h1>
-        <p class="lede">Turning a fragmented research workflow into reusable product infrastructure.</p>
-        <p class="intro">I designed and built one system for creating studies, connecting live prototypes, placing questions around product interactions, recording consented sessions, and publishing participant-ready tests.</p>
+        <p class="intro">Turning a fragmented research workflow into reusable product infrastructure.</p>
         <dl class="project-meta">
           <div><dt>My role</dt><dd>Product Design · UX Research · Frontend · System Architecture</dd></div>
           <div><dt>Built with</dt><dd>Next.js · React · TypeScript · PostgreSQL · Microsoft Clarity · Vercel</dd></div>
         </dl>
+      </div>
+
+      <figure class="hero-animation">
+        <img src="/media/arro/research-workflow.gif" width="800" height="800" alt="Arro My Credit Builder wallet preview">
+      </figure>
       </div>
 
       <div class="hero-product" aria-label="Researcher builder and participant study shown side by side">
