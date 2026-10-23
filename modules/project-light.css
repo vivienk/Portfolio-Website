@@ -33,3 +33,27 @@ html[data-theme="light"] body:has(.heroImpact) .tabs button.active{background:#e
 html[data-theme="light"] body:has(.heroImpact) .processRail span::before{background:#f8f7fb}
 html[data-theme="light"] body:has(.heroImpact) .processRail a.isActive{color:#fff}
 @media(max-width:1119px){html[data-theme="light"] body:has(.heroImpact) .processRail{background:rgba(250,249,253,.94)}}
+
+/* White card outlines across both Tomo case studies in light mode. */
+html[data-theme="light"] .tomoIqPage :is(article,.heroBrief>div,.researchOpportunity,.researchQuestionBand,.learnedDecision,.runtimeArchitecture,.positioningBanner,.collaborationGrid>div,.architectureMeta>div,.dialogueTrace,.lifecycleDetail,.howIqPanel,.agentModelPanel,.journeyDetail,.dialogueTraceLayout,.dialogueSurface,.conversationMessage,.userMessage,.systemMessage,.phoneGallery,.promptRouting,.evaluationMetrics,.evaluationLoop li),
+html[data-theme="light"] body:has(.heroImpact) :is(.cards article,.framingEvidence article,.decisionCards article,.shipSummary,.screenCarousel,.beforeEvidence,.flowDiagram,.panel,.journey){border-color:#fff!important}
+
+/* Keep the hero summary on the page background in light mode. */
+html[data-theme="light"] .tomoIqPage .heroBrief>div{background:transparent}
+
+/* Light-mode architecture label and unboxed step numbers. */
+html[data-theme="light"] .tomoIqPage .systemArchitectureCopy>div:last-child strong{background:#e9e3fa;border:0;color:#5a42b4}
+html[data-theme="light"] .tomoIqPage .howIqFlow button{background:transparent;color:#625c6d}
+html[data-theme="light"] .tomoIqPage .howIqFlow button.isActive{background:transparent;color:#5a42b4}
+html[data-theme="light"] .tomoIqPage .howIqFlow button span{background:var(--bg);border:0;border-radius:0;box-shadow:none;color:inherit}
+html[data-theme="light"] .tomoIqPage .howIqFlow button.isActive span{font-weight:600}
+
+/* Match runtime node names to the architecture label’s light-mode accent. */
+html[data-theme="light"] .tomoIqPage .runtimeNode strong{color:#5a42b4}
+
+/* Separate speakers clearly in the light-mode conversation preview. */
+html[data-theme="light"] .tomoIqPage .dialogueEntries{--question-glow:#8964ce}
+html[data-theme="light"] .tomoIqPage .conversationMessage.userMessage{background:#e9e3fa;border-radius:15px 15px 4px 15px}
+html[data-theme="light"] .tomoIqPage .conversationMessage.systemMessage{background:#def1eb;border-radius:15px 15px 15px 4px}
+html[data-theme="light"] .tomoIqPage .conversationMessage.userMessage :is(span,p){color:#443077}
+html[data-theme="light"] .tomoIqPage .conversationMessage.systemMessage :is(span,p){color:#22564a}

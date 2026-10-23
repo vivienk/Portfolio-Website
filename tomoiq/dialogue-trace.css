@@ -7,3 +7,14 @@
 @media(max-width:980px){.dialogueTraceLayout{grid-template-columns:1fr}.dialogueConversation{border-right:0;border-bottom:1px solid var(--line)}}
 @media(max-width:620px){.dialogueTrace{padding:24px}.dialogueTraceHeading{grid-template-columns:1fr}.dialogueTraceHeading h3,.dialogueTraceHeading>p:last-child{grid-column:1}.dialogueTraceHeading h3{font-size:30px}.dialogueConversation,.dialogueLogic{padding:23px}.dialogueLogicItem ul{grid-template-columns:1fr}.conversationMessage{max-width:96%}}
 @media(prefers-reduced-motion:reduce){.dialogueEntries button{transition:none}}
+
+/* Invite exploration without moving the question text or changing layout. */
+.dialogueEntries{--question-glow:#b1a7ff;--question-glow-ease:cubic-bezier(0.77,0,0.175,1)}
+.dialogueEntries button{position:relative;isolation:isolate}
+.dialogueEntries button:not(.isActive)::after{content:"";position:absolute;inset:-1px;border:1px solid var(--question-glow);border-radius:inherit;box-shadow:0 0 10px color-mix(in srgb,var(--question-glow),transparent 60%),inset 0 0 5px color-mix(in srgb,var(--question-glow),transparent 85%);pointer-events:none;animation:question-border-glow 3.2s var(--question-glow-ease) infinite;opacity:.3}
+.dialogueEntries button:nth-child(2)::after{animation-delay:-1.05s}
+.dialogueEntries button:nth-child(3)::after{animation-delay:-2.1s}
+.dialogueEntries button:focus-visible{outline:2px solid var(--question-glow);outline-offset:4px}
+@keyframes question-border-glow{0%,100%{opacity:.25}50%{opacity:.9}}
+@media(hover:hover) and (pointer:fine){.dialogueEntries button:not(.isActive):hover::after{animation:none;opacity:1}}
+@media(prefers-reduced-motion:reduce){.dialogueEntries button:not(.isActive)::after{animation:none;opacity:.5}}

@@ -14,3 +14,6 @@ html[data-theme="light"] body{
 html[data-theme="light"] #main{background:#f8f7fb;color:#222027}
 html[data-theme="light"] #main .framer-text{--framer-text-color:#222027!important;color:#222027!important;-webkit-text-stroke-color:currentColor}
 html[data-theme="light"] #main .framer-text :is(span,strong,em,a){color:inherit!important}
+
+/* Framer draws card outlines with a custom property on a pseudo-element. */
+html[data-theme="light"] #main [data-border="true"]:not(a):not(button){--border-color:#fff!important;border-color:#fff!important}

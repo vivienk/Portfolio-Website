@@ -268,6 +268,25 @@
 
   const rail = document.querySelector(".journeyRail");
   const journeySection = document.querySelector(".journeySection");
+  // Measure marker centers so the connector reaches every stage at all sizes.
+  const connector = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  connector.classList.add("journeyConnector");
+  connector.setAttribute("aria-hidden", "true");
+  connector.setAttribute("focusable", "false");
+  const connectorPath = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+  connector.append(connectorPath);
+  rail?.prepend(connector);
+  const updateJourneyConnector = () => {
+    if (!rail) return;
+    const bounds = rail.getBoundingClientRect();
+    const points = [...rail.querySelectorAll("[data-stage] b")].map(dot => {
+      const rect = dot.getBoundingClientRect();
+      return `${rect.left + rect.width / 2 - bounds.left},${rect.top + rect.height / 2 - bounds.top}`;
+    });
+    connectorPath.setAttribute("points", points.join(" "));
+  };
+  if (rail) new ResizeObserver(updateJourneyConnector).observe(rail);
+  document.fonts.ready.then(updateJourneyConnector);
   let journeyIndex = 0;
   let journeyMode = "before";
   let journeyView = "user";
@@ -278,10 +297,10 @@
     const stageButtons = [...document.querySelectorAll("[data-stage]")];
     stageButtons.forEach((button, index) => { const active = index === journeyIndex; button.classList.toggle("isActive", active); button.setAttribute("aria-selected", String(active)); button.tabIndex = active ? 0 : -1; });
     text("journey-number", `${String(journeyIndex + 1).padStart(2, "0")} / ${String(journey.length).padStart(2, "0")}`);
-    text("journey-phase", journeyMode === "before" ? "Observed journey" : "Designed journey");
     text("journey-title-detail", item[0]);
     text("journey-perspective-label", journeyView === "user" ? "What the user experiences" : "What the system does");
     text("journey-perspective", perspective); text("journey-signal", state[2]); text("journey-interpretation", state[3]); text("journey-decision", state[4]); text("journey-proof", state[5]);
+    requestAnimationFrame(updateJourneyConnector);
   };
   if (rail) {
     journey.forEach((item, index) => {

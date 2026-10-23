@@ -1,0 +1,71 @@
+/* Light-mode shadows: original geometry, with alpha multiplied by 0.7.
+   Overrides include exported Framer styles and the hand-authored case studies. */
+html[data-theme="light"] .framer-0tArv .framer-v7vhbp{box-shadow:color-mix(in srgb, rgba(0, 0, 0, 0.05) 70%, transparent) 0px 10px 20px!important}
+html[data-theme="light"] .framer-0tArv .framer-yf3nwg{box-shadow:color-mix(in srgb, rgba(0, 0, 0, 0.4) 70%, transparent) 16px 24px 20px 8px!important}
+html[data-theme="light"] .framer-tque6g .framer-1l7inir,html[data-theme="light"] a[download][title="Download File"]{box-shadow:color-mix(in srgb, rgba(0, 0, 0, 0.05) 70%, transparent) 0px 0.125em 0.125em inset, color-mix(in srgb, rgba(255, 255, 255, 0.5) 70%, transparent) 0px -0.125em 0.125em inset, color-mix(in srgb, rgba(0, 0, 0, 0.2) 70%, transparent) 0px 0.25em 0.125em -0.125em, color-mix(in srgb, rgba(255, 255, 255, 0.2) 70%, transparent) 0px 0px 0.1em 0.25em inset, color-mix(in srgb, rgb(255, 255, 255) 70%, transparent) 0px 0px 0px 0px!important}
+html[data-theme="light"] .framer-tque6g .framer-1l7inir::after,html[data-theme="light"] a[download][title="Download File"]::after{box-shadow:inset 0 0 0 calc(var(--border-width) / 2) color-mix(in srgb, rgba(255,255,255,.5) 70%, transparent)!important}
+html[data-theme="light"] .framer-tque6g a:hover .framer-1l7inir,html[data-theme="light"] a[download][title="Download File"]:hover{box-shadow:color-mix(in srgb, rgba(0, 0, 0, 0.05) 70%, transparent) 0px 0.125em 0.125em inset, color-mix(in srgb, rgba(255, 255, 255, 0.5) 70%, transparent) 0px -0.125em 0.125em inset, color-mix(in srgb, rgba(0, 0, 0, 0.25) 70%, transparent) 0px 0.15em 0.05em -0.1em, color-mix(in srgb, rgba(255, 255, 255, 0.5) 70%, transparent) 0px 0px 0.05em 0.1em inset, color-mix(in srgb, rgb(255, 255, 255) 70%, transparent) 0px 0px 0px 0px!important}
+html[data-theme="light"] div[data-framer-name="primary"][data-border="true"]{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] div[data-framer-name="primary"][data-border="true"]{box-shadow:none!important}
+html[data-theme="light"] .framer-yf3nwg{box-shadow:none!important}
+html[data-theme="light"] header.framer-00i2Q.framer-BhWo1.framer-9hd2nx.framer-v-9hd2nx{box-shadow:color-mix(in srgb, rgba(255, 255, 255, 0.25) 70%, transparent) 0px 3px 12px 0px!important}
+html[data-theme="light"] header.framer-00i2Q.framer-BhWo1.framer-9hd2nx.framer-v-5qefx{box-shadow:color-mix(in srgb, rgba(255, 255, 255, 0.2) 70%, transparent) 0px 3px 8px 0px!important}
+html[data-theme="light"] div.framer-1l7inir.fluid-glass-surface{box-shadow:color-mix(in srgb, rgba(255, 255, 255, 0) 70%, transparent) 0px 1px 9px 0px!important}
+html[data-theme="light"] .browser-frame{box-shadow:color-mix(in srgb, rgb(0, 0, 0) 70%, transparent) 0px 30px 80px!important}
+html[data-theme="light"] .flow-row.active{box-shadow:color-mix(in srgb, rgba(49, 63, 58, 0.08) 70%, transparent) 0px 3px 12px!important}
+html[data-theme="light"] .participant-card{box-shadow:color-mix(in srgb, rgba(22, 39, 33, 0.25) 70%, transparent) 0px 18px 35px!important}
+html[data-theme="light"] .segmented{box-shadow:color-mix(in srgb, rgba(255, 255, 255, 0.18) 70%, transparent) 0px 1px 0px inset, color-mix(in srgb, rgba(0, 0, 0, 0.28) 70%, transparent) 0px 10px 28px!important}
+html[data-theme="light"] .frictionToggle{box-shadow:color-mix(in srgb, rgba(255, 255, 255, 0.18) 70%, transparent) 0px 1px 0px inset, color-mix(in srgb, rgba(0, 0, 0, 0.28) 70%, transparent) 0px 10px 28px!important}
+html[data-theme="light"] .journeyRail b{box-shadow:color-mix(in srgb, rgb(113, 107, 118) 70%, transparent) 0px 0px 0px 1px!important}
+html[data-theme="light"] .journeyRail button.isActive b{box-shadow:0 0 0 1px color-mix(in srgb, var(--accent) 70%, transparent), 0 0 0 6px color-mix(in srgb, rgba(177,167,255,.16) 70%, transparent)!important}
+html[data-theme="light"] .journeySection.isFriction .journeyRail .hasFriction b{box-shadow:color-mix(in srgb, rgb(255, 132, 110) 70%, transparent) 0px 0px 0px 1px!important}
+html[data-theme="light"] .howIqFlow button.isActive span{box-shadow:0 0 0 6px color-mix(in srgb, color-mix(in srgb,var(--accent),transparent 88%) 70%, transparent)!important}
+html[data-theme="light"] .phoneGallery img{filter:drop-shadow(color-mix(in srgb, rgba(0, 0, 0, 0.45) 70%, transparent) 0px 26px 38px)!important}
+html[data-theme="light"] .dialogueEntries button:not(.isActive)::after{box-shadow:0 0 10px color-mix(in srgb, color-mix(in srgb,var(--question-glow),transparent 60%) 70%, transparent), inset 0 0 5px color-mix(in srgb, color-mix(in srgb,var(--question-glow),transparent 85%) 70%, transparent)!important}
+html[data-theme="light"].layout-editor-active [data-layout-key].isLayoutSelected{box-shadow:color-mix(in srgb, rgba(177, 167, 255, 0.1) 70%, transparent) 0px 0px 0px 6px!important}
+html[data-theme="light"] .layoutTuner{box-shadow:color-mix(in srgb, rgba(0, 0, 0, 0.48) 70%, transparent) 0px 20px 64px, color-mix(in srgb, rgba(255, 255, 255, 0.13) 70%, transparent) 0px 1px 0px inset!important}
+@media (min-width: 1120px){html[data-theme="light"] .roleDisciplines a.isActive{box-shadow:color-mix(in srgb, rgba(177, 167, 255, 0.18) 70%, transparent) 0px 8px 24px!important}}
+@media (min-width: 1120px){html[data-theme="light"] .roleDisciplines span:has(a.isActive)::before{box-shadow:color-mix(in srgb, rgba(177, 167, 255, 0.14) 70%, transparent) 0px 0px 0px 4px!important}}
+@media (max-width: 1119px){html[data-theme="light"] .roleDisciplines{box-shadow:color-mix(in srgb, rgba(0, 0, 0, 0.22) 70%, transparent) 0px 12px 34px!important}}
+html[data-theme="light"] .runtimeNode{box-shadow:color-mix(in srgb, rgba(255, 255, 255, 0.04) 70%, transparent) 0px 1px 0px inset!important}
+html[data-theme="light"] .runtimeNode.orchestrationNode{box-shadow:color-mix(in srgb, rgba(177, 167, 255, 0.11) 70%, transparent) 0px 12px 36px, color-mix(in srgb, rgba(255, 255, 255, 0.16) 70%, transparent) 0px 1px 0px inset!important}
+html[data-theme="light"] .runtimeNode.orchestrationNode .runtimeNodeIcon{filter:drop-shadow(color-mix(in srgb, rgba(177, 167, 255, 0.38) 70%, transparent) 0px 0px 8px)!important}
+html[data-theme="light"] .lifecycleJourneyCurve circle.isActive{filter:drop-shadow(color-mix(in srgb, rgba(177, 167, 255, 0.95) 70%, transparent) 0px 0px 7px)!important}
+html[data-theme="light"] .tradeoffGrid article:has(.sectionCardControl[aria-pressed="true"]),html[data-theme="light"] .tradeoffGrid article.isChosen{box-shadow:color-mix(in srgb, rgba(177, 167, 255, 0.1) 70%, transparent) 0px 18px 46px!important}
+html[data-theme="light"] .iterationGrid article.isActive{box-shadow:color-mix(in srgb, rgba(177, 167, 255, 0.08) 70%, transparent) 0px 16px 38px!important}
+html[data-theme="light"] .collaborationGrid > div.isActive{box-shadow:color-mix(in srgb, rgba(177, 167, 255, 0.08) 70%, transparent) 0px 16px 38px!important}
+html[data-theme="light"] .tomoIqPage .howIqFlow button span{box-shadow:none!important}
+html[data-theme="light"] .processRail a.isActive{box-shadow:color-mix(in srgb, rgba(177, 167, 255, 0.18) 70%, transparent) 0px 8px 24px!important}
+html[data-theme="light"] .processRail span:has(a.isActive)::before{box-shadow:color-mix(in srgb, rgba(177, 167, 255, 0.14) 70%, transparent) 0px 0px 0px 4px!important}
+@media (max-width: 1119px){html[data-theme="light"] .processRail{box-shadow:color-mix(in srgb, rgba(0, 0, 0, 0.32) 70%, transparent) 0px 12px 34px!important}}
+html[data-theme="light"] .beforeEvidence video{box-shadow:color-mix(in srgb, rgba(0, 0, 0, 0.25) 70%, transparent) 0px 18px 60px!important}
+html[data-theme="light"] .flowLightbox{box-shadow:color-mix(in srgb, rgba(0, 0, 0, 0.667) 70%, transparent) 0px 24px 90px!important}
+html[data-theme="light"] .carouselSlide img{box-shadow:color-mix(in srgb, rgba(0, 0, 0, 0.25) 70%, transparent) 0px 18px 60px!important}
+html[data-theme="light"] .framer-OCbKu .framer-jm4gec,html[data-theme="light"] .framer-OCbKu .framer-zge07e{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-OCbKu .framer-1779go2{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-OCbKu .framer-b216el{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-OCbKu .framer-r6wi4d{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-OCbKu .framer-2jfjdm{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .footprints-flow-zoom-button{box-shadow:color-mix(in srgb, rgba(0, 0, 0, 0.25) 70%, transparent) 0px 4px 16px!important}
+html[data-theme="light"] .footprints-flow-dialog{box-shadow:color-mix(in srgb, rgba(0, 0, 0, 0.65) 70%, transparent) 0px 24px 80px!important}
+html[data-theme="light"] a.framer-el4DW.framer-1x7mxh9.framer-v-1x7mxh9.framer-1qnlmu9{box-shadow:color-mix(in srgb, rgba(61, 61, 61, 0.72) 70%, transparent) 0px 0.602187px 1.08394px -1.25px, color-mix(in srgb, rgba(61, 61, 61, 0.64) 70%, transparent) 0px 2.28853px 4.11936px -2.5px, color-mix(in srgb, rgba(61, 61, 61, 0.25) 70%, transparent) 0px 10px 18px -3.75px, color-mix(in srgb, rgba(0, 0, 0, 0.35) 70%, transparent) 0px 0.706592px 0.706592px -0.583333px, color-mix(in srgb, rgba(0, 0, 0, 0.34) 70%, transparent) 0px 1.80656px 1.80656px -1.16667px, color-mix(in srgb, rgba(0, 0, 0, 0.33) 70%, transparent) 0px 3.62176px 3.62176px -1.75px, color-mix(in srgb, rgba(0, 0, 0, 0.3) 70%, transparent) 0px 6.8656px 6.8656px -2.33333px, color-mix(in srgb, rgba(0, 0, 0, 0.26) 70%, transparent) 0px 13.6468px 13.6468px -2.91667px, color-mix(in srgb, rgba(0, 0, 0, 0.15) 70%, transparent) 0px 30px 30px -3.5px!important}
+html[data-theme="light"] .framer-ygU2O .framer-tjsd1e,html[data-theme="light"] .framer-ygU2O .framer-1hmovcf{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-ygU2O .framer-h9g7di{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-ygU2O .framer-1782tf{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-ygU2O .framer-1fpfvrc{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-ygU2O .framer-d4viiz{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-Q3fpP .framer-oc2s0c,html[data-theme="light"] .framer-Q3fpP .framer-k5jqfw{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-Q3fpP .framer-vt8kcj{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-Q3fpP .framer-1eg0wdg{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-Q3fpP .framer-1alkk4u{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-Q3fpP .framer-1ip87k4{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-9eVkK .framer-98wkjr{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-9eVkK .framer-c6a8w6{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-9eVkK .framer-1jdrgg5{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-9eVkK .framer-xu81bm,html[data-theme="light"] .framer-9eVkK .framer-mjwt4g{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-l2f3H .framer-4b87uu,html[data-theme="light"] .framer-l2f3H .framer-cgv71n{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-l2f3H .framer-1120n7j{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-l2f3H .framer-1ae5y1t{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-l2f3H .framer-1e2sxrr{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-l2f3H .framer-1jub9a5{box-shadow:color-mix(in srgb, rgba(92, 92, 92, 0.3) 70%, transparent) 0px 0px 20px 4px!important}
+html[data-theme="light"] .framer-hyoRo.framer-ky0gd1{box-shadow:0 0 20px 4px color-mix(in srgb, rgba(196,196,196,.3) 70%, transparent)!important}

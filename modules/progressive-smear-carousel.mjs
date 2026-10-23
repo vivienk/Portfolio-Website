@@ -120,7 +120,7 @@ const styles = `
      cue, instead of the dark ring used previously. */
   :host([data-theme="light"]) .card { background:transparent; box-shadow:none; }
   :host([data-theme="light"]) .card::after { box-shadow:none; }
-  :host([data-theme="light"]) .card[data-hovered] { box-shadow:0 0 0 1.5px #fff, 0 0 24px 4px rgba(255,255,255,.4); }
+  :host([data-theme="light"]) .card[data-hovered] { box-shadow:0 0 0 1.5px rgba(255,255,255,.7), 0 0 24px 4px rgba(255,255,255,.28); }
   :host([data-theme="light"]) .count { color:#888; }
   :host([data-theme="light"]) .case-link { color:#444; }
   :host([data-theme="light"]) .case-link:hover { color:#111; }

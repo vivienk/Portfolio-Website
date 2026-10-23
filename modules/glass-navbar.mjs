@@ -55,8 +55,8 @@ const styles = `
   :host([data-theme="light"]) .pill {
     --glass-bg: rgba(255,255,255,.55);
     --glass-border: rgba(255,255,255,.5);
-    --glass-shadow: rgba(0,0,0,.12);
-    --glass-shine: rgba(255,255,255,.7);
+    --glass-shadow: rgba(0,0,0,.084);
+    --glass-shine: rgba(255,255,255,.49);
     --ink: rgba(20,20,20,.92);
     --ink-dim: rgba(20,20,20,.55);
     --chip-bg: #111;

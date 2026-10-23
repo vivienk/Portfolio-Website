@@ -1,3 +1,4 @@
+import { getTheme, onThemeChange } from './theme.mjs';
 // Kept outside the generated Framer bundle so the carousel is easy to maintain.
 const projects = [
   { title: 'TomoIQ', href: '/tomoiq/', image: '/assets/fc5bc1691677744c-oBY2uvMTdiAh1mLCHD4AmM3v3qg.gif', poster: '/assets/project-posters/tomoai-frame-7.png' },
@@ -14,6 +15,8 @@ const projects = [
 // https://codepen.io/creativeocean/pen/mdROBXx
 // Every project remains a single link; invisible panels wrap behind the gallery.
 const styles = `
+  :host([data-theme="light"]) .card{box-shadow:0 0 0 1px rgba(255,255,255,.054902)}
+  :host([data-theme="light"]) .card::after{box-shadow:inset 0 0 0 1px rgba(255,255,255,.054902)}
   :host { display:block; width:100%; min-width:0; color:#fff; font-family:"Open Sauce Sans",Inter,sans-serif; }
   * { box-sizing:border-box; }
   .carousel { width:100%; }
@@ -90,6 +93,8 @@ class ProjectCarousel extends HTMLElement {
   connectedCallback() {
     if (this.abort) return;
     this.abort = new AbortController();
+    this.dataset.theme = getTheme();
+    this.stopThemeListener = onThemeChange(theme => { this.dataset.theme = theme; });
     const { signal } = this.abort;
     this.motion = matchMedia('(prefers-reduced-motion: reduce)');
     this.mobilePreview = matchMedia('(max-width:809px), (hover:none), (pointer:coarse)');
@@ -377,6 +382,7 @@ class ProjectCarousel extends HTMLElement {
   }
 
   disconnectedCallback() {
+    this.stopThemeListener?.();
     this.abort?.abort();
     this.abort = null;
     this.observer?.disconnect();

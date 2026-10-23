@@ -56,3 +56,6 @@ html[data-theme="light"] :is(.case-links a:hover,.case-footer a:hover){color:#21
 
 /* Keep the reflection title centered and its longer body copy easy to read. */
 .learning>p:not(.eyebrow){text-align:left}
+
+/* White case-study card outlines in light mode. */
+html[data-theme="light"] :is(.numbered-card,.architecture,.architecture-node,.stack-grid article,.task-grid li,.outcome-points article,.loop,.learning){border-color:#fff!important}
