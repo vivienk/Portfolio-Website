@@ -67,3 +67,11 @@ html[data-theme="light"] :is(.numbered-card,.architecture,.architecture-node,.st
   .hero-animation img{width:min(100%,340px);max-width:340px;height:auto;border-radius:20px}
   .hero-copy{width:100%}
 }
+
+/* Keep the live demos visible alongside the Arro hero animation. */
+.hero-copy .case-links{justify-content:flex-start;margin:26px 0 0;gap:12px}
+.hero-copy .case-links a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:12px 19px;font-size:13px;font-weight:600;border-color:rgba(255,255,255,.35)}
+.hero-copy .case-links a.primary{background:#72ddd6;color:#071716;border-color:#72ddd6}
+.hero-copy .case-links a.primary:hover{background:#a0ebe6;color:#071716}
+.hero-animation img{display:block;max-width:480px;width:100%;height:auto}
+@media(max-width:700px){.hero-copy .case-links{display:grid;grid-template-columns:1fr;gap:12px;margin-top:24px}.hero-copy .case-links a{width:100%}.hero-animation{visibility:visible;opacity:1}.hero-animation img{display:block;width:min(100%,340px);height:auto}}
