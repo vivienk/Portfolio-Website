@@ -75,3 +75,7 @@ html[data-theme="light"] :is(.numbered-card,.architecture,.architecture-node,.st
 .hero-copy .case-links a.primary:hover{background:#a0ebe6;color:#071716}
 .hero-animation img{display:block;max-width:480px;width:100%;height:auto}
 @media(max-width:700px){.hero-copy .case-links{display:grid;grid-template-columns:1fr;gap:12px;margin-top:24px}.hero-copy .case-links a{width:100%}.hero-animation{visibility:visible;opacity:1}.hero-animation img{display:block;width:min(100%,340px);height:auto}}
+
+/* Keep the hero GIF; show the product video below it. */
+.hero-product.case-video-product{height:auto;aspect-ratio:16/9;max-width:1200px;margin:0 auto;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 30px 40px rgba(0,0,0,.7)}
+.case-video-product video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain}
